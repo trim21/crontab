@@ -4,9 +4,10 @@ name: renovate
 
 
 on:
+  push:
   schedule:
     # daily on github default branch
-    - cron:  '0 */1 * * *'
+    - cron:  '0 * * * *'
 
 jobs:
   main:
