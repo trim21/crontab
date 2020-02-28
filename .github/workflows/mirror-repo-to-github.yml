@@ -1,0 +1,35 @@
+name: mirror repo to github
+
+on:
+#  push:
+#    branches:
+#      - "**"
+  schedule:
+    - cron: "0 23 * * *"
+  repository_dispatch: {}
+
+jobs:
+  main:
+    runs-on: ubuntu-16.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "13.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - uses: actions/cache@v1
+        with:
+          path: ./node_modules
+          key: node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            node-
+
+      - run: npm i
+      - name: Run Mirror Script
+        run: node mirror_to_github.js
+        env:
+          ACCESS_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}

@@ -1,0 +1,47 @@
+name: renovate
+
+on:
+  push:
+    branches:
+      - "**"
+  schedule:
+    # daily on github default branch
+    - cron: "0 0 * * *"
+
+jobs:
+  main:
+    strategy:
+      matrix:
+        repo:
+          - Trim21/BGmi
+
+    runs-on: ubuntu-16.04
+
+    steps:
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "13.x"
+
+      - uses: actions/setup-python@v1
+        with:
+          python-version: "3.7"
+
+      - name: Install Poetry
+        run: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+
+      - name: Install Renovate cli
+        run: npm i renovate
+
+      - name: Run renovate cli
+        run: |
+          npx --no-install \
+            renovate ${{ matrix.repo }} \
+              --include-forks true \
+              --token $PERSONAL_GITHUB_TOKEN \
+              --platform github \
+              --trust-level high \
+              --log-level info
+        env:
+          PERSONAL_GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+          POETRY_VIRTUALENVS_CREATE: "false"
