@@ -53,13 +53,12 @@ jobs:
         with:
           path: ./node_modules
           # key: renovate-1-${{ steps.get-version.outputs.node }}-${{ steps.get-version.outputs.renovate }}
-          key: renovate-1-${{ steps.get-version.outputs.renovate }}
+          key: renovate-2-${{ steps.get-version.outputs.renovate }}
 
       - uses: actions/cache@v1
         id: renovate-cache
         with:
           path: /tmp/renovate
-          # key: renovate-1-${{ steps.get-version.outputs.node }}-${{ steps.get-version.outputs.renovate }}
           key: renovate-cache-1-{{ steps.get-version.outputs.date }}
 
       - name: Install Renovate cli
@@ -68,12 +67,13 @@ jobs:
 
       - name: Run renovate cli
         run: |
-          npx renovate ${{ matrix.repo }} \
-                   --include-forks true \
-                   --token $PERSONAL_GITHUB_TOKEN \
-                   --platform github \
-                   --trust-level high \
-                   --log-level info
+          npx --no-install \
+            renovate ${{ matrix.repo }} \
+              --include-forks true \
+              --token $PERSONAL_GITHUB_TOKEN \
+              --platform github \
+              --trust-level high \
+              --log-level info
         env:
           PERSONAL_GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
           POETRY_VIRTUALENVS_CREATE: "false"
