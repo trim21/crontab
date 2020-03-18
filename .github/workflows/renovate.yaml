@@ -35,6 +35,7 @@ jobs:
         run: |
           echo "::set-output name=poetry::$(curl -sSl https://pypi.org/pypi/poetry/json | jq .info.version -r)"
           echo "::set-output name=renovate::$(npm info renovate --json | jq -r .version)"
+          echo "::set-output name=date::$(date '+%Y-%M-%d')"
 
       - uses: actions/cache@v1
         with:
@@ -53,6 +54,13 @@ jobs:
           path: ./node_modules
           # key: renovate-1-${{ steps.get-version.outputs.node }}-${{ steps.get-version.outputs.renovate }}
           key: renovate-1-${{ steps.get-version.outputs.renovate }}
+
+      - uses: actions/cache@v1
+        id: renovate-cache
+        with:
+          path: /tmp/renovate
+          # key: renovate-1-${{ steps.get-version.outputs.node }}-${{ steps.get-version.outputs.renovate }}
+          key: renovate-cache-1-{{ steps.get-version.outputs.date }}
 
       - name: Install Renovate cli
         if: steps.cache-npm.outputs.cache-hit != 'true'
