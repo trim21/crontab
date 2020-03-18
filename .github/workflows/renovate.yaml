@@ -11,7 +11,7 @@ on:
     - cron: "0 */3 * * *"
 
 jobs:
-  build:
+  main:
     strategy:
       matrix:
         repo:
@@ -40,12 +40,12 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: ~/.poetry
-          key: ${{ steps.get-version.outputs.poetry }}
+          key: poetry-${{ steps.get-version.outputs.poetry }}
 
       - uses: actions/cache@v1
         with:
           path: /opt/hostedtoolcache/node/${{ steps.get-version.outputs.node }}/x64/lib/node_modules/renovate
-          key: ${{ steps.get-version.outputs.node }}-${{ steps.get-version.outputs.renovate }}
+          key: renovate-${{ steps.get-version.outputs.node }}-${{ steps.get-version.outputs.renovate }}
 
       - name: Install Poetry
         run: |
