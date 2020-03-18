@@ -65,7 +65,7 @@ jobs:
                    --token $PERSONAL_GITHUB_TOKEN \
                    --platform github \
                    --trust-level high \
-                   --log-level debug
+                   --log-level info
         env:
           PERSONAL_GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
           POETRY_VIRTUALENVS_CREATE: "false"
