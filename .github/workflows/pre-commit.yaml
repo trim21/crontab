@@ -60,6 +60,7 @@ jobs:
           key: poetry-${{ steps.get-version.outputs.python }}-${{ matrix.repo.repo }}-${{ hashFiles('**/poetry.lock') }}
 
       - name: Install Dependencies
+        working-directory: ./${{ matrix.repo.repo }}
         run: |
           pip install --user --no-deps -q -r <(poetry export -f requirements.txt --dev) || poetry export -f requirements.txt --dev
 
