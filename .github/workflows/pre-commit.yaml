@@ -32,7 +32,7 @@ jobs:
           # echo "::set-output name=poetry::$(curl -sSl https://pypi.org/pypi/poetry/json | jq .info.version -r)"
           echo "::add-path::$HOME/.local/bin"
           echo "::add-path::$HOME/.poetry/bin"
-          PY=$(python -VV)
+          PY=$(python --version)
           echo "::set-output name=python::${PY// /_}"
 
       - uses: actions/cache@v1
