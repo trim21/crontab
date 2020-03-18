@@ -36,7 +36,7 @@ jobs:
             node-
 
       - run: npm i
-        -
+
       - uses: actions/setup-python@v1
         with:
           python-version: "3.7"
