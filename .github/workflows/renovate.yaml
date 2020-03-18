@@ -3,9 +3,6 @@ name: renovate
 #on: ['push']
 
 on:
-  push:
-    branches:
-      - "**"
   schedule:
     # daily on github default branch
     - cron: "0 */3 * * *"
