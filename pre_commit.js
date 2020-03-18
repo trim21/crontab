@@ -17,15 +17,22 @@ async function run () {
 
   await exec.exec('pre-commit autoupdate')
 
-  shouldCreatePR = !!await exec.exec('git diff --exit-code')
+  try {
+    await exec.exec('git diff --exit-code',)
+  } catch {
+    shouldCreatePR = true
+  }
 
   if (shouldCreatePR) {
-    if (await exec.exec('pre-commit run --all-files'))
+    try {
+      await exec.exec('pre-commit run --all-files')
+    } catch {
       await exec.exec('git diff')
+    }
     await exec.exec('git add .')
     await exec.exec(`git commit -m "chore: update pre-commit config" --author="Trim21 <i@trim21.me>"`)
     await exec.exec(`git checkout -b ${newBranch}`)
-    await exec.exec(`git push origin ${newBranch}`)
+    await exec.exec(`git push origin ${newBranch} -f`)
   }
 
   if (shouldCreatePR) {
