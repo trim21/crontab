@@ -1,0 +1,52 @@
+name: renovate
+
+#on: ['push']
+
+on:
+  push:
+    branches:
+      - "**"
+  schedule:
+    # daily on github default branch
+    - cron: "0 */3 * * *"
+
+jobs:
+  main:
+    strategy:
+      matrix:
+        repo:
+          - Trim21/BGmi
+
+    runs-on: ubuntu-16.04
+
+    steps:
+      - uses: actions/setup-python@v1
+        with:
+          python-version: "3.7"
+
+      - name: Get Latest tools version
+        id: get-version
+        run: |
+          echo "::set-output name=pre-commit::$(curl -sSl https://pypi.org/pypi/pre-commit/json | jq .info.version -r)"
+          echo "::set-output name=renovate::$(npm info renovate --json | jq -r .version)"
+          echo "::set-output name=python::$(python -VV)"
+          # echo "::set-output name=poetry::$(curl -sSl https://pypi.org/pypi/poetry/json | jq .info.version -r)"
+          echo "::add-path::$HOME/.local/bin"
+
+      - name: Install Pre-Commit
+        run: pip install --user -U pre-commit
+
+      - name: check if pre-commit update
+        run: |
+          set +e
+          pre-commit autoupdate
+          git diff --exit-code
+          RESULT=$?
+          if [[ ! $RESULT -eq 0 ]] ; then
+            pre-commit run --all-files
+            exit $RESULT
+          fi
+
+        env:
+          PERSONAL_GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+          POETRY_VIRTUALENVS_CREATE: "false"
