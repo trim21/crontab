@@ -52,7 +52,8 @@ jobs:
         id: cache-npm
         with:
           path: ./node_modules
-          key: renovate-${{ steps.get-version.outputs.node }}-${{ steps.get-version.outputs.renovate }}
+          # key: renovate-1-${{ steps.get-version.outputs.node }}-${{ steps.get-version.outputs.renovate }}
+          key: renovate-1-${{ steps.get-version.outputs.renovate }}
 
       - name: Install Renovate cli
         if: steps.cache-npm.outputs.cache-hit != 'true'
