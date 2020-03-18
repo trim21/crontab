@@ -32,9 +32,18 @@ jobs:
           echo "::set-output name=python::$(python -VV)"
           # echo "::set-output name=poetry::$(curl -sSl https://pypi.org/pypi/poetry/json | jq .info.version -r)"
           echo "::add-path::$HOME/.local/bin"
+          echo "::add-path::$HOME/.poetry/bin"
 
-      - name: Install Pre-Commit
-        run: pip install --user -U pre-commit
+      - uses: actions/cache@v1
+        name: Cache Poetry
+        with:
+          path: ~/.poetry
+          key: poetry-${{ steps.get-version.outputs.poetry }}
+
+      - name: Install Poetry
+        run: |
+          $HOME/.poetry/bin/poetry --version && exit 0
+          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python - --version ${{ steps.get-version.outputs.poetry }}
 
       - uses: actions/checkout@v2
         with:
@@ -42,6 +51,16 @@ jobs:
           ref: ${{ matrix.repo.ref }}
           path: ${{ matrix.repo.repo }}
           fetch-depth: 1
+
+      - uses: actions/cache@v1
+        name: Cache Poetry
+        with:
+          path: ~/.local
+          key: poetry-${{ steps.get-version.outputs.python }}-${{ matrix.repo.repo }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install Dependencies
+        run: |
+          pip install --user --no-deps -q -r <(poetry export -f requirements.txt --dev)
 
       - name: check if pre-commit update
         run: |
@@ -56,4 +75,3 @@ jobs:
         working-directory: ./${{ matrix.repo.repo }}
         env:
           PERSONAL_GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
-          POETRY_VIRTUALENVS_CREATE: "false"
