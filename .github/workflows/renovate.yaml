@@ -42,23 +42,25 @@ jobs:
           path: ~/.poetry
           key: poetry-${{ steps.get-version.outputs.poetry }}
 
-      - uses: actions/cache@v1
-        with:
-          path: /opt/hostedtoolcache/node/${{ steps.get-version.outputs.node }}/x64/lib/node_modules/renovate
-          key: renovate-${{ steps.get-version.outputs.node }}-${{ steps.get-version.outputs.renovate }}
-
       - name: Install Poetry
         run: |
           echo "::add-path::$HOME/.poetry/bin"
           $HOME/.poetry/bin/poetry --version && exit 0
           curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python - --version ${{ steps.get-version.outputs.poetry }}
 
+      - uses: actions/cache@v1
+        id: cache-npm
+        with:
+          path: ./node_modules
+          key: renovate-${{ steps.get-version.outputs.node }}-${{ steps.get-version.outputs.renovate }}
+
       - name: Install Renovate cli
-        run: npm i renovate@${{ steps.get-version.outputs.renovate }} -g
+        if: steps.cache-npm.outputs.cache-hit != 'true'
+        run: npm i renovate@${{ steps.get-version.outputs.renovate }}
 
       - name: Run renovate cli
         run: |
-          renovate ${{ matrix.repo }} \
+          npx renovate ${{ matrix.repo }} \
                    --include-forks true \
                    --token $PERSONAL_GITHUB_TOKEN \
                    --platform github \
