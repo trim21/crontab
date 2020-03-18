@@ -59,7 +59,7 @@ jobs:
           key: poetry-${{ matrix.repo.repo }}-${{ steps.get-version.outputs.python }}-${{ hashFiles('**/poetry.lock') }}
 
       - uses: actions/cache@v1
-        name: Cache Poetry
+        name: Cache Pre-Commit
         with:
           path: ~/.cache/pre-commit
           key: pre-commit-${{ matrix.repo.repo }}-${{ steps.get-version.outputs.python }}-${{ hashFiles('**/.pre-commit-config.yaml') }}
@@ -78,7 +78,7 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: ./node_modules
-          key: node-${{ hashFiles('**/package-lock.json') }}
+          key: node-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             node-
 
