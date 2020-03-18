@@ -38,6 +38,7 @@ jobs:
           echo "::set-output name=date::$(date '+%Y-%M-%d')"
 
       - uses: actions/cache@v1
+        name: Cache Poetry
         with:
           path: ~/.poetry
           key: poetry-${{ steps.get-version.outputs.poetry }}
@@ -49,6 +50,7 @@ jobs:
           curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python - --version ${{ steps.get-version.outputs.poetry }}
 
       - uses: actions/cache@v1
+        name: Cache Npm Package
         id: cache-npm
         with:
           path: ./node_modules
@@ -56,6 +58,7 @@ jobs:
           key: renovate-2-${{ steps.get-version.outputs.renovate }}
 
       - uses: actions/cache@v1
+        name: Cache Renovate Cache
         id: renovate-cache
         with:
           path: /tmp/renovate
