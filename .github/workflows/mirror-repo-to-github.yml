@@ -1,4 +1,4 @@
-name: mirror
+name: mirror repo to github
 
 on:
   schedule:
