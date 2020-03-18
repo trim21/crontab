@@ -59,7 +59,7 @@ jobs:
         id: renovate-cache
         with:
           path: /tmp/renovate
-          key: renovate-cache-1-{{ steps.get-version.outputs.date }}
+          key: renovate-cache-1-${{ steps.get-version.outputs.date }}
 
       - name: Install Renovate cli
         if: steps.cache-npm.outputs.cache-hit != 'true'
