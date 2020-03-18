@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         repo:
-          - { repo: Trim21/BGmi, ref: dev }
+          - { repo: Trim21/BGmi, branch: dev }
 
     runs-on: ubuntu-16.04
 
@@ -48,7 +48,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           repository: ${{ matrix.repo.repo }}
-          ref: ${{ matrix.repo.ref }}
+          ref: ${{ matrix.repo.branch }}
           path: ${{ matrix.repo.repo }}
           fetch-depth: 1
 
@@ -70,15 +70,9 @@ jobs:
           pip install --user --no-deps -q -r <(poetry export -f requirements.txt --dev) || poetry export -f requirements.txt --dev
 
       - name: check if pre-commit update
-        run: |
-          set +e
-          pre-commit autoupdate
-          git diff --exit-code
-          RESULT=$?
-          if [[ ! $RESULT -eq 0 ]] ; then
-            pre-commit run --all-files --show-diff-on-failure
-            exit $RESULT
-          fi
+        run: node $GITHUB_WORKSPACE/pre_commit.js
         working-directory: ./${{ matrix.repo.repo }}
         env:
           PERSONAL_GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+          REPO: ${{ matrix.repo.repo }}
+          BRANCH: ${{ matrix.repo.branch }}
