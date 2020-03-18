@@ -22,6 +22,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+
+      ################ node
+
       - name: Setup node
         uses: actions/setup-node@v1
         with:
@@ -36,6 +39,11 @@ jobs:
             node-
 
       - run: npm i
+
+      ################ end node
+
+
+      ################ python
 
       - uses: actions/setup-python@v1
         with:
@@ -74,12 +82,16 @@ jobs:
         with:
           path: ~/.local
           key: poetry-${{ matrix.repo.repo }}-${{ steps.get-version.outputs.python }}-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            poetry-${{ matrix.repo.repo }}-${{ steps.get-version.outputs.python }}-
 
       - uses: actions/cache@v1
         name: Cache Pre-Commit
         with:
           path: ~/.cache/pre-commit
           key: pre-commit-${{ matrix.repo.repo }}-${{ steps.get-version.outputs.python }}-${{ hashFiles('**/.pre-commit-config.yaml') }}
+          restore-keys: |
+            pre-commit-${{ matrix.repo.repo }}-${{ steps.get-version.outputs.python }}-
 
       - name: Install Dependencies
         working-directory: ./${{ matrix.repo.repo }}
