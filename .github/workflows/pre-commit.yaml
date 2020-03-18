@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         repo:
-          - Trim21/BGmi
+          - { repo: Trim21/BGmi, ref: dev }
 
     runs-on: ubuntu-16.04
 
@@ -36,6 +36,13 @@ jobs:
       - name: Install Pre-Commit
         run: pip install --user -U pre-commit
 
+      - uses: actions/checkout@v2
+        with:
+          repository: ${{ matrix.repo.repo }}
+          ref: ${{ matrix.repo.ref }}
+          path: ${{ matrix.repo.repo }}
+          fetch-depth: 1
+
       - name: check if pre-commit update
         run: |
           set +e
@@ -46,7 +53,7 @@ jobs:
             pre-commit run --all-files
             exit $RESULT
           fi
-
+        working-directory: ./${{ matrix.repo.repo }}
         env:
           PERSONAL_GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
           POETRY_VIRTUALENVS_CREATE: "false"
