@@ -76,7 +76,6 @@ jobs:
           repository: ${{ matrix.repo.repo }}
           ref: ${{ matrix.repo.branch }}
           path: ${{ matrix.repo.repo }}
-          fetch-depth: 1
           token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
 
       - uses: actions/cache@v1
