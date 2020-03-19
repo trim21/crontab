@@ -23,6 +23,9 @@ async function run () {
   }
 
   if (shouldCreatePR) {
+    await exec.exec('git remote -v')
+    await exec.exec('git branch')
+
     try {
       await exec.exec('pre-commit run --all-files', undefined, { silent: true })
     } catch {
@@ -33,6 +36,7 @@ async function run () {
     await exec.exec('git config --global user.name "Trim21"')
 
     await exec.exec('git add .')
+
     await exec.exec(`git checkout -b ${newBranch}`)
     await exec.exec(`git commit -m "chore: update pre-commit config"`)
 
