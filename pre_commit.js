@@ -30,8 +30,10 @@ async function run () {
       await exec.exec('git diff')
     }
     await exec.exec('git add .')
-    await exec.exec(`git commit -m "chore: update pre-commit config" --author="Trim21 <i@trim21.me>"`)
     await exec.exec(`git checkout -b ${newBranch}`)
+    await exec.exec('git config --global user.email "i@trim21.me"')
+    await exec.exec('git config --global user.name "Trim21"')
+    await exec.exec(`git commit -m "chore: update pre-commit config"`)
     await exec.exec(`git push origin ${newBranch} -f`)
   }
 
