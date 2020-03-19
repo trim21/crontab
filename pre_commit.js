@@ -43,16 +43,25 @@ async function run () {
   }
 
   if (shouldCreatePR) {
-    await octokit.pulls.create({
+    const result = await octokit.pulls.list({
       repo,
       owner,
       base: branch,
-      head: newBranch,
-      title: 'update pre-commit config',
+      head: `${owner}:${newBranch}`,
     })
+    if (result.data.length) {
+      await octokit.pulls.create({
+        repo,
+        owner,
+        base: branch,
+        head: newBranch,
+        title: 'update pre-commit config',
+      })
+    }
   }
 }
 
-run().catch(() => {
+run().catch((e) => {
+  console.log(e)
   process.exit(1)
 })
