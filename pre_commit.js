@@ -35,9 +35,13 @@ async function run () {
     await exec.exec('git add .')
     await exec.exec(`git checkout -b ${newBranch}`)
     await exec.exec(`git commit -m "chore: update pre-commit config"`)
-    // await exec.exec(`git remote set-url origin https://${myToken}:x-oauth-basic@github.com/${owner}/${repo}.git`)
-    // await exec.exec('git remote -v')
-    await exec.exec(`git push origin ${newBranch} -f`)
+
+    try {
+      await exec.exec(`git diff ${newBranch} origin/${newBranch} --exit-code`, undefined, { silent: true })
+      shouldCreatePR = false
+    } catch {
+      await exec.exec(`git push origin ${newBranch} -f`)
+    }
   }
 
   if (shouldCreatePR) {
