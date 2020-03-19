@@ -76,6 +76,7 @@ jobs:
           ref: ${{ matrix.repo.branch }}
           path: ${{ matrix.repo.repo }}
           fetch-depth: 1
+          token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
 
       - uses: actions/cache@v1
         name: Cache Python Packages
@@ -102,6 +103,5 @@ jobs:
         working-directory: ./${{ matrix.repo.repo }}
         env:
           PERSONAL_GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
-          PAT: ${{ secrets.PAT }}
           REPO: ${{ matrix.repo.repo }}
           BRANCH: ${{ matrix.repo.branch }}

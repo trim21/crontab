@@ -7,7 +7,7 @@ async function run () {
   // The YML workflow will need to set myToken with the GitHub Secret Token
   // myToken: ${{ secrets.GITHUB_TOKEN }}
   // https://help.github.com/en/actions/automating-your-workflow-with-github-actions/authenticating-with-the-github_token#about-the-github_token-secret
-  const myToken = process.env.PAT
+  const myToken = process.env.PERSONAL_GITHUB_TOKEN
   const owner = process.env.REPO.split('/')[0]
   const repo = process.env.REPO.split('/')[1]
   const branch = process.env.BRANCH
@@ -37,8 +37,8 @@ async function run () {
     await exec.exec('git add .')
     await exec.exec(`git checkout -b ${newBranch}`)
     await exec.exec(`git commit -m "chore: update pre-commit config"`)
-    await exec.exec(`git remote set-url origin https://${myToken}:x-oauth-basic@github.com/${owner}/${repo}.git`)
-    await exec.exec('git remote -v')
+    // await exec.exec(`git remote set-url origin https://${myToken}:x-oauth-basic@github.com/${owner}/${repo}.git`)
+    // await exec.exec('git remote -v')
     await exec.exec(`git push origin ${newBranch} -f`)
   }
 
