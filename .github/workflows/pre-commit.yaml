@@ -78,7 +78,7 @@ jobs:
           fetch-depth: 1
 
       - uses: actions/cache@v1
-        name: Cache Poetry
+        name: Cache Python Packages
         with:
           path: ~/.local
           key: poetry-${{ matrix.repo.repo }}-${{ steps.get-version.outputs.python }}-${{ hashFiles('**/poetry.lock') }}
