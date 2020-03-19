@@ -13,9 +13,7 @@ async function run () {
   const branch = process.env.BRANCH
   const octokit = new github.GitHub(myToken)
   const newBranch = 'chore/update-pre-commit'
-  var shouldCreatePR = false
-  await exec.exec('ls -ahl')
-
+  let shouldCreatePR = false
   await exec.exec('pre-commit autoupdate')
 
   try {
