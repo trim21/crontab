@@ -49,7 +49,7 @@ async function run () {
       base: branch,
       head: `${owner}:${newBranch}`,
     })
-    if (result.data.length) {
+    if (result.data.length === 0) {
       await octokit.pulls.create({
         repo,
         owner,
