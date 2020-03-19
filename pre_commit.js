@@ -27,16 +27,16 @@ async function run () {
     try {
       await exec.exec('pre-commit run --all-files')
     } catch {
-      await exec.exec('git diff')
+      await exec.exec('git diff', undefined, { silent: true })
     }
 
-    await exec.exec('git config --global user.email "i@trim21.me"')
+    await exec.exec('git config --global user.email "i@trim21.me"', undefined, { silent: true })
     await exec.exec('git config --global user.name "Trim21"')
 
     await exec.exec('git add .')
     await exec.exec(`git checkout -b ${newBranch}`)
-    await exec.exec(`git remote set-url origin https://x-oauth-basic:${myToken}@github.com/${owner}/${repo}.git`)
     await exec.exec(`git commit -m "chore: update pre-commit config"`)
+    await exec.exec(`git remote set-url origin https://Trim21:${myToken}@github.com/${owner}/${repo}.git`)
     await exec.exec(`git push origin ${newBranch} -f`)
   }
 
