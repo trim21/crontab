@@ -51,4 +51,6 @@ async function run () {
   }
 }
 
-run()
+run().catch(() => {
+  process.exit(1)
+})
