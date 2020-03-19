@@ -78,6 +78,10 @@ jobs:
           path: ${{ matrix.repo.repo }}
           token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
 
+      - name: Fetch All Branches
+        run: |
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
+
       - uses: actions/cache@v1
         name: Cache Python Packages
         with:
