@@ -79,6 +79,7 @@ jobs:
           token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
 
       - name: Fetch All Branches
+        working-directory: ./${{ matrix.repo.repo }}
         run: |
           git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
 
