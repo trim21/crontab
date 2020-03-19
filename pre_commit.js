@@ -37,7 +37,7 @@ async function run () {
     await exec.exec(`git commit -m "chore: update pre-commit config"`)
 
     try {
-      await exec.exec(`git diff ${newBranch} origin/${newBranch} --exit-code`)
+      await exec.exec(`git diff ${newBranch} refs/remotes/origin/${newBranch} --exit-code`)
       shouldCreatePR = false
     } catch {
       await exec.exec(`git push origin ${newBranch} -f`)
