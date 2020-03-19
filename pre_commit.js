@@ -25,7 +25,7 @@ async function run () {
 
   if (shouldCreatePR) {
     try {
-      await exec.exec('pre-commit run --all-files')
+      await exec.exec('pre-commit run --all-files', undefined, { silent: true })
     } catch {
       await exec.exec('git diff', undefined, { silent: true })
     }
@@ -36,7 +36,7 @@ async function run () {
     await exec.exec('git add .')
     await exec.exec(`git checkout -b ${newBranch}`)
     await exec.exec(`git commit -m "chore: update pre-commit config"`)
-    await exec.exec(`git remote set-url origin https://Trim21:${myToken}@github.com/${owner}/${repo}.git`)
+    await exec.exec(`git remote set-url origin https://${myToken}@github.com/${owner}/${repo}.git`)
     await exec.exec(`git push origin ${newBranch} -f`)
   }
 
