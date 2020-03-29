@@ -14,8 +14,8 @@ jobs:
   main:
     strategy:
       matrix:
-        repo:
-          - Trim21/BGmi
+        repo: []
+ #         - Trim21/BGmi
 
     runs-on: ubuntu-16.04
 
