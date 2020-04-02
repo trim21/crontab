@@ -18,6 +18,7 @@ jobs:
           - { repo: Trim21/BGmi, branch: dev }
           - { repo: Trim21/pol, branch: dev }
           - { repo: BGmi/BGmi-NG, branch: dev }
+          - { repo: BGmi/BGmi-NG, branch: feature/core }
 
     runs-on: ubuntu-16.04
 
