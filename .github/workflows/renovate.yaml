@@ -36,35 +36,11 @@ jobs:
         id: get-version
         run: bash ./common/version.sh
 
-      - uses: actions/cache@v1
-        name: Cache Poetry
-        with:
-          path: ~/.poetry
-          key: poetry-${{ steps.get-version.outputs.poetry }}
-
       - name: Install Poetry
-        run: |
-          poetry --version && exit 0
-          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python - --version ${{ steps.get-version.outputs.poetry }}
-
-      - uses: actions/cache@v1
-        name: Cache Npm Package
-        id: cache-npm
-        with:
-          path: ./node_modules
-          # key: renovate-1-${{ steps.get-version.outputs.node }}-${{ steps.get-version.outputs.renovate }}
-          key: renovate-2-${{ steps.get-version.outputs.renovate }}
-
-      - uses: actions/cache@v1
-        name: Cache Renovate Cache
-        id: renovate-cache
-        with:
-          path: /tmp/renovate
-          key: renovate-cache-${{ matrix.repo }}-${{ steps.get-version.outputs.date }}
+        run: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python - --version ${{ steps.get-version.outputs.poetry }}
 
       - name: Install Renovate cli
-        if: steps.cache-npm.outputs.cache-hit != 'true'
-        run: npm i renovate@${{ steps.get-version.outputs.renovate }}
+        run: npm i renovate
 
       - name: Run renovate cli
         run: |
