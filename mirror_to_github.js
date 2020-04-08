@@ -8,7 +8,10 @@ async function main () {
   const ACCESS_TOKEN = process.env.ACCESS_TOKEN
   assert(ACCESS_TOKEN.length !== 0, 'no access token given')
   const cwd = process.cwd()
-  const repos = { 'mit-6.824': 'https://e.coding.net/Trim21/mit-6.824.git' }
+  const repos = { 
+    'mit-6.824': 'https://e.coding.net/Trim21/mit-6.824.git',
+    BeautifulSoup: 'https://git.launchpad.net/~vivekchandola/beautifulsoup/+git/trunk',
+ }
   for (const [repoName, url] of Object.entries(repos)) {
     const repoDir = path.join(cwd, repoName)
     if (fs.existsSync(repoDir)) {
