@@ -9,7 +9,7 @@ async function main () {
   assert(ACCESS_TOKEN.length !== 0, 'no access token given')
   const cwd = process.cwd()
   const repos = { 
-    'mit-6.824': 'https://e.coding.net/Trim21/mit-6.824/mit-6.824.git',
+    'mit-6.824': 'https://e.coding.net/Trim21/mit-6.824.git',
  }
   for (const [repoName, url] of Object.entries(repos)) {
     const repoDir = path.join(cwd, repoName)
