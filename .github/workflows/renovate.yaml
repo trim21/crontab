@@ -8,7 +8,7 @@ on:
       - "**"
   schedule:
     # daily on github default branch
-    - cron: "0 */3 * * *"
+    - cron: "0 0 * * *"
 
 jobs:
   main:
