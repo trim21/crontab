@@ -16,7 +16,7 @@ jobs:
       matrix:
         repo:
           - { repo: Trim21/BGmi, branch: dev }
-          - { repo: Trim21/pol, branch: dev }
+          - { repo: Trim21/pol, branch: master }
     #      - { repo: BGmi/BGmi-NG, branch: feature/core }
 
     runs-on: ubuntu-16.04
