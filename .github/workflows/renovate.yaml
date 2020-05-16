@@ -13,12 +13,6 @@ on:
 
 jobs:
   main:
-    strategy:
-      matrix:
-        repo:
-          - Trim21/BGmi
-          - Trim21/BGmi-NG
-
     runs-on: ubuntu-latest
 
     steps:
@@ -44,7 +38,7 @@ jobs:
       - name: Run renovate cli
         run: |
           npx --no-install \
-            renovate ${{ matrix.repo }} \
+            renovate Trim21/BGmi Trim21/BGmi-NG  \
               --include-forks true \
               --token $PERSONAL_GITHUB_TOKEN \
               --platform github \
