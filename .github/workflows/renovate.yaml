@@ -10,38 +10,45 @@ on:
 
 jobs:
   main:
-    strategy:
-      matrix:
-        repo:
-          - Trim21/BGmi
-
-    runs-on: ubuntu-16.04
+    #    strategy:
+    #      matrix:
+    #        repo:
+    #          - Trim21/BGmi
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Setup node
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@v1.0.0
         with:
-          node-version: "13.x"
+          configurationFile: renovate-config.js
+          token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
 
-      - uses: actions/setup-python@v1
-        with:
-          python-version: "3.7"
+#      - name: Setup node
+#        uses: actions/setup-node@v1
+#        with:
+#          node-version: "13.x"
+#
+#      - uses: actions/setup-python@v1
+#        with:
+#          python-version: "3.7"
+#
+#      - name: Install Poetry
+#        run: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+#
+#      - name: Install Renovate cli
+#        run: npm i renovate
 
-      - name: Install Poetry
-        run: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
-
-      - name: Install Renovate cli
-        run: npm i renovate
-
-      - name: Run renovate cli
-        run: |
-          npx --no-install \
-            renovate ${{ matrix.repo }} \
-              --include-forks true \
-              --token $PERSONAL_GITHUB_TOKEN \
-              --platform github \
-              --trust-level high \
-              --log-level info
-        env:
-          PERSONAL_GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
-          POETRY_VIRTUALENVS_CREATE: "false"
+#      - name: Run renovate cli
+#        run: |
+#          npx --no-install \
+#            renovate ${{ matrix.repo }} \
+#              --include-forks true \
+#              --token $PERSONAL_GITHUB_TOKEN \
+#              --platform github \
+#              --trust-level high \
+#              --log-level info
+#        env:
+#          PERSONAL_GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+#          POETRY_VIRTUALENVS_CREATE: "false"
+#
