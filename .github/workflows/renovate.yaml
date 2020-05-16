@@ -7,6 +7,9 @@ on:
   schedule:
     # daily on github default branch
     - cron: "0 0 * * *"
+  repository_dispatch:
+    types:
+      - renovate
 
 jobs:
   main:
