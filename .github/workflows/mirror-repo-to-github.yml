@@ -1,16 +1,15 @@
 name: mirror repo to github
 
 on:
-#  push:
-#    branches:
-#      - "**"
   schedule:
     - cron: "0 23 * * *"
-  repository_dispatch: {}
+  repository_dispatch:
+    types:
+      - "mit-6.824 push"
 
 jobs:
   main:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
