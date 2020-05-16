@@ -17,6 +17,7 @@ jobs:
       matrix:
         repo:
           - Trim21/BGmi
+          - Trim21/BGmi-NG
 
     runs-on: ubuntu-latest
 
