@@ -7,6 +7,7 @@ on:
     paths:
       - ".github/workflows/pre-commit.yaml"
       - "pre_commit.js"
+      - "common/version.sh"
   schedule:
     # daily on github default branch
     - cron: "0 0 16 * *"
