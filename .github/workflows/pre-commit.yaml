@@ -75,17 +75,17 @@ jobs:
         name: Cache Python Packages
         with:
           path: ~/.local
-          key: poetry-${{ matrix.repo.repo }}-${{ steps.get-version.outputs.python }}-${{ hashFiles('**/poetry.lock') }}
+          key: poetry-${{ matrix.repo.repo }}-${{ steps.get-version.outputs.PY }}-${{ hashFiles('**/poetry.lock') }}
           restore-keys: |
-            poetry-${{ matrix.repo.repo }}-${{ steps.get-version.outputs.python }}-
+            poetry-${{ matrix.repo.repo }}-${{ steps.get-version.outputs.PY }}-
 
       - uses: actions/cache@v1
         name: Cache Pre-Commit
         with:
           path: ~/.cache/pre-commit
-          key: pre-commit-${{ matrix.repo.repo }}-${{ steps.get-version.outputs.python }}-${{ hashFiles('**/.pre-commit-config.yaml') }}
+          key: pre-commit-${{ matrix.repo.repo }}-${{ steps.get-version.outputs.PY }}-${{ hashFiles('**/.pre-commit-config.yaml') }}
           restore-keys: |
-            pre-commit-${{ matrix.repo.repo }}-${{ steps.get-version.outputs.python }}-
+            pre-commit-${{ matrix.repo.repo }}-${{ steps.get-version.outputs.PY }}-
 
       - name: Install Dependencies
         working-directory: ./${{ matrix.repo.repo }}
