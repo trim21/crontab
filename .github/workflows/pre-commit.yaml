@@ -22,7 +22,7 @@ jobs:
           - { repo: Trim21/transmission-rpc, branch: dev }
     #      - { repo: BGmi/BGmi-NG, branch: feature/core }
 
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
