@@ -9,7 +9,7 @@ on:
       - "pre_commit.js"
   schedule:
     # daily on github default branch
-    - cron: "0 0 1,16 * *"
+    - cron: "0 0 16 * *"
 
 jobs:
   main:
