@@ -3,7 +3,9 @@ name: renovate
 on:
   push:
     branches:
-      - "**"
+      - "master"
+    paths:
+      - ".github/workflows/renovate.yaml"
   schedule:
     # daily on github default branch
     - cron: "0 * * * *"

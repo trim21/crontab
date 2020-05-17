@@ -3,7 +3,10 @@ name: pre-commit
 on:
   push:
     branches:
-      - "**"
+      - "master"
+    paths:
+      - ".github/workflows/pre-commit.yaml"
+      - "pre_commit.js"
   schedule:
     # daily on github default branch
     - cron: "0 0 1,16 * *"
@@ -23,7 +26,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-
       ################ node
 
       - name: Setup node
@@ -34,7 +36,6 @@ jobs:
       - run: npm ci
 
       ################ end node
-
 
       ################ python
 
