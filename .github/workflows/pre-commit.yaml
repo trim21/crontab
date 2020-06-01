@@ -10,7 +10,7 @@ on:
       - "common/version.sh"
   schedule:
     # daily on github default branch
-    - cron: "0 0 16 * *"
+    - cron: "0 1/15 * * *"
 
 jobs:
   main:
@@ -48,7 +48,7 @@ jobs:
         id: get-version
         run: bash ./common/version.sh
 
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         name: Cache Poetry
         with:
           path: ~/.poetry
@@ -71,7 +71,7 @@ jobs:
         run: |
           git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
 
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         name: Cache Python Packages
         with:
           path: ~/.local
@@ -79,7 +79,7 @@ jobs:
           restore-keys: |
             poetry-${{ matrix.repo.repo }}-${{ steps.get-version.outputs.PY }}-
 
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         name: Cache Pre-Commit
         with:
           path: ~/.cache/pre-commit

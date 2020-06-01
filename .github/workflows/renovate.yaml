@@ -9,7 +9,7 @@ on:
       - "common/version.sh"
   schedule:
     # daily on github default branch
-    - cron: "0 0 * * *"
+    - cron: "0 */3 * * *"
   repository_dispatch:
     types:
       - renovate
@@ -19,24 +19,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
+
       - name: Setup node
         uses: actions/setup-node@v1
         with:
           node-version: "13.x"
+          registry-url: 'https://registry.npmjs.org'
 
       - uses: actions/setup-python@v1
         with:
           python-version: "3.7"
 
-      - name: Install Poetry
-        run: |
-          echo "::add-path::$HOME/.local/bin"
-          echo "::add-path::$HOME/.poetry/bin"
+      - name: Get Latest tools version
+        id: get-version
+        run: bash ./common/version.sh
 
-          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+      - uses: actions/cache@v2
+        name: Cache Poetry
+        with:
+          path: ~/.poetry
+          key: poetry-itself-${{ steps.get-version.outputs.poetry }}
+
+      - uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: renovate-${{ steps.get-version.outputs.renovate }}
+          restore-keys: |
+            renovate-
 
       - name: Install Renovate cli
-        run: npm i --no-optional renovate
+        run: npm i renovate
 
       - name: Run renovate cli
         run: |
