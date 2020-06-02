@@ -37,15 +37,34 @@ jobs:
 
       - uses: Trim21/setup-poetry@v1
 
+      - run: echo "::set-env name=RENOVATE::$(npm info renovate --json | jq -r .version)"
+
       - uses: actions/cache@v2
         with:
-          path: node_modules
-          key: renovate-${{ steps.get-version.outputs.renovate }}
+          path: ./node_modules
+          key: renovate-app-${{ env.RENOVATE }}
           restore-keys: |
-            renovate-
+            renovate-app-
 
       - name: Install Renovate cli
         run: npm i renovate
+
+      - run: |
+          echo "::set-env name=Y::$(date "+%Y")"
+          echo "::set-env name=M::$(date "+%m")"
+          echo "::set-env name=D::$(date "+%d")"
+          echo "::set-env name=H::$(date "+%H")"
+
+      - name: Cache Renovate
+        uses: actions/cache@v2
+        with:
+          path: /tmp/renovate
+          key: renovate-cache-${{ env.Y }}-${{ env.M }}-${{ env.D }}-${{ env.H }}
+          restore-keys: |
+            renovate-cache-${{ env.Y }}-${{ env.M }}-${{ env.D }}
+            renovate-cache-${{ env.Y }}-${{ env.M }}-
+            renovate-cache-${{ env.Y }}-
+            renovate-cache-
 
       - name: Run renovate cli
         run: |
@@ -55,7 +74,8 @@ jobs:
               --token $PERSONAL_GITHUB_TOKEN \
               --platform github \
               --trust-level high \
-              --log-level debug
+              --log-level debug \
+              --base-dir /tmp/renovate
         env:
           PERSONAL_GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
           POETRY_VIRTUALENVS_CREATE: "false"
