@@ -48,16 +48,7 @@ jobs:
         id: get-version
         run: bash ./common/version.sh
 
-      - uses: actions/cache@v2
-        name: Cache Poetry
-        with:
-          path: ~/.poetry
-          key: poetry-itself-${{ steps.get-version.outputs.poetry }}
-
-      - name: Install Poetry
-        run: |
-          poetry --version && exit 0
-          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python - --version ${{ steps.get-version.outputs.poetry }}
+      - uses: Trim21/setup-poetry@v1
 
       - uses: actions/checkout@v2
         with:

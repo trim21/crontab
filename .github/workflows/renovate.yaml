@@ -35,11 +35,7 @@ jobs:
         id: get-version
         run: bash ./common/version.sh
 
-      - uses: actions/cache@v2
-        name: Cache Poetry
-        with:
-          path: ~/.poetry
-          key: poetry-itself-${{ steps.get-version.outputs.poetry }}
+      - uses: Trim21/setup-poetry@v1
 
       - uses: actions/cache@v2
         with:
