@@ -13,7 +13,7 @@ async function run () {
   const octokit = new github.GitHub(myToken)
   const newBranch = 'chore/update-pre-commit'
   let shouldCreatePR = false
-  await exec.exec('pre-commit autoupdate')
+  await exec.exec('pre-commit autoupdate --freeze')
 
   try {
     await exec.exec('git diff --exit-code',)
