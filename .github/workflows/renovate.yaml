@@ -68,7 +68,7 @@ jobs:
       - name: Poetry Cache
         uses: actions/cache@v2
         with:
-          path: ~/.cache/pypoetry
+          path: ~/.cache/pypoetry/cache
           key: poetry-cache-${{ env.Y }}-${{ env.M }}-${{ env.D }}-${{ env.H }}
           restore-keys: |
             poetry-cache-${{ env.Y }}-${{ env.M }}-${{ env.D }}
