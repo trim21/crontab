@@ -65,6 +65,17 @@ jobs:
             renovate-cache-${{ env.Y }}-
             renovate-cache-
 
+      - name: Poetry Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pypoetry
+          key: poetry-cache-${{ env.Y }}-${{ env.M }}-${{ env.D }}-${{ env.H }}
+          restore-keys: |
+            poetry-cache-${{ env.Y }}-${{ env.M }}-${{ env.D }}
+            poetry-cache-${{ env.Y }}-${{ env.M }}-
+            poetry-cache-${{ env.Y }}-
+            poetry-cache-
+
       - name: Run renovate cli
         run: |
           npx --no-install \
@@ -77,4 +88,4 @@ jobs:
               --base-dir /tmp/renovate
         env:
           PERSONAL_GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
-          POETRY_VIRTUALENVS_CREATE: no
+          POETRY_VIRTUALENVS_CREATE: false
