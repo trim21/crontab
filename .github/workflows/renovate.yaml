@@ -77,4 +77,4 @@ jobs:
               --base-dir /tmp/renovate
         env:
           PERSONAL_GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
-          POETRY_VIRTUALENVS_CREATE: "false"
+          POETRY_VIRTUALENVS_CREATE: false"
