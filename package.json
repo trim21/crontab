@@ -14,6 +14,6 @@
   "homepage": "https://github.com/Trim21/actions-cron#readme",
   "dependencies": {
     "@actions/exec": "1.0.4",
-    "@actions/github": "4.0.0"
+    "@actions/github": "2.2.0"
   }
 }
