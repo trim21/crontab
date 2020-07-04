@@ -20,7 +20,7 @@ jobs:
         repo:
           - { repo: Trim21/BGmi, branch: dev }
           - { repo: Trim21/pol, branch: master }
-          - { repo: Trim21/transmission-rpc, branch: dev }
+          - { repo: Trim21/transmission-rpc, branch: master }
     #      - { repo: BGmi/BGmi-NG, branch: feature/core }
 
     runs-on: ubuntu-latest
