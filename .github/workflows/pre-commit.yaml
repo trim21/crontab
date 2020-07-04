@@ -10,7 +10,7 @@ on:
       - "common/version.sh"
   schedule:
     # daily on github default branch
-    - cron: "0 1/15 * * *"
+    - cron: "0 0 * * *"
 
 jobs:
   main:
