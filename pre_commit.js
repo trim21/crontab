@@ -34,7 +34,7 @@ async function run () {
     await exec.exec('git add .')
 
     await exec.exec(`git checkout -b ${newBranch}`)
-    await exec.exec(`git commit -m "chore: update pre-commit config"`)
+    await exec.exec(`git commit -m "chore: update pre-commit hooks"`)
 
     try {
       await exec.exec(`git diff ${newBranch} origin/${newBranch} --exit-code`)
