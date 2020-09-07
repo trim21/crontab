@@ -18,9 +18,9 @@ jobs:
       fail-fast: false
       matrix:
         repo:
-          - { repo: Trim21/BGmi, branch: dev }
-          - { repo: Trim21/pol, branch: master }
-          - { repo: Trim21/transmission-rpc, branch: master }
+          - { repo: Trim21/BGmi, branch: dev, py: "3.7" }
+          - { repo: Trim21/pol, branch: master, py: "3.8" }
+          - { repo: Trim21/transmission-rpc, branch: master, py: "3.7" }
     #      - { repo: BGmi/BGmi-NG, branch: feature/core }
 
     runs-on: ubuntu-latest
@@ -43,7 +43,7 @@ jobs:
 
       - uses: actions/setup-python@v1
         with:
-          python-version: "3.7"
+          python-version: ${{ matrix.repo.py }}
 
       - name: Get Latest tools version
         id: get-version
