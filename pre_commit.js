@@ -1,7 +1,7 @@
 const github = require('@actions/github')
 const exec = require('@actions/exec')
 
-async function run () {
+async function run() {
   // This should be a token with access to your repository scoped in as a secret.
   // The YML workflow will need to set myToken with the GitHub Secret Token
   // myToken: ${{ secrets.GITHUB_TOKEN }}
@@ -10,7 +10,7 @@ async function run () {
   const owner = process.env.REPO.split('/')[0]
   const repo = process.env.REPO.split('/')[1]
   const branch = process.env.BRANCH
-  const octokit = new github.GitHub(myToken)
+  const octokit = github.getOctokit(myToken)
   const newBranch = 'chore/update-pre-commit'
   let shouldCreatePR = false
   try {
