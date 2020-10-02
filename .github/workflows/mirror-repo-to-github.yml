@@ -1,11 +1,11 @@
 name: mirror repo to github
 
-on:
-  schedule:
-    - cron: "0 23 * * *"
-  repository_dispatch:
-    types:
-      - "mit-6.824 push"
+on: []
+#  schedule:
+#    - cron: "0 23 * * *"
+#  repository_dispatch:
+#    types:
+#      - "mit-6.824 push"
 
 jobs:
   main:
