@@ -20,6 +20,7 @@ jobs:
         repo:
           - { repo: Trim21/BGmi, branch: dev, py: "3.7" }
           - { repo: Trim21/pol, branch: master, py: "3.8" }
+          - { repo: Trim21/pre-commit-hooks, branch: master, py: "3.8" }
           - { repo: Trim21/transmission-rpc, branch: master, py: "3.7" }
     #      - { repo: BGmi/BGmi-NG, branch: feature/core }
 
