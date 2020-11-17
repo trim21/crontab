@@ -33,11 +33,13 @@ jobs:
       - name: Get Latest tools version
         id: get-version
         run: bash ./common/version.sh
-
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       - uses: Trim21/setup-poetry@dist/v1
 
       - run: echo "::set-env name=RENOVATE::$(npm info renovate --json | jq -r .version)"
-
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       - uses: actions/cache@v2
         with:
           path: ./node_modules
@@ -53,7 +55,8 @@ jobs:
           echo "::set-env name=M::$(date "+%m")"
           echo "::set-env name=D::$(date "+%d")"
           echo "::set-env name=H::$(date "+%H")"
-
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       - name: Cache Renovate
         uses: actions/cache@v2
         with:
