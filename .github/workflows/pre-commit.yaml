@@ -42,7 +42,7 @@ jobs:
 
       ################ python
 
-      - uses: actions/setup-python@v1
+      - uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.repo.py }}
 
@@ -50,7 +50,7 @@ jobs:
         id: get-version
         run: bash ./common/version.sh
 
-      - uses: Trim21/setup-poetry@v1
+      - uses: Trim21/setup-poetry@dist/v1
 
       - uses: actions/checkout@v2
         with:
