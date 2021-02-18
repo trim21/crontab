@@ -45,7 +45,7 @@ jobs:
           path: ./node_modules
           key: renovate-app-14-${{ env.RENOVATE }}
           restore-keys: |
-            renovate-app-
+            renovate-app-14-
 
       - name: Install Renovate cli
         run: npm i renovate
