@@ -43,7 +43,7 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ./node_modules
-          key: renovate-app-${{ env.RENOVATE }}
+          key: renovate-app-14-${{ env.RENOVATE }}
           restore-keys: |
             renovate-app-
 
