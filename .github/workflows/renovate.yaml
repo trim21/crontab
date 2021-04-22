@@ -26,20 +26,28 @@ jobs:
           node-version: "14"
           registry-url: 'https://registry.npmjs.org'
 
+      - run: npm i npm -g
+
+      - uses: actions/cache@v2
+        id: cache
+        with:
+          path: ./node_modules
+          key: npm-14-${{ hashFiles('**/package-lock.json') }}
+
       - uses: actions/setup-python@v2
-#         with:
-#           python-version: "3.7"
 
       - name: Get Latest tools version
         id: get-version
         run: bash ./common/version.sh
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+
       - uses: Trim21/setup-poetry@dist/v1
 
-      - run: echo "::set-env name=RENOVATE::$(npm info renovate --json | jq -r .version)"
+      - run: echo "RENOVATE=$(npm info renovate --json | jq -r .version)" > $GITHUB_ENV
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+
       - uses: actions/cache@v2
         with:
           path: ./node_modules
@@ -47,16 +55,12 @@ jobs:
           restore-keys: |
             renovate-app-1-
 
-      - name: Install Renovate cli
-        run: npm i renovate
-
       - run: |
-          echo "::set-env name=Y::$(date "+%Y")"
-          echo "::set-env name=M::$(date "+%m")"
-          echo "::set-env name=D::$(date "+%d")"
-          echo "::set-env name=H::$(date "+%H")"
-        env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+          echo "Y::$(date "+%Y")" > $GITHUB_ENV
+          echo "M::$(date "+%m")" > $GITHUB_ENV
+          echo "D::$(date "+%d")" > $GITHUB_ENV
+          echo "H::$(date "+%H")" > $GITHUB_ENV
+
       - name: Cache Renovate
         uses: actions/cache@v2
         with:
