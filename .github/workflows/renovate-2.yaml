@@ -19,9 +19,9 @@ jobs:
           node-version: "14"
           registry-url: 'https://registry.npmjs.org'
 
-      - run: npm i npm -g
+      - run: npm i yarn -g
 
-      - run: npm i
+      - run: yarn
 
       - uses: actions/setup-python@v2
 
