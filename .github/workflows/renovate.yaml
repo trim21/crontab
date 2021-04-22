@@ -56,10 +56,10 @@ jobs:
             renovate-app-1-
 
       - run: |
-          echo "Y::$(date "+%Y")" > $GITHUB_ENV
-          echo "M::$(date "+%m")" > $GITHUB_ENV
-          echo "D::$(date "+%d")" > $GITHUB_ENV
-          echo "H::$(date "+%H")" > $GITHUB_ENV
+          echo "Y=$(date "+%Y")" > $GITHUB_ENV
+          echo "M=$(date "+%m")" > $GITHUB_ENV
+          echo "D=$(date "+%d")" > $GITHUB_ENV
+          echo "H=$(date "+%H")" > $GITHUB_ENV
 
       - name: Cache Renovate
         uses: actions/cache@v2
