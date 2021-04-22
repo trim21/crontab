@@ -86,7 +86,6 @@ jobs:
               --include-forks true \
               --token $PERSONAL_GITHUB_TOKEN \
               --platform github \
-              --trust-level high \
               --base-dir /tmp/renovate
         env:
           PERSONAL_GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
