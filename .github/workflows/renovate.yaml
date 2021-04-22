@@ -42,15 +42,6 @@ jobs:
 
       - uses: Trim21/setup-poetry@dist/v1
 
-      - run: echo "RENOVATE=$(npm info renovate --json | jq -r .version)" >> $GITHUB_ENV
-
-      - uses: actions/cache@v2
-        with:
-          path: ./node_modules
-          key: renovate-app-1-${{ env.RENOVATE }}
-          restore-keys: |
-            renovate-app-1-
-
       - run: |
           echo "Y=$(date "+%Y")" >> $GITHUB_ENV
           echo "M=$(date "+%m")" >> $GITHUB_ENV
