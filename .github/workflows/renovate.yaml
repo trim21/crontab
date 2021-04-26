@@ -5,8 +5,10 @@ on:
     branches:
       - "master"
     paths:
-      - ".github/workflows/renovate.yaml"
-      - "common/version.sh"
+      - .github/workflows/renovate.yaml
+      - common/version.sh
+      - package.json
+      - package-lock.json
   schedule:
     - cron: "0 */3 * * *"
   repository_dispatch:
