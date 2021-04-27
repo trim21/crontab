@@ -79,7 +79,7 @@ jobs:
       - name: Run renovate cli
         run: |
           npx --no-install \
-            renovate Trim21/BGmi Trim21/BGmi-NG \
+            renovate Trim21/BGmi Trim21/BGmi-NG Trim21/poetry-lock-cannot-update \
               --include-forks true \
               --token $PERSONAL_GITHUB_TOKEN \
               --platform github \
