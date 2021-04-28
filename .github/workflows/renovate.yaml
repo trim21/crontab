@@ -49,7 +49,6 @@ jobs:
       - uses: Trim21/setup-poetry@dist/v1
 
       - run: |
-          echo "Y=$(date "+%Y")" >> $GITHUB_ENV
           echo "M=$(date "+%m")" >> $GITHUB_ENV
           echo "D=$(date "+%d")" >> $GITHUB_ENV
           echo "H=$(date "+%H")" >> $GITHUB_ENV
@@ -58,29 +57,22 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /tmp/renovate
-          key: renovate-cache-${{ env.Y }}-${{ env.M }}-${{ env.D }}-${{ env.H }}
+          key: renovate-cache-${{ env.M }}-${{ env.D }}
           restore-keys: |
-            renovate-cache-${{ env.Y }}-${{ env.M }}-${{ env.D }}
-            renovate-cache-${{ env.Y }}-${{ env.M }}-
-            renovate-cache-${{ env.Y }}-
-            renovate-cache-
+            renovate-cache-${{ env.M }}-
 
       - name: Poetry Cache
         uses: actions/cache@v2
         with:
           path: ~/.cache/pypoetry/cache
-          key: poetry-cache-${{ env.Y }}-${{ env.M }}-${{ env.D }}-${{ env.H }}
+          key: poetry-cache-${{ env.M }}-${{ env.D }}
           restore-keys: |
-            poetry-cache-${{ env.Y }}-${{ env.M }}-${{ env.D }}
-            poetry-cache-${{ env.Y }}-${{ env.M }}-
-            poetry-cache-${{ env.Y }}-
-            poetry-cache-
+            poetry-cache-${{ env.M }}-
 
       - name: Run renovate cli
         run: |
           npx --no-install \
             renovate Trim21/BGmi Trim21/BGmi-NG \
-              Trim21/actions-cron Trim21/poetry-lock-cannot-update \
               --include-forks true \
               --token $PERSONAL_GITHUB_TOKEN \
               --platform github \
