@@ -1,0 +1,37 @@
+name: pre-commit
+
+on:
+  push:
+    branches:
+      - "master"
+    paths:
+      - ".github/workflows/pre-commit.yaml"
+      - "pre_commit.js"
+      - "common/version.sh"
+  schedule:
+    # daily on github default branch
+    - cron: "0 0 */3 * *"
+  repository_dispatch:
+    types:
+      - pre-commit
+jobs:
+  main:
+    strategy:
+      fail-fast: false
+      matrix:
+        repo:
+          - { repo: Trim21/BGmi, branch: master, py: "3.8" }
+          - { repo: Trim21/pre-commit-hooks, branch: master, py: "3.8" }
+          - { repo: Trim21/transmission-rpc, branch: master, py: "3.8" }
+          - { repo: BGmi/BGmi-NG, branch: master }
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repo: Trim21/Flexget
+          ref: patch-2
+
+      ################ node
+      - run: docker build -t flexget .
