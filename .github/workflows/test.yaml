@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          repo: Trim21/Flexget
+          repository: Trim21/Flexget
           ref: patch-2
 
       ################ node
