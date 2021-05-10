@@ -2,8 +2,7 @@
   "extends": [
     "@trim21",
     "@trim21:js",
-    "@trim21:app",
-    "@trim21:monthly"
+    "@trim21:app"
   ],
   "automerge": true
 }
