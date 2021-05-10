@@ -1,6 +1,14 @@
 name: sync upstream branch
 
 on:
+  push:
+    branches:
+      - "master"
+    paths:
+      - .github/workflows/sync-upstream-repo.yaml
+      - sync_upstream_repo.js
+      - package.json
+      - package-lock.json
   schedule:
     - cron: "0 23 * * *"
 #  repository_dispatch:
