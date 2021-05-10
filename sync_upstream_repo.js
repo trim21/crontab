@@ -21,7 +21,7 @@ async function main () {
     await exec(`git clone https://${ACCESS_TOKEN}@github.com/Trim21/${repoName}.git ${repoDir}`
     )
     process.chdir(repoDir)
-    await exec(`git remote add upstream  --mirror ${info.upstream}`)
+    await exec(`git remote add upstream ${info.upstream}`)
     await exec('git fetch upstream ')
     await exec('git push origin --tags')
 
