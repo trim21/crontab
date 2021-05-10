@@ -15,11 +15,6 @@
   "dependencies": {
     "@actions/exec": "1.0.4",
     "@actions/github": "4.0.0",
-<<<<<<< HEAD
-    "nodegit": "0.27.0",
     "renovate": "25.18.2"
-=======
-    "renovate": "25.4.4"
->>>>>>> 471abd2 (update)
   }
 }
