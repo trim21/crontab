@@ -10,7 +10,7 @@ on:
       - package.json
       - package-lock.json
   schedule:
-    - cron: "0 23 * * *"
+    - cron: "0 0 */7 * *"
 #  repository_dispatch:
 #    types:
 #      - "mit-6.824 push"
