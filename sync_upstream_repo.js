@@ -22,7 +22,7 @@ async function main () {
     )
     process.chdir(repoDir)
     await exec(`git remote add upstream ${info.upstream}`)
-    await exec('git fetch upstream ')
+    await exec('git fetch upstream --tags')
     await exec('git push origin --tags')
 
   }
