@@ -1,0 +1,36 @@
+name: sync upstream branch
+
+on:
+  schedule:
+    - cron: "0 23 * * *"
+#  repository_dispatch:
+#    types:
+#      - "mit-6.824 push"
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+          registry-url: 'https://registry.npmjs.org'
+
+      - uses: actions/cache@v2
+        id: cache
+        with:
+          path: ./node_modules
+          key: npm-14-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Run Mirror Script
+        run: node sync_upstream_repo.js
+        env:
+          ACCESS_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
