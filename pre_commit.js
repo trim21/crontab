@@ -18,14 +18,14 @@ async function run() {
   } catch {}
 
   try {
-    await exec.exec(`git diff --exit-code`)
+    await exec.exec(`git diff HEAD ${branch} --exit-code`)
   } catch {
     shouldCreatePR = true
   }
 
   if (shouldCreatePR) {
     try {
-      await exec.exec('pre-commit run --all-files', undefined, { silent: true })
+      await exec.exec('pre-commit run --all-files', undefined, { silent: false })
     } catch {
       await exec.exec('git diff', undefined, { silent: true })
     }
@@ -53,8 +53,8 @@ async function run() {
       base: branch,
       head: `${owner}:${newBranch}`,
     })
-    console.log(result)
     if (result.data.length === 0) {
+      console.log("creating pr")
       await octokit.rest.pulls.create({
         repo,
         owner,
