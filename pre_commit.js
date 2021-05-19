@@ -45,7 +45,7 @@ async function run() {
       await exec.exec(`git push origin ${newBranch} -f`)
     }
   }
-
+  core.info("should create PR", shouldCreatePR)
   if (shouldCreatePR) {
     const result = await octokit.rest.pulls.list({
       repo,
