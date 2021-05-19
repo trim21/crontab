@@ -47,14 +47,14 @@ async function run() {
   }
 
   if (shouldCreatePR) {
-    const result = await octokit.pulls.list({
+    const result = await octokit.rest.pulls.list({
       repo,
       owner,
       base: branch,
       head: `${owner}:${newBranch}`,
     })
     if (result.data.length === 0) {
-      await octokit.pulls.create({
+      await octokit.rest.pulls.create({
         repo,
         owner,
         base: branch,
