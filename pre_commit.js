@@ -18,7 +18,7 @@ async function run() {
   } catch {}
 
   try {
-    await exec.exec(`git diff HEAD ${branch} --exit-code`)
+    await exec.exec(`git diff --exit-code`)
   } catch {
     shouldCreatePR = true
   }
