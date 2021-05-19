@@ -53,6 +53,7 @@ async function run() {
       base: branch,
       head: `${owner}:${newBranch}`,
     })
+    console.log(result)
     if (result.data.length === 0) {
       await octokit.rest.pulls.create({
         repo,
