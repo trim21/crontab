@@ -7,6 +7,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v2
+
+      - uses: actions/cache@v2
+        id: cache
+        with:
+          path: ./node_modules
+          key: npm-14-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+
       - run: node labels.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
