@@ -7,6 +7,7 @@ async function run () {
 
   const octokit = github.getOctokit(github_token)
   const [repo, owner] = github_context.repository.split('/')
+  console.log(repo, owner, github_context)
   const { data: pullRequest } = await octokit.rest.pulls.get({
     repo,
     owner,
