@@ -1,8 +1,16 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "@trim21",
     "@trim21:js",
     "@trim21:app"
   ],
-  "automerge": true
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "renovate"
+      ],
+      "automerge": true
+    }
+  ]
 }
