@@ -15,6 +15,6 @@
   "dependencies": {
     "@actions/exec": "1.1.0",
     "@actions/github": "5.0.0",
-    "renovate": "26.20.2"
+    "renovate": "26.21.1"
   }
 }
