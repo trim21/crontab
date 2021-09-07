@@ -30,7 +30,7 @@ async function main () {
       await exec('git', ['pull'], { cwd: repoDir })
     }
 
-    await exec('git', ['push', 'gitea'], { cwd: repoDir })
+    await exec('git', ['push', '--force', 'gitea'], { cwd: repoDir })
   }
 }
 
