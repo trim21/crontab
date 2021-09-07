@@ -21,7 +21,7 @@ async function main () {
   for (const [repoName, url] of Object.entries(repos)) {
     const repoDir = path.join(cwd, 'repos', repoName)
     if (!fs.existsSync(repoDir)) {
-      await exec(`git clone --depth=1 ${url} ${repoDir}`)
+      await exec(`git clone ${url} ${repoDir}`, null, { cwd })
       await exec('git',
         ['remote', 'add', 'gitea', `https://trim21:${ACCESS_TOKEN}@gitee.com/scoop-bucket/${repoName}.git`],
         { cwd: repoDir },
