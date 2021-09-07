@@ -10,12 +10,18 @@ async function main () {
   const cwd = process.cwd()
   const repos = {
     'main': 'https://github.com/ScoopInstaller/Main',
+    'dorado': 'https://github.com/chawyehsu/dorado.git',
+    'everyx': 'https://github.com/everyx/scoop-bucket',
+    'extras': 'https://github.com/lukesampson/scoop-extras.git',
+    'github-gh': 'https://github.com/cli/scoop-gh.git',
+    'nerd-fonts': 'https://github.com/matthewjberger/scoop-nerd-fonts.git',
+    'versions': 'https://github.com/ScoopInstaller/Versions.git',
   }
 
   for (const [repoName, url] of Object.entries(repos)) {
     const repoDir = path.join(cwd, 'repos', repoName)
     if (!fs.existsSync(repoDir)) {
-      await exec(`git clone ${url} ${repoDir}`)
+      await exec(`git clone --depth=1 ${url} ${repoDir}`)
       await exec('git',
         ['remote', 'add', 'gitea', `https://trim21:${ACCESS_TOKEN}@gitee.com/scoop-bucket/${repoName}.git`],
         { cwd: repoDir },
