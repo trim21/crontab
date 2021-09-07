@@ -12,10 +12,10 @@ async function main () {
     'main': 'https://github.com/ScoopInstaller/Main',
     'dorado': 'https://github.com/chawyehsu/dorado.git',
     'everyx': 'https://github.com/everyx/scoop-bucket',
-    'extras': 'https://github.com/lukesampson/scoop-extras.git',
-    'github-gh': 'https://github.com/cli/scoop-gh.git',
-    'nerd-fonts': 'https://github.com/matthewjberger/scoop-nerd-fonts.git',
-    'versions': 'https://github.com/ScoopInstaller/Versions.git',
+    'extras': 'https://github.com/lukesampson/scoop-extras',
+    'github-gh': 'https://github.com/cli/scoop-gh',
+    'nerd-fonts': 'https://github.com/matthewjberger/scoop-nerd-fonts',
+    'versions': 'https://github.com/ScoopInstaller/Versions',
   }
 
   for (const [repoName, url] of Object.entries(repos)) {
