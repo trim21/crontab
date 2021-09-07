@@ -11,19 +11,21 @@ async function main () {
   const repos = {
     'main': 'https://github.com/ScoopInstaller/Main',
   }
-  for (const [repoName, url] of Object.entries(repos)) {
-    const repoDir = path.join(cwd, repoName)
-    if (fs.existsSync(repoDir)) {
-      fs.rmdirSync(repoDir, { recursive: true })
-    }
-    await exec(`git clone --mirror ${url} ${repoDir}`
-    )
-    process.chdir(repoDir)
-    await exec(
-      `git remote add --mirror=push gitea https://${ACCESS_TOKEN}@gitee.com/scoop-bucket/${repoName}.git`
-    )
-    await exec('git push gitea')
 
+  for (const [repoName, url] of Object.entries(repos)) {
+    const repoDir = path.join(cwd, 'repos', repoName)
+    if (!fs.existsSync(repoDir)) {
+      await exec(`git clone --mirror ${url} ${repoDir}`)
+      await exec(
+        `git remote add gitea https://${ACCESS_TOKEN}@gitee.com/scoop-bucket/${repoName}.git`,
+        null,
+        { cwd: repoDir },
+      )
+    } else {
+      await exec('git', ['pull'], { cwd: repoDir })
+    }
+
+    await exec('git', ['push', 'gitea'], { cwd: repoDir })
   }
 }
 
