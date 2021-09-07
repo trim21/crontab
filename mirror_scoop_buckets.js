@@ -15,7 +15,7 @@ async function main () {
   for (const [repoName, url] of Object.entries(repos)) {
     const repoDir = path.join(cwd, 'repos', repoName)
     if (!fs.existsSync(repoDir)) {
-      await exec(`git clone --mirror ${url} ${repoDir}`)
+      await exec(`git clone ${url} ${repoDir}`)
       await exec(
         `git remote add gitea https://${ACCESS_TOKEN}@gitee.com/scoop-bucket/${repoName}.git`,
         null,
