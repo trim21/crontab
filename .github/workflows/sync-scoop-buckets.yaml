@@ -38,4 +38,4 @@ jobs:
       - name: Run Mirror Script
         run: node mirror_scoop_buckets.js
         env:
-          ACCESS_TOKEN: ${{ secrets.GITEA_TOKEN }}
+          ACCESS_TOKEN: ${{ secrets.GITEE_TOKEN }}

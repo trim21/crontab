@@ -20,7 +20,7 @@ async function main () {
     )
     process.chdir(repoDir)
     await exec(
-      `git remote add --mirror=push gitea https://${ACCESS_TOKEN}@gitea.com/scoop-buckets/${repoName}.git`
+      `git remote add --mirror=push gitea https://${ACCESS_TOKEN}@gitee.com/scoop-bucket/${repoName}.git`
     )
     await exec('git push gitea')
 
