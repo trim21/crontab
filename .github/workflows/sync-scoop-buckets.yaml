@@ -50,8 +50,8 @@ jobs:
           path: ./repos/
           key: scoop-bucket-${{ env.D1 }}
           restore-keys: |
-            scoop-bucket-${{ env.D2 }}-
-            scoop-bucket-${{ env.D3 }}-
+            scoop-bucket-${{ env.D2 }}
+            scoop-bucket-${{ env.D3 }}
             scoop-bucket-${{ env.Y }}-${{ env.M }}-
             scoop-bucket-${{ env.Y }}-
             scoop-bucket-
