@@ -1,8 +1,8 @@
 const exec = require("@actions/exec").exec;
 const assert = require("assert");
 
-const path = require("path");
 const fs = require("fs");
+const path = require("path");
 
 async function main() {
   const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
