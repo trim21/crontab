@@ -38,7 +38,7 @@ jobs:
       - run: |
           python -c "from datetime import date, timedelta;print(f'D1={date.today()}')" >> $GITHUB_ENV
           python -c "from datetime import date,timedelta;print(f'D2={date.today() - timedelta(days=1)}')" >> $GITHUB_ENV
-          python -c "from datetime import date,timedelta;print(f'D3={date.today() - timedelta(days=1)}')" >> $GITHUB_ENV
+          python -c "from datetime import date,timedelta;print(f'D3={date.today() - timedelta(days=2)}')" >> $GITHUB_ENV
 
           echo "Y=$(date "+%Y")" >> $GITHUB_ENV
           echo "M=$(date "+%m")" >> $GITHUB_ENV
