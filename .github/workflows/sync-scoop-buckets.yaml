@@ -36,17 +36,25 @@ jobs:
         run: npm ci
 
       - run: |
+          python -c "from datetime import date, timedelta;print(f'D1={date.today()}')" >> $GITHUB_ENV
+          python -c "from datetime import date,timedelta;print(f'D2={date.today() - timedelta(days=1)}')" >> $GITHUB_ENV
+          python -c "from datetime import date,timedelta;print(f'D3={date.today() - timedelta(days=1)}')" >> $GITHUB_ENV
+
+          echo "Y=$(date "+%Y")" >> $GITHUB_ENV
           echo "M=$(date "+%m")" >> $GITHUB_ENV
           echo "D=$(date "+%d")" >> $GITHUB_ENV
-          echo "H=$(date "+%H")" >> $GITHUB_ENV
 
       - name: Repos Cache
         uses: actions/cache@v2
         with:
           path: ./repos/
-          key: scoop-bucket-${{ env.M }}-${{ env.D }}
+          key: scoop-bucket-${{ env.D1 }}
           restore-keys: |
-            scoop-bucket-${{ env.M }}-
+            scoop-bucket-${{ env.D2 }}-
+            scoop-bucket-${{ env.D3 }}-
+            scoop-bucket-${{ env.Y }}-${{ env.M }}-
+            scoop-bucket-${{ env.Y }}-
+            scoop-bucket-
 
       - name: Run Mirror Script
         run: node mirror_scoop_buckets.js
