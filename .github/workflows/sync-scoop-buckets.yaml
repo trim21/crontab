@@ -35,6 +35,11 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
 
+      - run: |
+          echo "M=$(date "+%m")" >> $GITHUB_ENV
+          echo "D=$(date "+%d")" >> $GITHUB_ENV
+          echo "H=$(date "+%H")" >> $GITHUB_ENV
+
       - name: Repos Cache
         uses: actions/cache@v2
         with:
@@ -42,11 +47,6 @@ jobs:
           key: scoop-bucket-${{ env.M }}-${{ env.D }}
           restore-keys: |
             scoop-bucket-${{ env.M }}-
-
-      - run: |
-          echo "M=$(date "+%m")" >> $GITHUB_ENV
-          echo "D=$(date "+%d")" >> $GITHUB_ENV
-          echo "H=$(date "+%H")" >> $GITHUB_ENV
 
       - name: Run Mirror Script
         run: node mirror_scoop_buckets.js
