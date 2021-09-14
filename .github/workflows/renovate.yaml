@@ -74,9 +74,14 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.cache/pypoetry/cache
-          key: poetry-cache-${{ env.M }}-${{ env.D }}
+          key: poetry-cache-${{ env.D1 }}
           restore-keys: |
-            poetry-cache-${{ env.M }}-
+            poetry-cache-${{ env.D2 }}
+            poetry-cache-${{ env.D3 }}
+            poetry-cache-${{ env.Y }}-${{ env.M }}-
+            poetry-cache-${{ env.Y }}-
+            poetry-cache-
+
 
       - name: Run renovate cli
         run: |
