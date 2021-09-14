@@ -50,17 +50,25 @@ jobs:
       - uses: Trim21/setup-poetry@dist/v1
 
       - run: |
+          python -c "from datetime import date,timedelta;print(f'D1={date.today()}')" >> $GITHUB_ENV
+          python -c "from datetime import date,timedelta;print(f'D2={date.today() - timedelta(days=1)}')" >> $GITHUB_ENV
+          python -c "from datetime import date,timedelta;print(f'D3={date.today() - timedelta(days=2)}')" >> $GITHUB_ENV
+
+          echo "Y=$(date "+%Y")" >> $GITHUB_ENV
           echo "M=$(date "+%m")" >> $GITHUB_ENV
           echo "D=$(date "+%d")" >> $GITHUB_ENV
-          echo "H=$(date "+%H")" >> $GITHUB_ENV
 
       - name: Cache Renovate
         uses: actions/cache@v2
         with:
           path: /tmp/renovate
-          key: renovate-cache-${{ env.M }}-${{ env.D }}
+          key: renovate-cache-${{ env.D1 }}
           restore-keys: |
-            renovate-cache-${{ env.M }}-
+            renovate-cache-${{ env.D2 }}
+            renovate-cache-${{ env.D3 }}
+            renovate-cache-${{ env.Y }}-${{ env.M }}-
+            renovate-cache-${{ env.Y }}-
+            renovate-cache-
 
       - name: Poetry Cache
         uses: actions/cache@v2
