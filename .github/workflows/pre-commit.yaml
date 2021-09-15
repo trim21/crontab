@@ -26,6 +26,7 @@ jobs:
           - { repo: Trim21/transmission-rpc, branch: master, py: "3.8" }
           - { repo: BGmi/BGmi-NG, branch: master }
           - { repo: BGmi/anime-episode-parser, branch: master, py: "3.8" }
+          - { repo: "Trim21/flexget-plugins", branch: master, py: "3.8" }
 
     runs-on: ubuntu-latest
 
@@ -80,7 +81,9 @@ jobs:
         name: Cache Python Packages
         with:
           path: ~/.local
-          key: poetry-${{ matrix.repo.repo }}-${{ env.PY }}-${{ hashFiles('**/poetry.lock') }}
+          key:
+            poetry-${{ matrix.repo.repo }}-${{ env.PY }}-${{
+            hashFiles('**/poetry.lock') }}
           restore-keys: |
             poetry-${{ matrix.repo.repo }}-${{ env.PY }}-
 
@@ -88,13 +91,17 @@ jobs:
         name: Cache Pre-Commit
         with:
           path: ~/.cache/pre-commit
-          key: pre-commit-${{ matrix.repo.repo }}-${{ env.PY }}-${{ hashFiles('**/.pre-commit-config.yaml') }}
+          key:
+            pre-commit-${{ matrix.repo.repo }}-${{ env.PY }}-${{
+            hashFiles('**/.pre-commit-config.yaml') }}
           restore-keys: |
             pre-commit-${{ matrix.repo.repo }}-${{ env.PY }}-
 
       - name: Install Dependencies
         working-directory: ./${{ matrix.repo.repo }}
-        run: pip install --user --no-deps -r <(poetry export -f requirements.txt --dev)
+        run:
+          pip install --user --no-deps -r <(poetry export -f requirements.txt
+          --dev)
 
       - name: check if pre-commit update
         run: node $GITHUB_WORKSPACE/pre_commit.js
