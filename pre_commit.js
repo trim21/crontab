@@ -15,6 +15,7 @@ async function run() {
   let shouldCreatePR = false;
   try {
     await exec.exec("pre-commit autoupdate --freeze");
+    await exec.exec("prettier -w ./", undefined, { silent: false });
   } catch {}
 
   try {
@@ -25,9 +26,8 @@ async function run() {
 
   if (shouldCreatePR) {
     try {
-      await exec.exec("pre-commit run --all-files", undefined, {
-        silent: false,
-      });
+      await exec.exec("pre-commit run --all-files", undefined, { silent: false });
+      await exec.exec("prettier -w ./", undefined, { silent: false });
     } catch {
       await exec.exec("git diff", undefined, { silent: true });
     }
