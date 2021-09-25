@@ -16,6 +16,8 @@ async function run() {
   let shouldCreatePR = false;
   try {
     await exec.exec("pre-commit autoupdate --freeze");
+  } catch {}
+  try {
     if (prettier) {
       await exec.exec("prettier -w ./", undefined, { silent: false });
     }
@@ -30,16 +32,16 @@ async function run() {
   if (shouldCreatePR) {
     try {
       await exec.exec("pre-commit run --all-files", undefined, { silent: false });
-      if (prettier) {
-        await exec.exec("prettier -w ./", undefined, { silent: false });
-      }
     } catch {
       await exec.exec("git diff", undefined, { silent: true });
     }
+    try {
+      if (prettier) {
+        await exec.exec("prettier -w ./", undefined, { silent: false });
+      }
+    } catch {}
 
-    await exec.exec('git config --global user.email "i@trim21.me"', undefined, {
-      silent: true,
-    });
+    await exec.exec('git config --global user.email "i@trim21.me"', undefined, { silent: true });
     await exec.exec('git config --global user.name "Trim21"');
 
     await exec.exec("git add .");
