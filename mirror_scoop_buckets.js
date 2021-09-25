@@ -1,4 +1,4 @@
-const exec = require("@actions/exec").exec;
+const { getExecOutput } = require("@actions/exec");
 const assert = require("assert");
 
 const fs = require("fs");
@@ -18,20 +18,33 @@ async function main() {
     versions: "https://github.com/ScoopInstaller/Versions",
   };
 
-  for (const [repoName, url] of Object.entries(repos)) {
-    const repoDir = path.join(cwd, "repos", repoName);
-    const options = { cwd: repoDir };
-    if (!fs.existsSync(repoDir)) {
-      const remote = `https://trim21:${ACCESS_TOKEN}@gitee.com/scoop-bucket/${repoName}.git`;
-      await exec("git", ["clone", url, repoDir]);
-      await exec("git", ["remote", "add", "gitea", remote], options);
-    } else {
-      await exec("git", ["pull"], options);
-    }
+  const promises = Object.entries(repos)
+    .map(([repoName, url]) => {
+      return async function () {
+        let out = "";
+        const repoDir = path.join(cwd, "repos", repoName);
+        const options = { cwd: repoDir };
+        if (!fs.existsSync(repoDir)) {
+          const remote = `https://trim21:${ACCESS_TOKEN}@gitee.com/scoop-bucket/${repoName}.git`;
+          out += await getExecOutput("git", ["clone", url, repoDir]);
+          out += await getExecOutput("git", ["remote", "add", "gitea", remote], options);
+        } else {
+          out += await getExecOutput("git", ["pull"], options);
+        }
+        out += await getExecOutput("git", ["push", "--force", "gitea"], options);
+        out += await getExecOutput("git", ["gc", "--aggressive"], options);
+        return out;
+      };
+    })
+    .map((fn) => fn());
 
-    await exec("git", ["push", "--force", "gitea"], options);
-    await exec("git", ["gc", "--aggressive"], options);
-  }
+  Promise.all(promises)
+    .then((output) => {
+      console.log(output);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 main().catch((e) => {
