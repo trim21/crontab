@@ -4,7 +4,7 @@ const assert = require("assert");
 const fs = require("fs");
 const path = require("path");
 
-async function main() {
+function main() {
   const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
   assert(ACCESS_TOKEN.length !== 0, "no access token given");
   const cwd = process.cwd();
@@ -38,14 +38,13 @@ async function main() {
 
   Promise.all(promises)
     .then((output) => {
-      console.log(output);
+      output.forEach((o) => console.log(o));
     })
     .catch((err) => {
-      console.log(err);
+      err.forEach((o) => console.log(o));
+
+      process.exit(1);
     });
 }
 
-main().catch((e) => {
-  console.log(e);
-  process.exit(1);
-});
+main();
