@@ -74,34 +74,25 @@ jobs:
 
       - name: Fetch All Branches
         working-directory: ./${{ matrix.repo.repo }}
-        run: |
-          git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
+        run: git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
 
       - uses: actions/cache@v2
         name: Cache Python Packages
         with:
           path: ~/.local
-          key:
-            poetry-${{ matrix.repo.repo }}-${{ env.PY }}-${{
-            hashFiles('**/poetry.lock') }}
-          restore-keys: |
-            poetry-${{ matrix.repo.repo }}-${{ env.PY }}-
+          key: poetry-${{ matrix.repo.repo }}-${{ env.PY }}-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: poetry-${{ matrix.repo.repo }}-${{ env.PY }}-
 
       - uses: actions/cache@v2
         name: Cache Pre-Commit
         with:
           path: ~/.cache/pre-commit
-          key:
-            pre-commit-${{ matrix.repo.repo }}-${{ env.PY }}-${{
-            hashFiles('**/.pre-commit-config.yaml') }}
-          restore-keys: |
-            pre-commit-${{ matrix.repo.repo }}-${{ env.PY }}-
+          key: pre-commit-${{ matrix.repo.repo }}-${{ env.PY }}-${{ hashFiles('**/.pre-commit-config.yaml') }}
+          restore-keys: pre-commit-${{ matrix.repo.repo }}-${{ env.PY }}-
 
       - name: Install Dependencies
         working-directory: ./${{ matrix.repo.repo }}
-        run:
-          pip install --user --no-deps -r <(poetry export -f requirements.txt
-          --dev)
+        run: pip install --user --no-deps -r <(poetry export -f requirements.txt --dev)
 
       - name: check if pre-commit update
         run: node $GITHUB_WORKSPACE/pre_commit.js
