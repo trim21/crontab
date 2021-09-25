@@ -19,7 +19,7 @@ async function run() {
   } catch {}
   try {
     if (prettier) {
-      await exec.exec("prettier -w ./", undefined, { silent: false });
+      await exec.exec("prettier -w ./");
     }
   } catch {}
 
@@ -37,7 +37,7 @@ async function run() {
     }
     try {
       if (prettier) {
-        await exec.exec("prettier -w ./", undefined, { silent: false });
+        await exec.exec("prettier -w ./");
       }
     } catch {}
 
