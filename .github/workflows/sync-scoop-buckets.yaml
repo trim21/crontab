@@ -35,23 +35,16 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
 
-      - run: |
-          python -c "from datetime import date, timedelta;print(f'D1={date.today()}')" >> $GITHUB_ENV
-          python -c "from datetime import date,timedelta;print(f'D2={date.today() - timedelta(days=1)}')" >> $GITHUB_ENV
-          python -c "from datetime import date,timedelta;print(f'D3={date.today() - timedelta(days=2)}')" >> $GITHUB_ENV
-
-          echo "Y=$(date "+%Y")" >> $GITHUB_ENV
-          echo "M=$(date "+%m")" >> $GITHUB_ENV
-          echo "D=$(date "+%d")" >> $GITHUB_ENV
+      - run: python common/date.py
 
       - name: Repos Cache
         uses: actions/cache@v2
         with:
           path: ./repos/
-          key: scoop-bucket-${{ env.D1 }}
+          key: scoop-bucket-${{ env.TODAY }}
           restore-keys: |
+            scoop-bucket-${{ env.D1 }}
             scoop-bucket-${{ env.D2 }}
-            scoop-bucket-${{ env.D3 }}
             scoop-bucket-${{ env.Y }}-${{ env.M }}-
             scoop-bucket-${{ env.Y }}-
             scoop-bucket-
