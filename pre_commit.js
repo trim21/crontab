@@ -19,7 +19,7 @@ async function run() {
   } catch {}
   try {
     if (prettier) {
-      await exec.exec("prettier -w ./");
+      await exec.exec("npx --no-install prettier -w ./");
     }
   } catch {}
 
@@ -37,7 +37,7 @@ async function run() {
     }
     try {
       if (prettier) {
-        await exec.exec("prettier -w ./");
+        await exec.exec("npx --no-install prettier -w ./");
       }
     } catch {}
 
