@@ -19,22 +19,20 @@ async function main() {
   };
 
   const promises = Object.entries(repos)
-    .map(([repoName, url]) => {
-      return async function () {
-        let out = "";
-        const repoDir = path.join(cwd, "repos", repoName);
-        const options = { cwd: repoDir };
-        if (!fs.existsSync(repoDir)) {
-          const remote = `https://trim21:${ACCESS_TOKEN}@gitee.com/scoop-bucket/${repoName}.git`;
-          out += await getExecOutput("git", ["clone", url, repoDir]);
-          out += await getExecOutput("git", ["remote", "add", "gitea", remote], options);
-        } else {
-          out += await getExecOutput("git", ["pull"], options);
-        }
-        out += await getExecOutput("git", ["push", "--force", "gitea"], options);
-        out += await getExecOutput("git", ["gc", "--aggressive"], options);
-        return out;
-      };
+    .map(([repoName, url]) => async () => {
+      let out = "";
+      const repoDir = path.join(cwd, "repos", repoName);
+      const options = { cwd: repoDir };
+      if (!fs.existsSync(repoDir)) {
+        const remote = `https://trim21:${ACCESS_TOKEN}@gitee.com/scoop-bucket/${repoName}.git`;
+        out += await getExecOutput("git", ["clone", url, repoDir]);
+        out += await getExecOutput("git", ["remote", "add", "gitea", remote], options);
+      } else {
+        out += await getExecOutput("git", ["pull"], options);
+      }
+      out += await getExecOutput("git", ["push", "--force", "gitea"], options);
+      out += await getExecOutput("git", ["gc", "--aggressive"], options);
+      return out;
     })
     .map((fn) => fn());
 
