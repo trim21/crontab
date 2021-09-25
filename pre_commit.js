@@ -10,12 +10,15 @@ async function run() {
   const owner = process.env.REPO.split("/")[0];
   const repo = process.env.REPO.split("/")[1];
   const branch = process.env.BRANCH;
+  const prettier = Boolean(proce.env.PRETTIER);
   const octokit = github.getOctokit(myToken);
   const newBranch = "chore/update-pre-commit";
   let shouldCreatePR = false;
   try {
     await exec.exec("pre-commit autoupdate --freeze");
-    await exec.exec("prettier -w ./", undefined, { silent: false });
+    if (prettier) {
+      await exec.exec("prettier -w ./", undefined, { silent: false });
+    }
   } catch {}
 
   try {
@@ -27,7 +30,9 @@ async function run() {
   if (shouldCreatePR) {
     try {
       await exec.exec("pre-commit run --all-files", undefined, { silent: false });
-      await exec.exec("prettier -w ./", undefined, { silent: false });
+      if (prettier) {
+        await exec.exec("prettier -w ./", undefined, { silent: false });
+      }
     } catch {
       await exec.exec("git diff", undefined, { silent: true });
     }
