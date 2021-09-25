@@ -10,7 +10,7 @@ async function run() {
   const owner = process.env.REPO.split("/")[0];
   const repo = process.env.REPO.split("/")[1];
   const branch = process.env.BRANCH;
-  const prettier = Boolean(proce.env.PRETTIER);
+  const prettier = Boolean(process.env.PRETTIER);
   const octokit = github.getOctokit(myToken);
   const newBranch = "chore/update-pre-commit";
   let shouldCreatePR = false;
