@@ -30,6 +30,7 @@ async function main() {
     }
 
     await exec("git", ["push", "--force", "gitea"], options);
+    await exec("git", ["gc", "--aggressive"], options);
   }
 }
 
