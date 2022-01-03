@@ -1,4 +1,4 @@
-name: renovate
+name: mirror-gcr-io
 
 on:
   workflow_dispatch:
@@ -6,15 +6,9 @@ on:
     branches:
       - "master"
     paths:
-      - .github/workflows/renovate.yaml
-      - common/version.sh
-      - package.json
-      - package-lock.json
+      - .github/workflows/mirror-gcr-io.yaml
   schedule:
     - cron: "0 */3 * * *"
-  repository_dispatch:
-    types:
-      - renovate
 
 jobs:
   main:
