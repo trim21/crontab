@@ -1,0 +1,35 @@
+name: renovate
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "master"
+    paths:
+      - .github/workflows/renovate.yaml
+      - common/version.sh
+      - package.json
+      - package-lock.json
+  schedule:
+    - cron: "0 */3 * * *"
+  repository_dispatch:
+    types:
+      - renovate
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: docker pull gcr.io/cadvisor/cadvisor:latest
+
+      - run: echo $DOCKER_TOKEN | docker login ghcr.io -u bangumi --password-stdin
+        name: docker login
+        env:
+          DOCKER_TOKEN: ${{ github.token }}
+
+      - run: |
+          docker tag gcr.io/cadvisor/cadvisor:latest "ghcr.io/trim21/cadvisor:latest"
+          docker push "ghcr.io/trim21/cadvisor:latest"
