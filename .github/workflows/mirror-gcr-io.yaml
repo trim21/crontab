@@ -17,7 +17,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: docker pull gcr.io/cadvisor/cadvisor:latest
+      - run: |
+          docker create --name cadvisor gcr.io/cadvisor/cadvisor:latest
+          docker export cadvisor | docker import - ghcr.io/trim21/cadvisor:latest
 
       - run: echo $DOCKER_TOKEN | docker login ghcr.io -u bangumi --password-stdin
         name: docker login
@@ -25,5 +27,4 @@ jobs:
           DOCKER_TOKEN: ${{ github.token }}
 
       - run: |
-          docker tag gcr.io/cadvisor/cadvisor:latest "ghcr.io/trim21/cadvisor:latest"
           docker push "ghcr.io/trim21/cadvisor:latest"
