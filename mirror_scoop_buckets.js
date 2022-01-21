@@ -41,7 +41,7 @@ function main() {
       output.forEach((o) => console.log(o));
     })
     .catch((err) => {
-      err.forEach((o) => console.log(o));
+      console.log(err)
 
       process.exit(1);
     });
