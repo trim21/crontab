@@ -22,7 +22,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "16"
           registry-url: "https://registry.npmjs.org"
 
       - uses: actions/cache@v2
@@ -41,13 +41,13 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./repos/
-          key: scoop-bucket-${{ env.TODAY }}
+          key: scoop-bucket-1-${{ env.TODAY }}
           restore-keys: |
-            scoop-bucket-${{ env.D1 }}
-            scoop-bucket-${{ env.D2 }}
-            scoop-bucket-${{ env.Y }}-${{ env.M }}-
-            scoop-bucket-${{ env.Y }}-
-            scoop-bucket-
+            scoop-bucket-1-${{ env.D1 }}
+            scoop-bucket-1-${{ env.D2 }}
+            scoop-bucket-1-${{ env.Y }}-${{ env.M }}-
+            scoop-bucket-1-${{ env.Y }}-
+            scoop-bucket-1-
 
       - name: Run Mirror Script
         run: node mirror_scoop_buckets.js
