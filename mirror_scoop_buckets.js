@@ -40,7 +40,7 @@ function main() {
 
   Promise.all(promises)
     .then((output) => {
-      output.forEach((o) => console.log(o.stdout));
+      console.log(output.reduce((p, c) => p.stdout + c.stdout));
     })
     .catch((err) => {
       console.log(err)
