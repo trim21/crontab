@@ -64,7 +64,7 @@ function main() {
 
       out += await exec("git", ["fetch", "gitee"], options);
       out += await exec("git", ["checkout", "origin/master"], options);
-      // out += await exec("git", ["push", "--force", "gitee", "master"], options);
+      out += await exec("git", ["push", "--force", "gitee", "master"], options);
       return out;
     })
     .map((fn) => fn());
