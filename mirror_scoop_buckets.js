@@ -16,7 +16,7 @@ async function exec(cmd, args, options) {
     options = {}
   }
 
-  let output = `$ ${cmd} ${args}\n`;
+  let output = `$ ${cmd} ${args.join(' ')}\n`;
 
   options.silent = true;
   options.outStream = null;
