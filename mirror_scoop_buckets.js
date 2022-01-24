@@ -3,6 +3,7 @@ const assert = require("assert");
 
 const fs = require("fs");
 const path = require("path");
+const null
 
 /**
  *
@@ -19,6 +20,9 @@ async function exec(cmd, args, options) {
   let output = '';
 
   options.listeners = {
+    outStream: null,
+    errStream: null,
+
     stdout: (data) => {
       output += data.toString();
     }, stderr: (data) => {
