@@ -26,12 +26,15 @@ function main() {
       if (!fs.existsSync(repoDir)) {
         const remote = `https://trim21:${ACCESS_TOKEN}@gitee.com/scoop-bucket/${repoName}.git`;
         out += await getExecOutput("git", ["clone", url, repoDir]);
-        out += await getExecOutput("git", ["remote", "add", "gitea", remote], options);
-        out += await getExecOutput("git", ["fetch", "upstream"], options);
+        out += await getExecOutput("git", ["remote", "add", "gitee", remote], options);
+        out += await getExecOutput("git", ["fetch", "gitee"], options);
       } else {
-        out += await getExecOutput("git", ["fetch", "upstream"], options);
+        out += await getExecOutput("git", ["fetch", "origin"], options);
+        out += await getExecOutput("git", ["fetch", "gitee"], options);
       }
-      out += await getExecOutput("git", ["push", "--force", "gitea", "master"], options);
+
+      out += await getExecOutput("git", ["checkout", "origin/master"], options);
+      out += await getExecOutput("git", ["push", "--force", "gitee", "master"], options);
       out += await getExecOutput("git", ["gc"], options);
       return out;
     })
