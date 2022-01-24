@@ -22,7 +22,7 @@ function main() {
     .map(([repoName, url]) => async () => {
       let out = [];
       const repoDir = path.join(cwd, "repos", repoName);
-      const options = { cwd: repoDir };
+      const options = { cwd: repoDir, silent: true };
       if (!fs.existsSync(repoDir)) {
         const remote = `https://trim21:${ACCESS_TOKEN}@gitee.com/scoop-bucket/${repoName}.git`;
         out.push(await getExecOutput("git", ["clone", url, repoDir]));
@@ -40,7 +40,7 @@ function main() {
 
   Promise.all(promises)
     .then((output) => {
-      console.log(output.reduce((p, c) => p.stdout + c.stdout));
+      console.log(output.reduce((p, c) => p.stdout + p.stderr + c.stdout + c.stderr));
     })
     .catch((err) => {
       console.log(err)
