@@ -27,11 +27,12 @@ function main() {
         const remote = `https://trim21:${ACCESS_TOKEN}@gitee.com/scoop-bucket/${repoName}.git`;
         out += await getExecOutput("git", ["clone", url, repoDir]);
         out += await getExecOutput("git", ["remote", "add", "gitea", remote], options);
+        out += await getExecOutput("git", ["fetch", "upstream"], options);
       } else {
-        out += await getExecOutput("git", ["pull"], options);
+        out += await getExecOutput("git", ["fetch", "upstream"], options);
       }
-      out += await getExecOutput("git", ["push", "--force", "gitea"], options);
-      out += await getExecOutput("git", ["gc", "--aggressive"], options);
+      out += await getExecOutput("git", ["push", "--force", "gitea", "master"], options);
+      out += await getExecOutput("git", ["gc"], options);
       return out;
     })
     .map((fn) => fn());
