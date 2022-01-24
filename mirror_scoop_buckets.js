@@ -16,7 +16,7 @@ async function exec(cmd, args, options) {
     options = {}
   }
 
-  let output = `[command]${cmd} ${args}\n`;
+  let output = `$ ${cmd} ${args}\n`;
 
   options.silent = true;
   options.outStream = null;
@@ -73,7 +73,7 @@ function main() {
     .then((output) => {
       output.forEach((value, index) => {
         const [repoName, _] = Array.from(Object.entries(repos))[index]
-        console.group(`log for ${repoName}`)
+        console.group(`log for ${repoName}:`)
         console.log(value)
         console.groupEnd()
       })
