@@ -4,6 +4,33 @@ const assert = require("assert");
 const fs = require("fs");
 const path = require("path");
 
+/**
+ *
+ * @param {string} cmd
+ * @param {string[]} args
+ * @param {object?} options
+ * @returns {Promise<string>}
+ */
+async function exec(cmd, args, options) {
+  if (!options) {
+    options = {}
+  }
+
+  let output = '';
+
+  options.listeners = {
+    stdout: (data) => {
+      output += data.toString();
+    }, stderr: (data) => {
+      output += data.toString();
+    }
+  };
+
+  await exec(cmd, args, options);
+
+  return output
+}
+
 function main() {
   const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
   assert(ACCESS_TOKEN.length !== 0, "no access token given");
@@ -20,27 +47,27 @@ function main() {
 
   const promises = Object.entries(repos)
     .map(([repoName, url]) => async () => {
-      let out = [];
+      let out = "";
       const repoDir = path.join(cwd, "repos", repoName);
-      const options = { cwd: repoDir, silent: true };
+      const options = { cwd: repoDir };
       if (!fs.existsSync(repoDir)) {
         const remote = `https://trim21:${ACCESS_TOKEN}@gitee.com/scoop-bucket/${repoName}.git`;
-        out.push(await getExecOutput("git", ["clone", url, repoDir]));
-        out.push(await getExecOutput("git", ["remote", "add", "gitee", remote], options));
+        out += await exec("git", ["clone", url, repoDir]);
+        out += await exec("git", ["remote", "add", "gitee", remote], options);
       } else {
-        out.push(await getExecOutput("git", ["fetch", "origin"], options));
+        out += await exec("git", ["fetch", "origin"], options);
       }
 
-      out.push(await getExecOutput("git", ["fetch", "gitee"], options));
-      out.push(await getExecOutput("git", ["checkout", "origin/master"], options));
-      out.push(await getExecOutput("git", ["push", "--force", "gitee", "master"], options));
+      out += await exec("git", ["fetch", "gitee"], options);
+      out += await exec("git", ["checkout", "origin/master"], options);
+      out += await exec("git", ["push", "--force", "gitee", "master"], options);
       return out;
     })
     .map((fn) => fn());
 
   Promise.all(promises)
     .then((output) => {
-      console.log(output.reduce((p, c) => p.stdout + p.stderr + c.stdout + c.stderr));
+      output.forEach(console.log)
     })
     .catch((err) => {
       console.log(err)
