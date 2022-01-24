@@ -18,8 +18,9 @@ async function exec(cmd, args, options) {
 
   let output = '';
 
-  options.outStream = null
-  options.errStream = null
+  options.silent = true;
+  options.outStream = null;
+  options.errStream = null;
   options.listeners = {
     stdout: (data) => {
       output += data.toString();
@@ -63,14 +64,19 @@ function main() {
 
       out += await exec("git", ["fetch", "gitee"], options);
       out += await exec("git", ["checkout", "origin/master"], options);
-      out += await exec("git", ["push", "--force", "gitee", "master"], options);
+      // out += await exec("git", ["push", "--force", "gitee", "master"], options);
       return out;
     })
     .map((fn) => fn());
 
   Promise.all(promises)
     .then((output) => {
-      output.forEach(console.log)
+      output.forEach((value, index) => {
+        const [repoName, _] = Array.from(Object.entries(repos))[index]
+        console.group(`log for ${repoName}`)
+        console.log(value)
+        console.groupEnd()
+      })
     })
     .catch((err) => {
       console.log(err)
