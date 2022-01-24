@@ -1,4 +1,4 @@
-const { getExecOutput } = require("@actions/exec");
+const _exec = require("@actions/exec");
 const assert = require("assert");
 
 const fs = require("fs");
@@ -26,7 +26,7 @@ async function exec(cmd, args, options) {
     }
   };
 
-  await exec(cmd, args, options);
+  await _exec.exec(cmd, args, options);
 
   return output
 }
