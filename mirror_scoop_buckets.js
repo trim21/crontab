@@ -41,6 +41,7 @@ function main() {
   const cwd = process.cwd();
   const repos = {
     main: "https://github.com/ScoopInstaller/Main",
+    scoop: "https://github.com/ScoopInstaller/Scoop",
     dorado: "https://github.com/chawyehsu/dorado.git",
     everyx: "https://github.com/everyx/scoop-bucket",
     extras: "https://github.com/lukesampson/scoop-extras",
