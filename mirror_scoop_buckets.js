@@ -18,10 +18,9 @@ async function exec(cmd, args, options) {
 
   let output = '';
 
+  options.outStream = null
+  options.errStream = null
   options.listeners = {
-    outStream: null,
-    errStream: null,
-
     stdout: (data) => {
       output += data.toString();
     },
