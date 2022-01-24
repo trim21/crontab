@@ -20,27 +20,27 @@ function main() {
 
   const promises = Object.entries(repos)
     .map(([repoName, url]) => async () => {
-      let out = "";
+      let out = [];
       const repoDir = path.join(cwd, "repos", repoName);
       const options = { cwd: repoDir };
       if (!fs.existsSync(repoDir)) {
         const remote = `https://trim21:${ACCESS_TOKEN}@gitee.com/scoop-bucket/${repoName}.git`;
-        out += await getExecOutput("git", ["clone", url, repoDir]);
-        out += await getExecOutput("git", ["remote", "add", "gitee", remote], options);
+        out.push(await getExecOutput("git", ["clone", url, repoDir]));
+        out.push(await getExecOutput("git", ["remote", "add", "gitee", remote], options));
       } else {
-        out += await getExecOutput("git", ["fetch", "origin"], options);
+        out.push(await getExecOutput("git", ["fetch", "origin"], options));
       }
 
-      out += await getExecOutput("git", ["fetch", "gitee"], options);
-      out += await getExecOutput("git", ["checkout", "origin/master"], options);
-      out += await getExecOutput("git", ["push", "--force", "gitee", "master"], options);
+      out.push(await getExecOutput("git", ["fetch", "gitee"], options));
+      out.push(await getExecOutput("git", ["checkout", "origin/master"], options));
+      out.push(await getExecOutput("git", ["push", "--force", "gitee", "master"], options));
       return out;
     })
     .map((fn) => fn());
 
   Promise.all(promises)
     .then((output) => {
-      output.forEach((o) => console.log(o));
+      output.forEach((o) => console.log(o.stdout));
     })
     .catch((err) => {
       console.log(err)
