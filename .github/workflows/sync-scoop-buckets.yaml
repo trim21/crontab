@@ -10,7 +10,7 @@ on:
       - package.json
       - package-lock.json
   schedule:
-    - cron: "0 10 * * *"
+    - cron: "0 */3 * * *"
 
 jobs:
   main:
