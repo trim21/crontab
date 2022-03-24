@@ -15,7 +15,7 @@
   "dependencies": {
     "@actions/exec": "1.1.1",
     "@actions/github": "5.0.0",
-    "renovate": "32.6.12"
+    "renovate": "32.6.13"
   },
   "devDependencies": {
     "prettier": "2.6.0"
