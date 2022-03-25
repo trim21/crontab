@@ -10,7 +10,7 @@ on:
       - package.json
       - package-lock.json
   schedule:
-    - cron: "0 */3 * * *"
+    - cron: "0 */6 * * *"
 
 jobs:
   main:
@@ -18,8 +18,8 @@ jobs:
       fail-fast: false
       matrix:
         repo:
-          - { name: main, url: "https://github.com/ScoopInstaller/Main" }
           - { name: scoop, url: "https://github.com/ScoopInstaller/Scoop" }
+          - { name: main, url: "https://github.com/ScoopInstaller/Main" }
           - { name: dorado, url: "https://github.com/chawyehsu/dorado.git" }
           - { name: everyx, url: "https://github.com/everyx/scoop-bucket" }
           - { name: extras, url: "https://github.com/lukesampson/scoop-extras" }
