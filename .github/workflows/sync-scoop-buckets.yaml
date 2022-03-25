@@ -28,6 +28,7 @@ jobs:
           - { name: versions, url: "https://github.com/ScoopInstaller/Versions" }
 
     runs-on: ubuntu-latest
+    name: "sync ${{ matrix.repo.name }}"
 
     steps:
       - uses: actions/checkout@v2
