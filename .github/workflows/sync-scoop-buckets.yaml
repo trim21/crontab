@@ -14,6 +14,19 @@ on:
 
 jobs:
   main:
+    strategy:
+      fail-fast: false
+      matrix:
+        repo:
+          - { name: main, url: "https://github.com/ScoopInstaller/Main" }
+          - { name: scoop, url: "https://github.com/ScoopInstaller/Scoop" }
+          - { name: dorado, url: "https://github.com/chawyehsu/dorado.git" }
+          - { name: everyx, url: "https://github.com/everyx/scoop-bucket" }
+          - { name: extras, url: "https://github.com/lukesampson/scoop-extras" }
+          - { name: "github-gh", url: "https://github.com/cli/scoop-gh" }
+          - { name: "nerd-fonts", url: "https://github.com/matthewjberger/scoop-nerd-fonts" }
+          - { name: versions, url: "https://github.com/ScoopInstaller/Versions" }
+
     runs-on: ubuntu-latest
 
     steps:
@@ -41,15 +54,17 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./repos/
-          key: scoop-bucket-1-${{ env.TODAY }}
+          key: scoop-bucket-${{ matrix.repo.name }}-2-${{ env.TODAY }}
           restore-keys: |
-            scoop-bucket-1-${{ env.D1 }}
-            scoop-bucket-1-${{ env.D2 }}
-            scoop-bucket-1-${{ env.Y }}-${{ env.M }}-
-            scoop-bucket-1-${{ env.Y }}-
-            scoop-bucket-1-
+            scoop-bucket-${{ matrix.repo.name }}-2-${{ env.D1 }}
+            scoop-bucket-${{ matrix.repo.name }}-2-${{ env.D2 }}
+            scoop-bucket-${{ matrix.repo.name }}-2-${{ env.Y }}-${{ env.M }}-
+            scoop-bucket-${{ matrix.repo.name }}-2-${{ env.Y }}-
+            scoop-bucket-${{ matrix.repo.name }}-2-
 
       - name: Run Mirror Script
         run: node mirror_scoop_buckets.js
         env:
           ACCESS_TOKEN: ${{ secrets.GITEE_TOKEN }}
+          NAME: ${{ matrix.repo.name }}
+          URL: ${{ matrix.repo.url }}
