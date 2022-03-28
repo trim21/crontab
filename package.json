@@ -15,6 +15,7 @@
   "dependencies": {
     "@actions/exec": "1.1.1",
     "@actions/github": "5.0.0",
+    "dayjs": "^1.11.0",
     "renovate": "32.8.1"
   },
   "devDependencies": {

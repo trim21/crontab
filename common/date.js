@@ -1,32 +1,27 @@
 const fs = require('fs')
+
+const dayjs = require('dayjs')
+
 const ENV_FILE = process.env.GITHUB_ENV ?? "./env_file"
 
-const today = new Date()
+/**
+ * @var {dayjs.Dayjs}
+ */
+const today = new dayjs()
 
 /**
  *
- * @param d {Date}
+ * @param d {dayjs.Dayjs}
  * @return {string}
  */
 function toString(d) {
-  return `${d.getUTCFullYear()}-${d.getUTCMonth() + 1}-${d.getUTCDate()}`
+  return `${d.year()}-${d.month() + 1}-${d.date()}`
 }
 
-fs.appendFileSync(ENV_FILE, `Y=${today.getUTCFullYear()}\n`)
-fs.appendFileSync(ENV_FILE, `M=${today.getUTCMonth() + 1}\n`)
-fs.appendFileSync(ENV_FILE, `D=${today.getUTCDate()}\n`)
+fs.appendFileSync(ENV_FILE, `Y=${today.year()}\n`)
+fs.appendFileSync(ENV_FILE, `M=${today.month() + 1}\n`)
+fs.appendFileSync(ENV_FILE, `D=${today.date()}\n`)
+
 fs.appendFileSync(ENV_FILE, `TODAY=${toString(today)}\n`)
-
-today.setDate(today.getDate() - 1)
-fs.appendFileSync(ENV_FILE, `D1=${toString(today)}\n`)
-
-today.setDate(today.getDate() - 1)
-fs.appendFileSync(ENV_FILE, `D2=${toString(today)}\n`)
-
-
-// with open(ENV_FILE, "a+", encoding="utf-8") as env_file:
-//     print(f"D1={today - timedelta(days=1)}", file=env_file)
-//     print(f"D2={today - timedelta(days=2)}", file=env_file)
-//     print(f"Y={today.year}", file=env_file)
-//     print(f"M={today.month:02d}", file=env_file)
-//     print(f"D={today.day:02d}", file=env_file)
+fs.appendFileSync(ENV_FILE, `D1=${toString(today.subtract(1, 'd'))}\n`)
+fs.appendFileSync(ENV_FILE, `D2=${toString(today.subtract(2, 'd'))}\n`)
