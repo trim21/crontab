@@ -56,9 +56,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./repos/
-          key: scoop-bucket-${{ matrix.repo.name }}-2-${{ env.D0 }}
+          key: scoop-bucket-${{ matrix.repo.name }}-2-${{ env.TODAY }}
           restore-keys: |
-            scoop-bucket-${{ matrix.repo.name }}-2-${{ env.D0 }}
+            scoop-bucket-${{ matrix.repo.name }}-2-${{ env.TODAY }}
             scoop-bucket-${{ matrix.repo.name }}-2-${{ env.D1 }}
             scoop-bucket-${{ matrix.repo.name }}-2-${{ env.D2 }}
             scoop-bucket-${{ matrix.repo.name }}-2-${{ env.Y }}-${{ env.M }}-
