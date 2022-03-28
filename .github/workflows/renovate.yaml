@@ -55,8 +55,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /tmp/renovate
-          key: renovate-cache-${{ env.TODAY }}
+          key: renovate-cache-${{ env.D0 }}
           restore-keys: |
+            renovate-cache-${{ env.D0 }}
             renovate-cache-${{ env.D1 }}
             renovate-cache-${{ env.D2 }}
             renovate-cache-${{ env.Y }}-${{ env.M }}-
@@ -67,8 +68,10 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.cache/pypoetry/cache
-          key: poetry-cache-${{ env.D1 }}
+          key: poetry-cache-${{ env.D0 }}
           restore-keys: |
+            poetry-cache-${{ env.D0 }}
+            poetry-cache-${{ env.D1 }}
             poetry-cache-${{ env.D2 }}
             poetry-cache-${{ env.D3 }}
             poetry-cache-${{ env.Y }}-${{ env.M }}-
