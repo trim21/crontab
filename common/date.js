@@ -2,7 +2,7 @@ const fs = require('fs')
 
 const dayjs = require('dayjs')
 
-const ENV_FILE = process.env.GITHUB_ENV ?? "./env_file"
+const ENV_FILE = process.env.GITHUB_ENV
 
 /**
  * @var {dayjs.Dayjs}
