@@ -23,6 +23,7 @@ async function main() {
     out += await exec("git", ["fetch", "origin"], options);
   }
 
+  out += await exec("git", ["remote", "prune", "origin"], options)
   out += await exec("git", ["fetch", "gitee"], options);
   out += await exec("git", ["reset", "--hard"], options);
   out += await exec("git", ["checkout", "master"], options);
