@@ -50,7 +50,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
 
-      - run: python common/date.py
+      - run: node common/date.js
 
       - name: Repos Cache
         uses: actions/cache@v2

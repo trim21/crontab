@@ -49,7 +49,7 @@ jobs:
 
       - uses: Trim21/setup-poetry@dist/v1
 
-      - run: python common/date.py
+      - run: node common/date.js
 
       - name: Cache Renovate
         uses: actions/cache@v2
