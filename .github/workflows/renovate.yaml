@@ -52,12 +52,11 @@ jobs:
       - run: node common/date.js
 
       - name: Cache Renovate
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: /tmp/renovate
           key: renovate-cache-${{ env.TODAY }}
           restore-keys: |
-            renovate-cache-${{ env.TODAY }}
             renovate-cache-${{ env.D1 }}
             renovate-cache-${{ env.D2 }}
             renovate-cache-${{ env.Y }}-${{ env.M }}-
@@ -65,12 +64,11 @@ jobs:
             renovate-cache-
 
       - name: Poetry Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.cache/pypoetry/cache
           key: poetry-cache-${{ env.TODAY }}
           restore-keys: |
-            poetry-cache-${{ env.TODAY }}
             poetry-cache-${{ env.D1 }}
             poetry-cache-${{ env.D2 }}
             poetry-cache-${{ env.Y }}-${{ env.M }}-

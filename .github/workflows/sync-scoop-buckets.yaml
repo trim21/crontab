@@ -53,12 +53,11 @@ jobs:
       - run: node common/date.js
 
       - name: Repos Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ./repos/
           key: scoop-bucket-${{ matrix.repo.name }}-2-${{ env.TODAY }}
           restore-keys: |
-            scoop-bucket-${{ matrix.repo.name }}-2-${{ env.TODAY }}
             scoop-bucket-${{ matrix.repo.name }}-2-${{ env.D1 }}
             scoop-bucket-${{ matrix.repo.name }}-2-${{ env.D2 }}
             scoop-bucket-${{ matrix.repo.name }}-2-${{ env.Y }}-${{ env.M }}-
