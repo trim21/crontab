@@ -43,7 +43,7 @@ jobs:
 
       - run: npm i npm -g
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: cache
         with:
           path: ./node_modules
@@ -56,7 +56,7 @@ jobs:
 
       ################ python
 
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.repo.py }}
 
@@ -66,7 +66,7 @@ jobs:
 
       - uses: Trim21/setup-poetry@dist/v1
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           repository: ${{ matrix.repo.repo }}
           ref: ${{ matrix.repo.branch }}
@@ -77,14 +77,14 @@ jobs:
         working-directory: ./${{ matrix.repo.repo }}
         run: git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         name: Cache Python Packages
         with:
           path: ~/.local
           key: poetry-${{ matrix.repo.repo }}-${{ env.PY }}-${{ hashFiles('**/poetry.lock') }}
           restore-keys: poetry-${{ matrix.repo.repo }}-${{ env.PY }}-
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         name: Cache Pre-Commit
         with:
           path: ~/.cache/pre-commit
