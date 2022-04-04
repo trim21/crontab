@@ -16,7 +16,7 @@
     "@actions/exec": "1.1.1",
     "@actions/github": "5.0.1",
     "dayjs": "1.11.0",
-    "renovate": "32.10.6"
+    "renovate": "32.11.2"
   },
   "devDependencies": {
     "prettier": "2.6.2"
