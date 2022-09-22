@@ -8,10 +8,10 @@ async function main() {
   assert(ACCESS_TOKEN.length !== 0, "no access token given");
   const cwd = process.cwd();
   const repos = {
-    cactbot: {
-      upstream: "https://github.com/quisquous/cactbot.git",
-      branch: "main",
-    },
+//    cactbot: {
+ //     upstream: "https://github.com/quisquous/cactbot.git",
+   //   branch: "main",
+  //  },
   };
   for (const [repoName, info] of Object.entries(repos)) {
     const repoDir = path.join(cwd, repoName);
