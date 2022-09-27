@@ -11,7 +11,7 @@ on:
       - package.json
       - package-lock.json
   schedule:
-    - cron: "0 13 * * *"
+    - cron: "0 14 * * *"
   repository_dispatch:
     types:
       - renovate
