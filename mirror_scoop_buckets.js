@@ -1,4 +1,4 @@
-// test
+// test 2
 const { exec } = require("@actions/exec");
 const assert = require("assert");
 
