@@ -21,13 +21,13 @@ jobs:
       fail-fast: false
       matrix:
         repo:
-          - { repo: Trim21/BGmi, branch: master, py: "3.8" }
+          - { repo: trim21/BGmi, branch: master, py: "3.10" }
           # - { repo: Trim21/pol, branch: master, py: "3.8" }
-          - { repo: Trim21/pre-commit-hooks, branch: master, py: "3.8" }
-          - { repo: Trim21/transmission-rpc, branch: master, py: "3.8" }
+          - { repo: trim21/pre-commit-hooks, branch: master, py: "3.10" }
+          - { repo: trim21/transmission-rpc, branch: master, py: "3.10" }
           # - { repo: BGmi/BGmi-NG, branch: master }
-          - { repo: BGmi/anime-episode-parser, branch: master, py: "3.8" }
-          - { repo: "Trim21/flexget-plugins", branch: master, py: "3.8", prettier: true }
+          - { repo: BGmi/anime-episode-parser, branch: master, py: "3.10" }
+          - { repo: "trim21/flexget-plugins", branch: master, py: "3.10", prettier: true }
 
     runs-on: ubuntu-latest
 
