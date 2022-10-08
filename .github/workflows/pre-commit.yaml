@@ -32,25 +32,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       ################ node
 
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: "16"
+          cache: npm
 
       - run: npm i npm -g
 
-      - uses: actions/cache@v3
-        id: cache
-        with:
-          path: ./node_modules
-          key: npm-16-${{ hashFiles('**/package-lock.json') }}
-
       - name: Install Dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       ################ end node
 
@@ -93,7 +87,7 @@ jobs:
 
       - name: Install Dependencies
         working-directory: ./${{ matrix.repo.repo }}
-        run: pip install --user --no-deps -r <(poetry export -f requirements.txt --dev)
+        run: pip install --user --no-deps -r <(poetry export -f requirements.txt --with dev)
 
       - name: check if pre-commit update
         run: node $GITHUB_WORKSPACE/pre_commit.js
