@@ -26,7 +26,6 @@ jobs:
           - { name: "github-gh", url: "https://github.com/cli/scoop-gh" }
           - { name: "nerd-fonts", url: "https://github.com/matthewjberger/scoop-nerd-fonts" }
           - { name: versions, url: "https://github.com/ScoopInstaller/Versions" }
-          - { name: backit, url: "https://github.com/batkiz/backit.git" }
 
     runs-on: ubuntu-latest
     name: "sync ${{ matrix.repo.name }}"
