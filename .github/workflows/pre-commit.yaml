@@ -36,16 +36,15 @@ jobs:
 
       ################ node
 
-      - name: Setup node
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: "lts/*"
+          registry-url: "https://registry.npmjs.org"
           cache: npm
 
       - run: npm i npm -g
 
-      - name: Install Dependencies
-        run: npm ci
+      - run: npm ci
       ################ end node
 
       ################ python
