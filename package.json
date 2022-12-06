@@ -15,7 +15,7 @@
   "dependencies": {
     "@actions/exec": "1.1.1",
     "@actions/github": "5.1.1",
-    "dayjs": "1.11.6"
+    "dayjs": "1.11.7"
   },
   "devDependencies": {
     "prettier": "2.8.0"
