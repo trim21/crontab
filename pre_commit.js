@@ -15,7 +15,7 @@ async function run() {
   const newBranch = "chore/update-pre-commit";
   let shouldCreatePR = false;
   try {
-    await exec.exec("pre-commit autoupdate --freeze");
+    await exec.exec("pre-commit autoupdate");
   } catch {}
   try {
     if (prettier) {
