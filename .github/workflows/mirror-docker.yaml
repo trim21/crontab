@@ -8,6 +8,13 @@ on:
 
 jobs:
   dockerhub-mirror:
+    strategy:
+      fail-fast: false
+      matrix:
+        repo:
+          - { src: 'ghcr.io/bangumi/graphql:latest', dest: "trim21/bangumi-graphql:latest" }
+          - { src: 'ghcr.io/bangumi/chii:latest', dest: "trim21/bangumi-chii:latest" }
+
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU
@@ -22,6 +29,6 @@ jobs:
           username: trim21
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-      - run: docker pull ghcr.io/bangumi/graphql:latest
-      - run: docker tag ghcr.io/bangumi/graphql:latest trim21/bangumi-graphql:latest
-      - run: docker push trim21/bangumi-graphql:latest
+      - run: docker pull "${{ matrix.src }}"
+      - run: docker tag "${{ matrix.src }}" "${{ matrix.dest }}"
+      - run: docker push "${{ matrix.dest }}"
