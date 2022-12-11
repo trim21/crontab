@@ -40,11 +40,9 @@ jobs:
         with:
           node-version: "lts/*"
           registry-url: "https://registry.npmjs.org"
-          cache: npm
+          cache: yarn
 
-      - run: npm i npm -g
-
-      - run: npm ci
+      - run: yarn
       ################ end node
 
       ################ python
