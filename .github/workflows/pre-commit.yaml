@@ -21,7 +21,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { repo: trim21/BGmi, branch: master, py: "3.10" }
+          - { repo: BGmi/BGmi, branch: master, py: "3.10" }
           # - { repo: Trim21/pol, branch: master, py: "3.8" }
           - { repo: trim21/pre-commit-hooks, branch: master, py: "3.10" }
           - { repo: trim21/transmission-rpc, branch: master, py: "3.10" }
