@@ -23,5 +23,5 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
       - run: docker pull ghcr.io/bangumi/graphql:latest
-      - run: docker tag ghcr.io/bangumi/graphql:latest trim21/docker-graphql:latest
-      - run: docker push trim21/docker-graphql:latest
+      - run: docker tag ghcr.io/bangumi/graphql:latest trim21/bangumi-graphql:latest
+      - run: docker push trim21/bangumi-graphql:latest
