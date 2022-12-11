@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image:
+        include:
           - { src: 'ghcr.io/bangumi/graphql:latest', dest: "trim21/bangumi-graphql:latest" }
           - { src: 'ghcr.io/bangumi/chii:latest', dest: "trim21/bangumi-chii:latest" }
 
@@ -29,6 +29,6 @@ jobs:
           username: trim21
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-      - run: docker pull "${{ matrix.image.src }}"
-      - run: docker tag "${{ matrix.image.src }}" "${{ matrix.image.dest }}"
-      - run: docker push "${{ matrix.image.dest }}"
+      - run: docker pull "${{ matrix.src }}"
+      - run: docker tag "${{ matrix.src }}" "${{ matrix.dest }}"
+      - run: docker push "${{ matrix.dest }}"
