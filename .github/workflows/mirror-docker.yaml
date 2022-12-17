@@ -14,6 +14,7 @@ jobs:
         include:
           - { src: 'ghcr.io/bangumi/graphql:latest', dest: "trim21/bangumi-graphql:latest" }
           - { src: 'ghcr.io/bangumi/chii:latest', dest: "trim21/bangumi-chii:latest" }
+          - { src: 'ghcr.io/bangumi/chii-canal:latest', dest: "trim21/bangumi-chii-canal:latest" }
 
     runs-on: ubuntu-latest
     steps:
