@@ -16,7 +16,6 @@ jobs:
           - { src: 'ghcr.io/bangumi/chii:latest', dest: "trim21/bangumi-chii:latest" }
           - { src: 'ghcr.io/bangumi/graphql:master', dest: "trim21/bangumi-graphql:master" }
           - { src: 'ghcr.io/bangumi/chii:master', dest: "trim21/bangumi-chii:master" }
-          - { src: 'ghcr.io/bangumi/ms-timeline:master', dest: 'trim21/bangumi-chii-ms-timeline:master' }
 
 
     runs-on: ubuntu-latest
