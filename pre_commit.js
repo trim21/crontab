@@ -71,7 +71,7 @@ async function run() {
         owner,
         base: branch,
         head: newBranch,
-        title: "update pre-commit config",
+        title: "chore: update pre-commit hooks",
       });
     }
   }
