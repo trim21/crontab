@@ -16,6 +16,8 @@ jobs:
           - { src: 'ghcr.io/bangumi/ms-timeline', dest: "trim21/bangumi-ms-timeline", tags: "master latest" }
           - { src: 'ghcr.io/bangumi/chii', dest: "trim21/bangumi-chii", tags: "master latest" }
 
+    name: "mirror ${{ matrix.dest }}"
+
     runs-on: ubuntu-latest
     steps:
       - name: Login to DockerHub
