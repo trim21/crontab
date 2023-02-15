@@ -13,6 +13,7 @@ jobs:
       matrix:
         include:
           - { src: 'ghcr.io/bangumi/graphql', dest: "trim21/bangumi-graphql", tags: "master latest"  }
+          - { src: 'ghcr.io/bangumi/private-server', dest: "trim21/bangumi-private-server", tags: "master latest"  }
           - { src: 'ghcr.io/bangumi/ms-timeline', dest: "trim21/bangumi-ms-timeline", tags: "master latest" }
           - { src: 'ghcr.io/bangumi/chii', dest: "trim21/bangumi-chii", tags: "master latest" }
 
