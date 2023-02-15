@@ -12,10 +12,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { src: 'ghcr.io/bangumi/graphql:latest', dest: "trim21/bangumi-graphql:latest" }
-          - { src: 'ghcr.io/bangumi/chii:latest', dest: "trim21/bangumi-chii:latest" }
-          - { src: 'ghcr.io/bangumi/graphql:master', dest: "trim21/bangumi-graphql:master" }
-          - { src: 'ghcr.io/bangumi/chii:master', dest: "trim21/bangumi-chii:master" }
+          - { src: 'ghcr.io/bangumi/graphql', dest: "trim21/bangumi-graphql" }
+          - { src: 'ghcr.io/bangumi/chii', dest: "trim21/bangumi-chii" }
+          - { src: 'ghcr.io/bangumi/graphql', dest: "trim21/bangumi-graphql" }
+          - { src: 'ghcr.io/bangumi/chii', dest: "trim21/bangumi-chii" }
 
 
     runs-on: ubuntu-latest
@@ -26,6 +26,8 @@ jobs:
           username: trim21
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-      - run: docker pull "${{ matrix.src }}"
-      - run: docker tag "${{ matrix.src }}" "${{ matrix.dest }}"
-      - run: docker push "${{ matrix.dest }}"
+#      - run: docker pull "${{ matrix.src }}"
+#      - run: docker tag "${{ matrix.src }}" "${{ matrix.dest }}"
+#      - run: docker push "${{ matrix.dest }}"
+
+      - run: docker run --rm -it  -v ${HOME}/.docker/config.json:/root/.docker/config.json  smqasims/imagesync:v1.1.0 -s "${{ matrix.src }}" -d "${{ matrix.dest }}"
