@@ -6,31 +6,30 @@ on:
   schedule:
     - cron: "0 0 * * *"
 
-jobs:
-  dockerhub-mirror:
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - { src: 'ghcr.io/bangumi/graphql', dest: "trim21/bangumi-graphql" }
-          - { src: 'ghcr.io/bangumi/ms-timeline', dest: "trim21/bangumi-ms-timeline" }
-          - { src: 'ghcr.io/bangumi/chii', dest: "trim21/bangumi-chii" }
+job:
+  strategy:
+    fail-fast: false
+    matrix:
+      include:
+        - { src: 'ghcr.io/bangumi/graphql', dest: "trim21/bangumi-graphql" }
+        - { src: 'ghcr.io/bangumi/ms-timeline', dest: "trim21/bangumi-ms-timeline" }
+        - { src: 'ghcr.io/bangumi/chii', dest: "trim21/bangumi-chii" }
 
 
-    runs-on: ubuntu-latest
-    steps:
-      - name: Login to DockerHub
-        uses: docker/login-action@v2
-        with:
-          username: trim21
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+  runs-on: ubuntu-latest
+  steps:
+    - name: Login to DockerHub
+      uses: docker/login-action@v2
+      with:
+        username: trim21
+        password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-#      - run: docker pull "${{ matrix.src }}"
-#      - run: docker tag "${{ matrix.src }}" "${{ matrix.dest }}"
-#      - run: docker push "${{ matrix.dest }}"
+    #      - run: docker pull "${{ matrix.src }}"
+    #      - run: docker tag "${{ matrix.src }}" "${{ matrix.dest }}"
+    #      - run: docker push "${{ matrix.dest }}"
 
-      - run: |
-          wget https://github.com/mqasimsarfraz/imagesync/releases/download/v1.1.0/imagesync_Linux_x86_64.tar.gz
-          tar -xvf imagesync_Linux_x86_64.tar.gz
+    - run: |
+        wget https://github.com/mqasimsarfraz/imagesync/releases/download/v1.1.0/imagesync_Linux_x86_64.tar.gz
+        tar -xvf imagesync_Linux_x86_64.tar.gz
 
-      - run: ./imagesync -s "${{ matrix.src }}" -d "${{ matrix.dest }}"
+    - run: ./imagesync -s "${{ matrix.src }}" -d "${{ matrix.dest }}"
