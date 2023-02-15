@@ -33,7 +33,7 @@ jobs:
           tar -xvf imagesync_Linux_x86_64.tar.gz
 
       - run: |
-          for tag in "${{ matrix.tags }}"; do 
+          for tag in ${{ matrix.tags }}; do 
             echo "${tag}"
             ./imagesync -s "${{ matrix.src }}:${tag}" -d "${{ matrix.dest }}:${tag}";
           done
