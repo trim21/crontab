@@ -34,5 +34,6 @@ jobs:
 
       - run: |
           for tag in "${{ matrix.tags }}"; do 
+            echo "${tag}"
             ./imagesync -s "${{ matrix.src }}:${tag}" -d "${{ matrix.dest }}:${tag}";
           done
