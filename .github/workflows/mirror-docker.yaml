@@ -13,8 +13,7 @@ jobs:
       matrix:
         include:
           - { src: 'ghcr.io/bangumi/graphql', dest: "trim21/bangumi-graphql" }
-          - { src: 'ghcr.io/bangumi/chii', dest: "trim21/bangumi-chii" }
-          - { src: 'ghcr.io/bangumi/graphql', dest: "trim21/bangumi-graphql" }
+          - { src: 'ghcr.io/bangumi/ms-timeline', dest: "trim21/bangumi-ms-timeline" }
           - { src: 'ghcr.io/bangumi/chii', dest: "trim21/bangumi-chii" }
 
 
