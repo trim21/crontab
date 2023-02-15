@@ -12,10 +12,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { src: 'ghcr.io/bangumi/graphql', dest: "trim21/bangumi-graphql" }
-          - { src: 'ghcr.io/bangumi/ms-timeline', dest: "trim21/bangumi-ms-timeline" }
-          - { src: 'ghcr.io/bangumi/chii', dest: "trim21/bangumi-chii" }
-
+          - { src: 'ghcr.io/bangumi/graphql', dest: "trim21/bangumi-graphql", tags: "master latest"  }
+          - { src: 'ghcr.io/bangumi/ms-timeline', dest: "trim21/bangumi-ms-timeline", tags: "master latest" }
+          - { src: 'ghcr.io/bangumi/chii', dest: "trim21/bangumi-chii", tags: "master latest" }
 
     runs-on: ubuntu-latest
     steps:
@@ -33,4 +32,7 @@ jobs:
           wget https://github.com/mqasimsarfraz/imagesync/releases/download/v1.1.0/imagesync_Linux_x86_64.tar.gz
           tar -xvf imagesync_Linux_x86_64.tar.gz
 
-      - run: ./imagesync -s "${{ matrix.src }}" -d "${{ matrix.dest }}"
+      - run: |
+          for tag in "${{ matrix.tags }}"; do 
+            ./imagesync -s "${{ matrix.src }}:${tag}" -d "${{ matrix.dest }}:${tag}";
+          done
