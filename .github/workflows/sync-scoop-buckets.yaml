@@ -57,7 +57,13 @@ jobs:
             scoop-bucket-${{ matrix.repo.name }}-2-
 
       - name: Run Mirror Script
-        run: node mirror_scoop_buckets.js
+        run: |
+          for i in {1..5}; do
+            node mirror_scoop_buckets.js && exit 0
+          done
+          
+          exit 1
+
         env:
           ACCESS_TOKEN: ${{ secrets.GITEE_TOKEN }}
           NAME: ${{ matrix.repo.name }}
