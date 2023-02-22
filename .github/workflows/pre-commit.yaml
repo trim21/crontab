@@ -9,6 +9,8 @@ on:
       - ".github/workflows/pre-commit.yaml"
       - "pre_commit.js"
       - "common/version.sh"
+      - package.json
+      - yarn.lock
   schedule:
     # daily on github default branch
     - cron: "0 0 15 */2 *"
