@@ -59,9 +59,11 @@ jobs:
       - name: Run Mirror Script
         run: |
           for i in {1..5}; do
+            echo "${i}"
             node mirror_scoop_buckets.js && exit 0
           done
           
+          echo "failed after 5 times retry"
           exit 1
 
         env:
