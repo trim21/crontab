@@ -61,6 +61,7 @@ jobs:
           for i in {1..5}; do
             echo "${i}"
             node mirror_scoop_buckets.js && exit 0
+            sleep 1
           done
           
           echo "failed after 5 times retry"
