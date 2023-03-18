@@ -11,6 +11,7 @@ on:
       - yarn.lock
   schedule:
     - cron: "0 * * * *"
+    - cron: "30 * * * *"
 
 jobs:
   dockerhub-mirror:
