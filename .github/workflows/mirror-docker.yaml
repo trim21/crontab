@@ -41,7 +41,8 @@ jobs:
           tar -xvf imagesync_Linux_x86_64.tar.gz
 
       - run: |
-          wget https://github.com/trim21/try/releases/download/v0.0.8/try_linux_amd64.tar.gz
+          latest=$(curl https://api.github.com/repos/trim21/try/releases/latest | jq '.assets[] | select (.name == "try_linux_amd64.tar.gz") | .browser_download_url' -r)
+          wget -O try_linux_amd64.tar.gz ${latest}
           tar xvf try_linux_amd64.tar.gz
 
       - run: |
