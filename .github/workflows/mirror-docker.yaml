@@ -41,7 +41,11 @@ jobs:
           tar -xvf imagesync_Linux_x86_64.tar.gz
 
       - run: |
+          wget https://github.com/trim21/try/releases/download/v0.0.8/try_linux_amd64.tar.gz
+          tar xvf try_linux_amd64.tar.gz
+
+      - run: |
           for tag in ${{ matrix.tags }}; do 
             echo "${tag}"
-            ./imagesync -s "${{ matrix.src }}:${tag}" -d "${{ matrix.dest }}:${tag}";
+            ./try --limit=3 -- ./imagesync -s "${{ matrix.src }}:${tag}" -d "${{ matrix.dest }}:${tag}";
           done

@@ -56,16 +56,12 @@ jobs:
             scoop-bucket-${{ matrix.repo.name }}-2-${{ env.Y }}-
             scoop-bucket-${{ matrix.repo.name }}-2-
 
+      - run: |
+          wget https://github.com/trim21/try/releases/download/v0.0.8/try_linux_amd64.tar.gz
+          tar xvf try_linux_amd64.tar.gz
+
       - name: Run Mirror Script
-        run: |
-          for i in {1..5}; do
-            echo "${i}"
-            node mirror_scoop_buckets.js && exit 0
-            sleep 1
-          done
-          
-          echo "failed after 5 times retry"
-          exit 1
+        run: ./try -- node mirror_scoop_buckets.js && exit 0
 
         env:
           ACCESS_TOKEN: ${{ secrets.GITEE_TOKEN }}
