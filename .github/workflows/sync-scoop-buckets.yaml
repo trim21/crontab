@@ -63,7 +63,7 @@ jobs:
           tar xvf try_linux_amd64.tar.gz
 
       - name: Run Mirror Script
-        run: ./try -- node mirror_scoop_buckets.js && exit 0
+        run: ./try --delay 1s --limit 10 -- node mirror_scoop_buckets.js && exit 0
 
         env:
           ACCESS_TOKEN: ${{ secrets.GITEE_TOKEN }}
