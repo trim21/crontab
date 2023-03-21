@@ -23,6 +23,7 @@ jobs:
           - { src: 'ghcr.io/bangumi/chii', dest: "trim21/bangumi-chii", tags: "^(latest|master|master-.*|v.*)$" }
           - { src: 'ghcr.io/trim21/flexget', dest: "trim21/flexget", tags: ".*" }
           - { src: 'ghcr.io/trim21/cactbot-importer', dest: "trim21/cactbot-importer", tags: ".*" }
+          - { src: 'ghcr.io/trim21/bangumi-workers', dest: "trim21/bangumi-workers", tags: ".*" }
 
     name: "mirror ${{ matrix.dest }}"
 
