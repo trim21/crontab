@@ -43,4 +43,4 @@ jobs:
 
       - run: |
           ./try --limit=3 -- \
-              ./imagesync --tags-pattern '${{ matrix.tags }}' --max-concurrent-tags 4 -s "${{ matrix.src }}" -d "${{ matrix.dest }}"
+              ./imagesync --tags-pattern '${{ matrix.tags }}' --max-concurrent-tags 4 -s "${{ matrix.src }}"
