@@ -22,8 +22,8 @@ jobs:
           - { src: 'ghcr.io/bangumi/ms-timeline', dest: "trim21/bangumi-ms-timeline", tags: "^(latest|master|master-.*|v.*)$" }
           - { src: 'ghcr.io/bangumi/chii', dest: "trim21/bangumi-chii", tags: "^(latest|master|master-.*|v.*)$" }
           - { src: 'ghcr.io/trim21/flexget', dest: "trim21/flexget", tags: ".*" }
-          - { src: 'ghcr.io/trim21/cactbot-importer', dest: "trim21/cactbot-importer", tags: ".*" }
-          - { src: 'ghcr.io/trim21/bangumi-workers', dest: "trim21/bangumi-workers", tags: ".*" }
+          - { src: 'ghcr.io/trim21/cactbot-importer', dest: "trim21/cactbot-importer", tags: "^latest$" }
+          - { src: 'ghcr.io/trim21/bangumi-workers', dest: "trim21/bangumi-workers", tags: "^latest$" }
 
     name: "mirror ${{ matrix.dest }}"
 
