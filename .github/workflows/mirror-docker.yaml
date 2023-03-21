@@ -18,9 +18,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { src: 'ghcr.io/bangumi/private-server', dest: "trim21/bangumi-private-server", tags: "^(master|latest)$"  }
-          - { src: 'ghcr.io/bangumi/ms-timeline', dest: "trim21/bangumi-ms-timeline", tags: "^(master|latest)$" }
-          - { src: 'ghcr.io/bangumi/chii', dest: "trim21/bangumi-chii", tags: "^(master|latest)$" }
+          - { src: 'ghcr.io/bangumi/private-server', dest: "trim21/bangumi-private-server", tags: "^(master|latest|master-.*|v.*)$"  }
+          - { src: 'ghcr.io/bangumi/ms-timeline', dest: "trim21/bangumi-ms-timeline", tags: "^(master|latest|master-.*|v.*)$" }
+          - { src: 'ghcr.io/bangumi/chii', dest: "trim21/bangumi-chii", tags: "^(master|latest|master-.*|v.*)$" }
 
     name: "mirror ${{ matrix.dest }}"
 
@@ -41,4 +41,6 @@ jobs:
           wget -O try_linux_amd64.tar.gz ${latest}
           tar xvf try_linux_amd64.tar.gz
 
-      - run: ./try --limit=3 -- ./imagesync -s "${{ matrix.src }}" -d "${{ matrix.dest }}" --tags-pattern '${{ matrix.tags }}';
+      - run: |
+          ./try --limit=3 -- \
+              ./imagesync --tags-pattern '${{ matrix.tags }}' --max-concurrent-tags 4 -s "${{ matrix.src }}" -d "${{ matrix.dest }}"
