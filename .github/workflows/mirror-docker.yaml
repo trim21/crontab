@@ -21,6 +21,7 @@ jobs:
           - { src: 'ghcr.io/bangumi/private-server', dest: "trim21/bangumi-private-server", tags: "^(latest|master|master-.*|v.*)$"  }
           - { src: 'ghcr.io/bangumi/ms-timeline', dest: "trim21/bangumi-ms-timeline", tags: "^(latest|master|master-.*|v.*)$" }
           - { src: 'ghcr.io/bangumi/chii', dest: "trim21/bangumi-chii", tags: "^(latest|master|master-.*|v.*)$" }
+          - { src: 'ghcr.io/trim21/flexget', dest: "trim21/flexget", tags: "^(latest|master|master-.*|v.*)$" }
 
     name: "mirror ${{ matrix.dest }}"
 
