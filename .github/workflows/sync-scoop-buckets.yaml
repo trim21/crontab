@@ -58,8 +58,7 @@ jobs:
             scoop-bucket-${{ matrix.repo.name }}-2-
 
       - run: |
-          latest=$(curl https://api.github.com/repos/trim21/try/releases/latest | jq '.assets[] | select (.name == "try_linux_amd64.tar.gz") | .browser_download_url' -r)
-          wget -O try_linux_amd64.tar.gz ${latest}
+          wget -O try_linux_amd64.tar.gz https://github.com/trim21/try/releases/download/v0.0.16/try_linux_amd64.tar.gz
           tar xvf try_linux_amd64.tar.gz
 
       - name: Run Mirror Script
