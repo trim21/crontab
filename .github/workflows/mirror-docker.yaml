@@ -18,9 +18,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { src: 'ghcr.io/bangumi/private-server', dest: "trim21/bangumi-private-server", tags: "master latest"  }
-          - { src: 'ghcr.io/bangumi/ms-timeline', dest: "trim21/bangumi-ms-timeline", tags: "master latest" }
-          - { src: 'ghcr.io/bangumi/chii', dest: "trim21/bangumi-chii", tags: "master latest" }
+          - { src: 'ghcr.io/bangumi/private-server', dest: "trim21/bangumi-private-server", tags: "master|latest"  }
+          - { src: 'ghcr.io/bangumi/ms-timeline', dest: "trim21/bangumi-ms-timeline", tags: "master|latest" }
+          - { src: 'ghcr.io/bangumi/chii', dest: "trim21/bangumi-chii", tags: "master|latest" }
 
     name: "mirror ${{ matrix.dest }}"
 
@@ -32,21 +32,13 @@ jobs:
           username: trim21
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-#      - run: docker pull "${{ matrix.src }}"
-#      - run: docker tag "${{ matrix.src }}" "${{ matrix.dest }}"
-#      - run: docker push "${{ matrix.dest }}"
-
       - run: |
-          wget https://github.com/mqasimsarfraz/imagesync/releases/download/v1.1.0/imagesync_Linux_x86_64.tar.gz
-          tar -xvf imagesync_Linux_x86_64.tar.gz
+          wget https://github.com/trim21/imagesync/releases/download/v0.0.1/imagesync_linux_amd64.tar.gz
+          tar xvf imagesync_linux_amd64.tar.gz
 
       - run: |
           latest=$(curl https://api.github.com/repos/trim21/try/releases/latest | jq '.assets[] | select (.name == "try_linux_amd64.tar.gz") | .browser_download_url' -r)
           wget -O try_linux_amd64.tar.gz ${latest}
           tar xvf try_linux_amd64.tar.gz
 
-      - run: |
-          for tag in ${{ matrix.tags }}; do 
-            echo "${tag}"
-            ./try --limit=3 -- ./imagesync -s "${{ matrix.src }}:${tag}" -d "${{ matrix.dest }}:${tag}";
-          done
+      - run: ./try --limit=3 -- ./imagesync -s "${{ matrix.src }}" -d "${{ matrix.dest }}" --tags-pattern '${{ matrix.tags }}';
