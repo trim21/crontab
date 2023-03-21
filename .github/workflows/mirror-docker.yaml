@@ -33,7 +33,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
       - run: |
-          wget https://github.com/trim21/imagesync/releases/download/v0.0.1/imagesync_linux_amd64.tar.gz
+          wget https://github.com/trim21/imagesync/releases/download/v0.0.4/imagesync_linux_amd64.tar.gz
           tar xvf imagesync_linux_amd64.tar.gz
 
       - run: |
