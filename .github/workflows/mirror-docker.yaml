@@ -18,7 +18,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { src: 'ghcr.io/bangumi/private-server', dest: "trim21/bangumi-private-server", tags: "^(latest|master|master-.*|v.*)$"  }
+          - { src: 'ghcr.io/bangumi/private-server', dest: "trim21/bangumi-private-server", tags: "^(latest|master|master-.*|v.*)$" }
           - { src: 'ghcr.io/bangumi/ms-timeline', dest: "trim21/bangumi-ms-timeline", tags: "^(latest|master|master-.*|v.*)$" }
           - { src: 'ghcr.io/bangumi/chii', dest: "trim21/bangumi-chii", tags: "^(latest|master|master-.*|v.*)$" }
           - { src: 'ghcr.io/trim21/flexget', dest: "trim21/flexget", tags: ".*" }
@@ -45,4 +45,4 @@ jobs:
 
       - run: |
           ./try --limit=3 --delay=3s -- \
-              ./imagesync --tags-pattern '${{ matrix.tags }}' --max-concurrent-tags 4 -s "${{ matrix.src }}" -d "${{ matrix.dest }}"
+              ./imagesync --override --tags-pattern '${{ matrix.tags }}' --max-concurrent-tags 4 --src "${{ matrix.src }}" --dest "${{ matrix.dest }}"
