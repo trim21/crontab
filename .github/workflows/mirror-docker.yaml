@@ -21,30 +21,30 @@ jobs:
           - src: 'ghcr.io/bangumi/private-server'
             dest: "trim21/bangumi-private-server"
             tags: "^(master-.*|v.*)$"
-            overwrite: "latest master"
+            overwrite: "^(latest|master)$"
 
           - src: 'ghcr.io/bangumi/ms-timeline'
             dest: "trim21/bangumi-ms-timeline"
             tags: "^(master-.*|v.*)$"
-            overwrite: "latest master"
+            overwrite: "^(latest|master)$"
 
           - src: 'ghcr.io/bangumi/chii'
             dest: "trim21/bangumi-chii"
             tags: "^(master-.*|v.*)$"
-            overwrite: "latest master"
+            overwrite: "^(latest|master)$"
 
           - src: 'ghcr.io/trim21/flexget'
             dest: "trim21/flexget"
             tags: ".*"
-            overwrite: '3'
+            overwrite: '^(\d+|\d+\.\d+)$'
 
           - src: 'ghcr.io/trim21/cactbot-importer'
             dest: "trim21/cactbot-importer"
-            overwrite: "latest"
+            overwrite: "^latest$"
 
           - src: 'ghcr.io/trim21/bangumi-workers'
             dest: "trim21/bangumi-workers"
-            overwrite: "latest"
+            overwrite: "^latest$"
 
     name: "mirror ${{ matrix.dest }}"
 
@@ -72,14 +72,6 @@ jobs:
 
       - if: ${{ matrix.overwrite }}
         run: |
-          for tag in ${{ matrix.overwrite }}; do 
-            echo "${tag}"
-            ./try -- docker pull "${{ matrix.src }}:${tag}" 
-            docker tag "${{ matrix.src }}:${tag}" "${{ matrix.dest }}:${tag}";
-            ./try -- docker push "${{ matrix.dest }}:${tag}";
-          done
-
-#                    ./try --limit=3 --delay=3s -- \
-#              ./imagesync --src "${{ matrix.src }}" --dest "${{ matrix.dest }}" \
-#              --overwrite --tags-pattern '${{ matrix.overwrite }}'
-
+          ./try --limit=3 --delay=3s -- \
+              ./imagesync --src "${{ matrix.src }}" --dest "${{ matrix.dest }}" \
+              --overwrite --tags-pattern '${{ matrix.overwrite }}'
