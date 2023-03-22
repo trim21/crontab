@@ -74,4 +74,4 @@ jobs:
         run: |
           ./try --limit=3 --delay=3s -- \
               ./imagesync --src "${{ matrix.src }}" --dest "${{ matrix.dest }}" \
-              --overwrite --tags-pattern '${{ matrix.overwrite }}' --max-concurrent-tags 4
+              --overwrite --tags-pattern '${{ matrix.overwrite }}'
