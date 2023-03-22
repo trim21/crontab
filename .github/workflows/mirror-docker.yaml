@@ -36,7 +36,7 @@ jobs:
           - src: 'ghcr.io/trim21/flexget'
             dest: "trim21/flexget"
             tags: ".*"
-            overwrite: '^(\\d+|\\d+\\.\\d+)$'
+            overwrite: '^(\d+|\d+\.\d+)$'
 
           - src: 'ghcr.io/trim21/cactbot-importer'
             dest: "trim21/cactbot-importer"
@@ -61,7 +61,7 @@ jobs:
           tar xvf try_linux_amd64.tar.gz
 
       - run: |
-          ./try -- wget https://github.com/trim21/imagesync/releases/download/v0.0.4/imagesync_linux_amd64.tar.gz
+          ./try -- wget https://github.com/trim21/imagesync/releases/download/v0.0.5/imagesync_linux_amd64.tar.gz
           tar xvf imagesync_linux_amd64.tar.gz
 
       - if: ${{ matrix.tags }}
