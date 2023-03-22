@@ -18,12 +18,33 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { src: 'ghcr.io/bangumi/private-server', dest: "trim21/bangumi-private-server", tags: "^(master-.*|v.*)$", overwrite: "^(latest|master)$" }
-          - { src: 'ghcr.io/bangumi/ms-timeline', dest: "trim21/bangumi-ms-timeline", tags: "^(master-.*|v.*)$", overwrite: "^(latest|master)$" }
-          - { src: 'ghcr.io/bangumi/chii', dest: "trim21/bangumi-chii", tags: "^(master-.*|v.*)$", overwrite: "^(latest|master)$" }
-          - { src: 'ghcr.io/trim21/flexget', dest: "trim21/flexget", tags: ".*", overwrite: '^(\d+|\d+\.\d+)$' }
-          - { src: 'ghcr.io/trim21/cactbot-importer', dest: "trim21/cactbot-importer", overwrite: "^latest$" }
-          - { src: 'ghcr.io/trim21/bangumi-workers', dest: "trim21/bangumi-workers", overwrite: "^latest$" }
+          - src: 'ghcr.io/bangumi/private-server'
+            dest: "trim21/bangumi-private-server"
+            tags: "^(master-.*|v.*)$"
+            overwrite: "^(latest|master)$"
+
+          - src: 'ghcr.io/bangumi/ms-timeline'
+            dest: "trim21/bangumi-ms-timeline"
+            tags: "^(master-.*|v.*)$"
+            overwrite: "^(latest|master)$"
+
+          - src: 'ghcr.io/bangumi/chii'
+            dest: "trim21/bangumi-chii"
+            tags: "^(master-.*|v.*)$"
+            overwrite: "^(latest|master)$"
+
+          - src: 'ghcr.io/trim21/flexget'
+            dest: "trim21/flexget"
+            tags: ".*"
+            overwrite: '^(\\d+|\\d+\\.\\d+)$'
+
+          - src: 'ghcr.io/trim21/cactbot-importer'
+            dest: "trim21/cactbot-importer"
+            overwrite: "^latest$"
+
+          - src: 'ghcr.io/trim21/bangumi-workers'
+            dest: "trim21/bangumi-workers"
+            overwrite: "^latest$"
 
     name: "mirror ${{ matrix.dest }}"
 
