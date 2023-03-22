@@ -67,9 +67,11 @@ jobs:
       - if: ${{ matrix.tags }}
         run: |
           ./try --limit=3 --delay=3s -- \
-              ./imagesync --tags-pattern '${{ matrix.tags }}' --max-concurrent-tags 4 --src "${{ matrix.src }}" --dest "${{ matrix.dest }}"
+              ./imagesync --src "${{ matrix.src }}" --dest "${{ matrix.dest }}" \
+              --tags-pattern '${{ matrix.tags }}' --max-concurrent-tags 4
 
       - if: ${{ matrix.overwrite }}
         run: |
           ./try --limit=3 --delay=3s -- \
-              ./imagesync --overwrite --tags-pattern '${{ matrix.overwrite }}' --max-concurrent-tags 4 --src "${{ matrix.src }}" --dest "${{ matrix.dest }}"
+              ./imagesync --src "${{ matrix.src }}" --dest "${{ matrix.dest }}" \
+              --overwrite --tags-pattern '${{ matrix.overwrite }}' --max-concurrent-tags 4
