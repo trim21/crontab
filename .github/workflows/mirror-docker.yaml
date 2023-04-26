@@ -44,7 +44,7 @@ jobs:
 
           - src: 'ghcr.io/trim21/bangumi-workers'
             dest: "trim21/bangumi-workers"
-            overwrite: "^latest$"
+            overwrite: "^(latest|master)$"
 
     name: "mirror ${{ matrix.dest }}"
 
