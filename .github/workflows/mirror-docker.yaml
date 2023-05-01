@@ -51,6 +51,10 @@ jobs:
             dest: 'ghcr.io/trim21/prysm-beacon-chain'
             overwrite: "^(stable|latest|latest-alpine)$"
 
+          - src: 'gcr.io/prysmaticlabs/prysm/beacon-chain'
+            dest: 'trim21/prysm-beacon-chain'
+            overwrite: "^(stable|latest|latest-alpine)$"
+
     name: "mirror ${{ matrix.dest }}"
 
     runs-on: ubuntu-latest
