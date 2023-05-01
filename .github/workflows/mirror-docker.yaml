@@ -47,6 +47,10 @@ jobs:
             tags: "^(master-.*|v.*)$"
             overwrite: "^(latest|master)$"
 
+          - src: 'gcr.io/prysmaticlabs/prysm/beacon-chain'
+            dest: 'ghcr.io/trim21/prysm-beacon-chain'
+            overwrite: "^(stable)$"
+
     name: "mirror ${{ matrix.dest }}"
 
     runs-on: ubuntu-latest
