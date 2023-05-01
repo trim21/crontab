@@ -61,6 +61,13 @@ jobs:
           username: trim21
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - run: |
           wget -O try_linux_amd64.tar.gz https://github.com/trim21/try/releases/download/v0.0.16/try_linux_amd64.tar.gz
           tar xvf try_linux_amd64.tar.gz
