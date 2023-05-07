@@ -18,8 +18,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - src: 'ghcr.io/bangumi/private-server'
-            dest: "trim21/bangumi-private-server"
+          - src: 'ghcr.io/bangumi/server-private'
+            dest: "trim21/bangumi-server-private"
             tags: "^(master-.*|v.*)$"
             overwrite: "^(latest|master)$"
 
