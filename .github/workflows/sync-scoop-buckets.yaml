@@ -57,9 +57,10 @@ jobs:
             scoop-bucket-${{ matrix.repo.name }}-2-${{ env.Y }}-
             scoop-bucket-${{ matrix.repo.name }}-2-
 
-      - run: |
-          wget -O try_linux_amd64.tar.gz https://github.com/trim21/try/releases/download/v0.0.16/try_linux_amd64.tar.gz
-          tar xvf try_linux_amd64.tar.gz
+      - run: gh -R trim21/try release download try_linux_amd64.tar.gz
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - run: tar xvf try_linux_amd64.tar.gz
 
       - name: Run Mirror Script
         run: ./try --delay 1s --limit 10 -- node mirror_scoop_buckets.js && exit 0
