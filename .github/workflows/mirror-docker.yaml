@@ -77,9 +77,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
       - run: tar xvf try_linux_amd64.tar.gz
 
-      - run: |
-          ./try -- wget https://github.com/trim21/imagesync/releases/download/v0.0.5/imagesync_linux_amd64.tar.gz
-          tar xvf imagesync_linux_amd64.tar.gz
+      - run: gh -R trim21/imagesync release download -p imagesync_linux_amd64.tar.gz
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - run: tar xvf imagesync_linux_amd64.tar.gz
 
       - if: ${{ matrix.tags }}
         run: |
