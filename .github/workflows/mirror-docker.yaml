@@ -72,15 +72,13 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: gh -R trim21/try release download -p try_linux_amd64.tar.gz
+      - run: gh -R trim21/try release download -p try_linux_amd64.tar.gz --output - | tar xvf -
         env:
           GH_TOKEN: ${{ github.token }}
-      - run: tar xvf try_linux_amd64.tar.gz
 
-      - run: gh -R trim21/imagesync release download -p imagesync_linux_amd64.tar.gz
+      - run: gh -R trim21/imagesync release download -p imagesync_linux_amd64.tar.gz --output - | tar xvf -
         env:
           GH_TOKEN: ${{ github.token }}
-      - run: tar xvf imagesync_linux_amd64.tar.gz
 
       - if: ${{ matrix.tags }}
         run: |
