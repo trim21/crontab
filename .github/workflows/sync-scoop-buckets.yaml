@@ -7,7 +7,7 @@ on:
       - "master"
     paths:
       - .github/workflows/sync-scoop-buckets.yaml
-      - mirror_scoop_buckets.js
+      - mirror_scoop_buckets.mjs
       - package.json
       - yarn.lock
   schedule:
