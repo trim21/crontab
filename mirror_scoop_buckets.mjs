@@ -3,34 +3,34 @@ import * as path from "node:path";
 import assert from "node:assert";
 
 import * as core from '@actions/core';
-import { getExecOutput } from "@actions/exec";
+import { getExecOutput, exec as _exec } from "@actions/exec";
 
 const cwd = process.cwd();
 const repoName = process.env.NAME;
 const repoDir = path.join(cwd, "repos", repoName);
 const options = { cwd: repoDir };
 
-async function exec(cmd, args, options) {
-  const o = await getExecOutput(cmd, args, options)
-  let out = `## ${cmd} ${args.join(' ')}\n`
-  if (o.stdout) {
-    out += `
-stdout
-\`\`\`\`\`\`text
-${o.stdout}
-\`\`\`\`\`\`
-`
-  }
+async function exec(cmd, args, opt) {
+  const buf = []
 
-  if (o.stderr) {
-    out += `
-stderr
+  await _exec(cmd, args, {
+    ...opt,
+    listeners: {
+      stderr(b) {
+        buf.push(b)
+      },
+      stdout(b) {
+        buf.push(b)
+      }
+    }
+  })
+
+  return `## ${cmd} ${args.join(' ')}
+
 \`\`\`\`\`\`text
-${o.stderr}
+${Buffer.concat(buf).toString()}
 \`\`\`\`\`\`
 `
-  }
-  return out
 }
 
 
