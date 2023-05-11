@@ -11,7 +11,7 @@ on:
       - package.json
       - yarn.lock
   schedule:
-    - cron: "5 */3 * * *"
+    - cron: "5 3 * * *"
 
 jobs:
   main:
@@ -25,14 +25,8 @@ jobs:
           - { name: dorado, url: "https://github.com/chawyehsu/dorado.git" }
           - { name: extras, url: "https://github.com/lukesampson/scoop-extras" }
           - { name: "github-gh", url: "https://github.com/cli/scoop-gh" }
-          - {
-              name: "nerd-fonts",
-              url: "https://github.com/matthewjberger/scoop-nerd-fonts",
-            }
-          - {
-              name: versions,
-              url: "https://github.com/ScoopInstaller/Versions",
-            }
+          - { name: "nerd-fonts", url: "https://github.com/matthewjberger/scoop-nerd-fonts" }
+          - { name: versions, url: "https://github.com/ScoopInstaller/Versions" }
           - { name: backit, url: "https://github.com/batkiz/backit.git" }
 
     runs-on: ubuntu-latest
