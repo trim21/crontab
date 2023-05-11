@@ -1,5 +1,5 @@
-const github = require("@actions/github");
-const exec = require("@actions/exec");
+import * as github from "@actions/github";
+import * as exec from "@actions/exec";
 
 async function run() {
   // This should be a token with access to your repository scoped in as a secret.
