@@ -68,7 +68,7 @@ async function main() {
   out += await exec("git", ["gc"], options);
 
   if (oldHead !== newHead) {
-    const logs = await getExecOutput(`git log ${oldHead}..${newHead} --graph --pretty=format:'%Cgreen%h%Creset%C(auto)%d%Creset %s %C(bold blue)%an%Creset %Cgreen%ad%Creset' --date=short-local`, null, options)
+    const logs = await getExecOutput(`git log ${oldHead}..${newHead} --graph --pretty=format:'%h%C(auto)%d %s <%an> %ad' --date=short-local`, null, options)
     await core.summary
       .addCodeBlock(logs.stdout)
       .addRaw(out, true)
