@@ -183,7 +183,7 @@ prettier@2.8.8:
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.8.tgz#e8c5d7e98a4305ffe3de2e1fc4aca1a71c28b1da"
   integrity sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==
 
-simple-git@^3.18.0:
+simple-git@3.18.0:
   version "3.18.0"
   resolved "https://registry.yarnpkg.com/simple-git/-/simple-git-3.18.0.tgz#2e25adbbc1e3df5ee97c0f1b468ddadf3f0f9adf"
   integrity sha512-Yt0GJ5aYrpPci3JyrYcsPz8Xc05Hi4JPSOb+Sgn/BmPX35fn/6Fp9Mef8eMBCrL2siY5w4j49TA5Q+bxPpri1Q==
