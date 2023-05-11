@@ -3,7 +3,27 @@ import * as path from "node:path";
 import assert from "node:assert";
 
 import * as core from '@actions/core';
-import { exec } from "@actions/exec";
+import { getExecOutput } from "@actions/exec";
+
+async function exec(cmd, args) {
+  const o = await getExecOutput(cmd, args)
+  if (o.exitCode) {
+    return `${JSON.stringify([cmd, args])}\n
+
+stdout
+\`\`\`\`\`\`text
+${o.stdout}
+\`\`\`\`\`\`
+
+stderr
+\`\`\`\`\`\`text
+${o.stderr}
+\`\`\`\`\`\`
+`
+  }
+
+  return ''
+}
 
 
 async function main() {
@@ -32,8 +52,9 @@ async function main() {
   out += await exec("git", ["push", "--force", "gitee", "master"], options);
   out += await exec("git", ["gc"], options);
 
-  core.summary.addCodeBlock(out, 'text')
-  await core.summary.write()
+  await core.summary
+    .addRaw(out, true)
+    .write()
 
   return out;
 }
