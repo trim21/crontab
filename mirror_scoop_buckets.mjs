@@ -52,9 +52,11 @@ async function main() {
   out += await exec("git", ["push", "--force", "gitee", "master"], options);
   out += await exec("git", ["gc"], options);
 
-  await core.summary
-    .addRaw(out, true)
-    .write()
+  if (out) {
+    await core.summary
+      .addRaw(out, true)
+      .write()
+  }
 
   return out;
 }
