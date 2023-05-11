@@ -3,7 +3,7 @@ import * as path from "node:path";
 import assert from "node:assert";
 
 import * as core from '@actions/core';
-import { exec as _exec } from "@actions/exec";
+import { exec as _exec, getExecOutput } from "@actions/exec";
 import { simpleGit, CleanOptions } from 'simple-git';
 
 
@@ -57,7 +57,6 @@ async function main() {
 
   const repo = simpleGit(repoDir)
 
-
   out += await exec("git", ["remote", "prune", "origin"], options)
   out += await exec("git", ["fetch", "gitee"], options);
   const oldHead = await repo.revparse('gitee/master')
@@ -69,11 +68,9 @@ async function main() {
   out += await exec("git", ["gc"], options);
 
   if (oldHead !== newHead) {
-    const logs = await repo.log({ from: oldHead, to: newHead })
+    const logs = await getExecOutput(`git log ${oldHead}..${newHead} --graph --pretty=format:'%Cgreen%h%Creset%C(auto)%d%Creset %s %C(bold blue)%an%Creset %Cgreen%ad%Creset' --date=short-local`, null, options)
     await core.summary
-      .addCodeBlock(
-        logs.all.map(c => `${new Date(c.date).toISOString().slice(0, 10)} ${c.hash} ${c.message}`).join('\n'),
-      )
+      .addCodeBlock(logs.stdout)
       .addRaw(out, true)
       .write()
   }
