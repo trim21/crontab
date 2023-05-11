@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "format": "prettier -w .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "private": true,
@@ -13,6 +14,7 @@
   },
   "homepage": "https://github.com/Trim21/actions-cron#readme",
   "dependencies": {
+    "@actions/core": "^1.10.0",
     "@actions/exec": "1.1.1",
     "@actions/github": "5.1.1",
     "dayjs": "1.11.7"

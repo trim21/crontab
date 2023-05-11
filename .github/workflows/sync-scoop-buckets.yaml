@@ -43,7 +43,7 @@ jobs:
 
       - run: yarn
 
-      - run: node common/date.js
+      - run: node common/date.mjs
 
       - name: Repos Cache
         uses: actions/cache@v3
