@@ -12,7 +12,7 @@ const options = { cwd: repoDir };
 
 async function exec(cmd, args, options) {
   const o = await getExecOutput(cmd, args, options)
-  let out = `# ${cmd} ${args.join(' ')}`
+  let out = `## ${cmd} ${args.join(' ')}\n`
   if (o.stdout) {
     out += `
 stdout
