@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import * as assert from "node:assert";
+import assert from "node:assert";
 
 import { exec } from "@actions/exec";
 
