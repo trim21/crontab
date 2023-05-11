@@ -20,9 +20,9 @@ core.exportVariable("D", today.toISOString().slice(8, 10));
 core.exportVariable("TODAY", toString(today));
 core.exportVariable(
   "D1",
-  toString(new Date(today.getTime() + 1000 * 3600 * 24))
+  toString(new Date(today.getTime() - 1000 * 3600 * 24))
 );
 core.exportVariable(
   "D2",
-  toString(new Date(today.getTime() + 1000 * 3600 * 24 * 2))
+  toString(new Date(today.getTime() - 2 * 1000 * 3600 * 24))
 );
