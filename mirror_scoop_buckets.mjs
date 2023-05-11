@@ -50,15 +50,10 @@ async function main() {
   out += await exec("git", ["push", "--force", "gitee", "master"], options);
   out += await exec("git", ["gc"], options);
 
-  if (out) {
-    await core.summary
-      .addRaw(out, true)
-      .write()
-  } else {
-    await core.summary
-      .addRaw(out, true)
-      .write()
-  }
+  await core.summary
+    .addRaw(out, true)
+    .write()
+
 }
 
 await main();
