@@ -18,11 +18,10 @@ core.exportVariable("Y", today.toISOString().slice(0, 4));
 core.exportVariable("M", today.toISOString().slice(5, 7));
 core.exportVariable("D", today.toISOString().slice(8, 10));
 core.exportVariable("TODAY", toString(today));
-core.exportVariable(
-  "D1",
-  toString(new Date(today.getTime() - 1000 * 3600 * 24))
-);
-core.exportVariable(
-  "D2",
-  toString(new Date(today.getTime() - 2 * 1000 * 3600 * 24))
-);
+
+[1, 2, 3].forEach((i) => {
+  core.exportVariable(
+    `D${i}`,
+    toString(new Date(today.getTime() - i * 1000 * 3600 * 24))
+  );
+});
