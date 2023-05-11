@@ -5,8 +5,13 @@ import assert from "node:assert";
 import * as core from '@actions/core';
 import { getExecOutput } from "@actions/exec";
 
-async function exec(cmd, args) {
-  const o = await getExecOutput(cmd, args)
+const cwd = process.cwd();
+const repoName = process.env.NAME;
+const repoDir = path.join(cwd, "repos", repoName);
+const options = { cwd: repoDir };
+
+async function exec(cmd, args, options) {
+  const o = await getExecOutput(cmd, args, options)
   if (o.exitCode) {
     return `${JSON.stringify([cmd, args])}\n
 
@@ -28,14 +33,11 @@ ${o.stderr}
 
 async function main() {
   const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
-  const repoName = process.env.NAME;
   const url = process.env.URL;
   assert(ACCESS_TOKEN.length !== 0, "no access token given");
-  const cwd = process.cwd();
 
   let out = "";
-  const repoDir = path.join(cwd, "repos", repoName);
-  const options = { cwd: repoDir };
+
   if (!fs.existsSync(repoDir)) {
     const remote = `https://trim21:${ACCESS_TOKEN}@gitee.com/scoop-bucket/${repoName}.git`;
     out += await exec("git", ["clone", url, repoDir]);
