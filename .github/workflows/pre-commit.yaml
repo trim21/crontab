@@ -7,7 +7,7 @@ on:
       - "master"
     paths:
       - ".github/workflows/pre-commit.yaml"
-      - "pre_commit.js"
+      - "pre_commit.mjs"
       - "common/version.sh"
       - package.json
       - yarn.lock
@@ -89,7 +89,7 @@ jobs:
         run: pip install --user --no-deps -r <(poetry export -f requirements.txt --with dev)
 
       - name: check if pre-commit update
-        run: node $GITHUB_WORKSPACE/pre_commit.js
+        run: node $GITHUB_WORKSPACE/pre_commit.mjs
         working-directory: ./${{ matrix.repo }}
         env:
           PERSONAL_GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}

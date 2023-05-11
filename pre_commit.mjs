@@ -77,7 +77,4 @@ async function run() {
   }
 }
 
-run().catch((e) => {
-  console.log(e);
-  process.exit(1);
-});
+await run()
