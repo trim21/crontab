@@ -2,6 +2,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import assert from "node:assert";
 
+import * as core from '@actions/core';
 import { exec } from "@actions/exec";
 
 
@@ -30,6 +31,8 @@ async function main() {
   out += await exec("git", ["reset", "--hard", "origin/master"], options);
   out += await exec("git", ["push", "--force", "gitee", "master"], options);
   out += await exec("git", ["gc"], options);
+
+  core.summary.addCodeBlock(out, 'text')
 
   return out;
 }
