@@ -29,7 +29,7 @@ async function exec(cmd, args, opt) {
   if (buf.length) {
     out += `
 \`\`\`\`\`\`text
-${Buffer.concat(buf).toString()}
+${Buffer.concat(buf).toString().trim()}
 \`\`\`\`\`\`
 `
   }
