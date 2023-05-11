@@ -1,7 +1,5 @@
 import * as core from '@actions/core';
 
-import dayjs from "dayjs";
-
 /**
  * @type {Date}
  */
