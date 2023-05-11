@@ -62,7 +62,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Run Mirror Script
-        run: ./try --delay 1s --limit 10 -- node mirror_scoop_buckets.js && exit 0
+        run: ./try --delay 1s --limit 10 -- node mirror_scoop_buckets.mjs && exit 0
 
         env:
           ACCESS_TOKEN: ${{ secrets.GITEE_TOKEN }}

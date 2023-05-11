@@ -1,9 +1,8 @@
-// test 4
-const { exec } = require("@actions/exec");
-const assert = require("assert");
+import * as fs from "node:fs";
+import * as path from "node:path";
+import * as assert from "node:assert";
 
-const fs = require("fs");
-const path = require("path");
+import { exec } from "@actions/exec";
 
 
 async function main() {
@@ -32,11 +31,6 @@ async function main() {
   out += await exec("git", ["push", "--force", "gitee", "master"], options);
 
   return out;
-
 }
 
-main().catch((err) => {
-  console.log(err)
-
-  process.exit(1);
-});
+await main();
