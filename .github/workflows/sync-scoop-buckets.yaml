@@ -58,8 +58,11 @@ jobs:
           restore-keys: |
             scoop-bucket-${{ matrix.repo.name }}-2-${{ env.D1 }}
             scoop-bucket-${{ matrix.repo.name }}-2-${{ env.D2 }}
+            scoop-bucket-${{ matrix.repo.name }}-2-${{ env.D3 }}
             scoop-bucket-${{ matrix.repo.name }}-2-${{ env.Y }}-${{ env.M }}-
+            scoop-bucket-${{ matrix.repo.name }}-2-${{ env.M_1 }}-
             scoop-bucket-${{ matrix.repo.name }}-2-${{ env.Y }}-
+            scoop-bucket-${{ matrix.repo.name }}-2-${{ env.Y_1 }}-
             scoop-bucket-${{ matrix.repo.name }}-2-
 
       - run: gh -R trim21/try release download -p try_linux_amd64.tar.gz -O - | tar xvz
