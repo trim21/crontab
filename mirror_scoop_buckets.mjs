@@ -13,7 +13,7 @@ const options = { cwd: repoDir };
 async function exec(cmd, args, options) {
   const o = await getExecOutput(cmd, args, options)
   if (o.exitCode) {
-    return `${JSON.stringify([cmd, args])}\n
+    return `# ${cmd} ${args.join(' ')}
 
 stdout
 \`\`\`\`\`\`text
@@ -58,9 +58,11 @@ async function main() {
     await core.summary
       .addRaw(out, true)
       .write()
+  } else {
+    await core.summary
+      .addRaw(out, true)
+      .write()
   }
-
-  return out;
 }
 
 await main();
