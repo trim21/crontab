@@ -72,7 +72,7 @@ async function main() {
     const logs = await repo.log({ from: oldHead, to: newHead })
     await core.summary
       .addCodeBlock(
-        logs.all.map(c => `${new Date(c.date).toISOString()} ${c.hash} ${c.message}`).join('\n'),
+        logs.all.map(c => `${new Date(c.date).toISOString().slice(0, 10)} ${c.hash} ${c.message}`).join('\n'),
       )
       .addRaw(out, true)
       .write()
