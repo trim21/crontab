@@ -12,8 +12,7 @@ const options = { cwd: repoDir };
 
 async function exec(cmd, args, options) {
   const o = await getExecOutput(cmd, args, options)
-  if (o.exitCode) {
-    return `# ${cmd} ${args.join(' ')}
+  return `# ${cmd} ${args.join(' ')}
 
 stdout
 \`\`\`\`\`\`text
@@ -25,9 +24,6 @@ stderr
 ${o.stderr}
 \`\`\`\`\`\`
 `
-  }
-
-  return ''
 }
 
 
