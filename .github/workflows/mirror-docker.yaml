@@ -18,41 +18,41 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - src: 'ghcr.io/bangumi/server-private'
+          - src: "ghcr.io/bangumi/server-private"
             dest: "trim21/bangumi-server-private"
             tags: "^(master-.*|v.*)$"
             overwrite: "^(latest|master)$"
 
-          - src: 'ghcr.io/bangumi/ms-timeline'
+          - src: "ghcr.io/bangumi/ms-timeline"
             dest: "trim21/bangumi-ms-timeline"
             tags: "^(master-.*|v.*)$"
             overwrite: "^(latest|master)$"
 
-          - src: 'ghcr.io/bangumi/chii'
+          - src: "ghcr.io/bangumi/chii"
             dest: "trim21/bangumi-chii"
             tags: "^(master-.*|v.*)$"
             overwrite: "^(latest|master)$"
 
-          - src: 'ghcr.io/trim21/flexget'
+          - src: "ghcr.io/trim21/flexget"
             dest: "trim21/flexget"
             tags: ".*"
             overwrite: '^(\d+|\d+\.\d+)$'
 
-          - src: 'ghcr.io/trim21/cactbot-importer'
+          - src: "ghcr.io/trim21/cactbot-importer"
             dest: "trim21/cactbot-importer"
             overwrite: "^latest$"
 
-          - src: 'ghcr.io/trim21/bangumi-workers'
+          - src: "ghcr.io/trim21/bangumi-workers"
             dest: "trim21/bangumi-workers"
             tags: "^(master-.*|v.*)$"
             overwrite: "^(latest|master)$"
 
-          - src: 'gcr.io/prysmaticlabs/prysm/beacon-chain'
-            dest: 'ghcr.io/trim21/prysm-beacon-chain'
+          - src: "gcr.io/prysmaticlabs/prysm/beacon-chain"
+            dest: "ghcr.io/trim21/prysm-beacon-chain"
             overwrite: "^(stable|latest|latest-alpine)$"
 
-          - src: 'gcr.io/prysmaticlabs/prysm/beacon-chain'
-            dest: 'trim21/prysm-beacon-chain'
+          - src: "gcr.io/prysmaticlabs/prysm/beacon-chain"
+            dest: "trim21/prysm-beacon-chain"
             overwrite: "^(stable|latest|latest-alpine)$"
 
     name: "mirror ${{ matrix.dest }}"
