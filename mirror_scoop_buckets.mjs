@@ -25,12 +25,16 @@ async function exec(cmd, args, opt) {
     }
   })
 
-  return `## ${cmd} ${args.join(' ')}
-
+  let out = `## ${cmd} ${args.join(' ')}\n`
+  if (buf.length) {
+    out += `
 \`\`\`\`\`\`text
 ${Buffer.concat(buf).toString()}
 \`\`\`\`\`\`
 `
+  }
+
+  return out
 }
 
 
