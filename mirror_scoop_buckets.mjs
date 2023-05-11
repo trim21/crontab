@@ -33,6 +33,7 @@ async function main() {
   out += await exec("git", ["gc"], options);
 
   core.summary.addCodeBlock(out, 'text')
+  await core.summary.write()
 
   return out;
 }
