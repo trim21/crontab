@@ -69,7 +69,11 @@ async function main() {
   out += await exec("git", ["gc"], options);
 
   if (oldHead !== newHead) {
+    const logs = await repo.log({ from: oldHead, to: newHead })
     await core.summary
+      .addCodeBlock(
+        logs.all.map(c => `${new Date(c.date).toISOString()} ${c.hash} ${c.message}`).join('\n'),
+      )
       .addRaw(out, true)
       .write()
   }
