@@ -25,7 +25,7 @@ async function exec(cmd, args, opt) {
     }
   })
 
-  let out = `## ${cmd} ${args.join(' ')}\n`
+  let out = `### ${cmd} ${args.join(' ')}\n`
   if (buf.length) {
     out += `
 \`\`\`\`\`\`text
