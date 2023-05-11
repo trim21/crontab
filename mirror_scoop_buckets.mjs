@@ -3,7 +3,9 @@ import * as path from "node:path";
 import assert from "node:assert";
 
 import * as core from '@actions/core';
-import { getExecOutput, exec as _exec } from "@actions/exec";
+import { exec as _exec } from "@actions/exec";
+import { simpleGit, CleanOptions } from 'simple-git';
+
 
 const cwd = process.cwd();
 const repoName = process.env.NAME;
@@ -45,7 +47,6 @@ async function main() {
   assert(ACCESS_TOKEN.length !== 0, "no access token given");
 
   let out = "";
-
   if (!fs.existsSync(repoDir)) {
     const remote = `https://trim21:${ACCESS_TOKEN}@gitee.com/scoop-bucket/${repoName}.git`;
     out += await exec("git", ["clone", url, repoDir]);
@@ -54,18 +55,24 @@ async function main() {
     out += await exec("git", ["fetch", "origin"], options);
   }
 
+  const repo = simpleGit(repoDir)
+
+  const oldHead = await repo.revparse('HEAD')
+
   out += await exec("git", ["remote", "prune", "origin"], options)
   out += await exec("git", ["fetch", "gitee"], options);
   out += await exec("git", ["reset", "--hard"], options);
   out += await exec("git", ["checkout", "master"], options);
   out += await exec("git", ["reset", "--hard", "origin/master"], options);
+  const newHead = await repo.revparse('HEAD')
   out += await exec("git", ["push", "--force", "gitee", "master"], options);
   out += await exec("git", ["gc"], options);
 
-  await core.summary
-    .addRaw(out, true)
-    .write()
-
+  if (oldHead !== newHead) {
+    await core.summary
+      .addRaw(out, true)
+      .write()
+  }
 }
 
 await main();
