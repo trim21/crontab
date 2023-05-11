@@ -31,6 +31,7 @@ async function exec(cmd, args, opt) {
 \`\`\`\`\`\`text
 ${Buffer.concat(buf).toString().trim()}
 \`\`\`\`\`\`
+
 `
   }
 
