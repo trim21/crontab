@@ -61,7 +61,11 @@ async function main() {
   out += await exec("git", ["reset", "--hard"], options);
   out += await exec("git", ["checkout", "master"], options);
   out += await exec("git", ["reset", "--hard", "origin/master"], options);
-  out += await exec("git", ["push", "--force", "gitee", "master"], options);
+  out += await exec(
+    "git",
+    ["push", "--porcelain", "--force", "gitee", "master"],
+    options
+  );
   const newHead = await repo.revparse("gitee/master");
   out += await exec("git", ["gc"], options);
 
