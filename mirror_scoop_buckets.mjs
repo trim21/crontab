@@ -67,7 +67,7 @@ async function main() {
     options
   );
   const newHead = await repo.revparse("gitee/master");
-  out += await exec("git", ["gc"], options);
+  out += await exec("git", ["gc", "--aggressive"], options);
 
   if (oldHead !== newHead) {
     const logs = await getExecOutput(
