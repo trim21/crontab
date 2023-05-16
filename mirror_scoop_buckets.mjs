@@ -67,7 +67,7 @@ async function main() {
 
   if (oldHead !== newHead) {
     const logs = await getExecOutput(
-      `git log ${oldHead}..${newHead} --graph --pretty=format:'%h%C(auto)%d %s <%an> %ad' --date=short-local`,
+      `git log ${oldHead}..${newHead} --graph --oneline --date=short-local`,
       null,
       options
     );
