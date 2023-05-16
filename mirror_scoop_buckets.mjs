@@ -4,7 +4,7 @@ import assert from "node:assert";
 
 import * as core from "@actions/core";
 import { exec as _exec, getExecOutput } from "@actions/exec";
-import { simpleGits } from "simple-git";
+import { simpleGit } from "simple-git";
 
 const cwd = process.cwd();
 const repoName = process.env.NAME;
