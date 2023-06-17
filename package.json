@@ -22,7 +22,6 @@
     "@actions/core": "1.10.0",
     "@actions/exec": "1.1.1",
     "@actions/github": "5.1.1",
-    "ansi-to-html": "^0.7.2",
     "simple-git": "3.19.0",
     "strip-ansi": "^7.1.0"
   },
