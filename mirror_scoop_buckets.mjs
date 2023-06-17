@@ -6,8 +6,7 @@ import * as core from "@actions/core";
 import { exec as _exec, getExecOutput } from "@actions/exec";
 import { simpleGit } from "simple-git";
 
-import Convert from "ansi-to-html";
-const convert = new Convert();
+import stripAnsi from "strip-ansi";
 
 const cwd = process.cwd();
 const repoName = process.env.NAME;
@@ -33,7 +32,9 @@ async function exec(cmd, args, opt) {
   if (buf.length) {
     out += `
 
-${convert.toHtml(Buffer.concat(buf).toString().trim())}
+\`\`\`text
+${stripAnsi(Buffer.concat(buf).toString().trim())}
+\`\`\`
 
 `;
   }
