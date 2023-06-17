@@ -6,6 +6,9 @@ import * as core from "@actions/core";
 import { exec as _exec, getExecOutput } from "@actions/exec";
 import { simpleGit } from "simple-git";
 
+import Convert from "ansi-to-html";
+const convert = new Convert();
+
 const cwd = process.cwd();
 const repoName = process.env.NAME;
 const repoDir = path.join(cwd, "repos", repoName);
@@ -29,9 +32,8 @@ async function exec(cmd, args, opt) {
   let out = `### ${cmd} ${args.join(" ")}\n`;
   if (buf.length) {
     out += `
-\`\`\`\`\`\`text
-${Buffer.concat(buf).toString().trim()}
-\`\`\`\`\`\`
+
+${convert.toHtml(Buffer.concat(buf).toString().trim())}
 
 `;
   }
