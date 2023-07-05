@@ -26,7 +26,7 @@ core.exportVariable("D", today.toISOString().slice(8, 10));
 [1, 2, 3].forEach((i) => {
   core.exportVariable(
     `D${i}`,
-    toString(new Date(today.getTime() - i * 1000 * 3600 * 24))
+    toString(new Date(today.getTime() - i * 1000 * 3600 * 24)),
   );
 });
 

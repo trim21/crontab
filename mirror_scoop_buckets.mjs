@@ -67,7 +67,7 @@ async function main() {
   out += await exec(
     "git",
     ["push", "--porcelain", "--force", "gitee", "master"],
-    options
+    options,
   );
   const newHead = await repo.revparse("gitee/master");
   out += await exec("git", ["gc", "--aggressive"], options);
@@ -76,7 +76,7 @@ async function main() {
     const logs = await getExecOutput(
       `git log ${oldHead}..${newHead} --graph --oneline --date=short-local --no-color`,
       null,
-      options
+      options,
     );
     await core.summary.addCodeBlock(logs.stdout).addRaw(out, true).write();
   }
