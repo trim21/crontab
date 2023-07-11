@@ -10,7 +10,7 @@ on:
       - package.json
       - yarn.lock
   schedule:
-    - cron: "0 */4 * * *"
+    - cron: "0 4 * * *"
 
 jobs:
   dockerhub-mirror:
