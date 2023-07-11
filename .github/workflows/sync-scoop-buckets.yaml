@@ -65,7 +65,7 @@ jobs:
             scoop-bucket-${{ matrix.repo.name }}-2-${{ env.Y_1 }}-
             scoop-bucket-${{ matrix.repo.name }}-2-
 
-      - run: wget https://github.com/trim21/try/releases/download/v0.0.16/try_linux_amd64.tar.gz -O- | tar xvz
+      - run: wget https://github.com/trim21/try/releases/latest/download/try_linux_amd64.tar.gz -O- | tar xvz
 
       - name: Run Mirror Script
         run: ./try --delay 1s --limit 10 -- node mirror_scoop_buckets.mjs && exit 0
