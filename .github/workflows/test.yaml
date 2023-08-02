@@ -1,0 +1,18 @@
+name: test
+
+on:
+  pull_request_target:
+
+jobs:
+  dockerhub-mirror:
+    concurrency:
+      group: ${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+
+    runs-on: ubuntu-latest
+    steps:
+      - run: sleep 60
+      - run: sleep 60
+      - run: sleep 60
+      - run: sleep 60
+      - run: sleep 60
