@@ -55,6 +55,7 @@ jobs:
           - src: "gcr.io/prysmaticlabs/prysm/beacon-chain"
             dest: "trim21/prysm-beacon-chain"
             overwrite: "^(stable|latest|latest-alpine)$"
+            tags: "^v.*$"
 
     name: "mirror ${{ matrix.dest }}"
 
