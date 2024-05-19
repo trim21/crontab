@@ -23,6 +23,11 @@ jobs:
             tags: "^(master-.*|v.*)$"
             overwrite: "^(latest|master)$"
 
+          - src: "ghcr.io/bangumi/img-proxy"
+            dest: "trim21/bangumi-img-proxy"
+            tags: "^(master-.*|v.*)$"
+            overwrite: "^(latest|master)$"
+
           - src: "ghcr.io/bangumi/ms-timeline"
             dest: "trim21/bangumi-ms-timeline"
             tags: "^(master-.*|v.*)$"
