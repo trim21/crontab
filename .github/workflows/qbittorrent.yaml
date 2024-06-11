@@ -13,7 +13,7 @@ env:
 
 jobs:
   ci:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v4
@@ -54,7 +54,7 @@ jobs:
           # A list of supported versions can be found here:
           # https://github.com/MarkusJx/prebuilt-boost/blob/main/versions-manifest.json
           boost_version: "1.83.0"
-          platform_version: "22.04"
+          platform_version: "20.04"
 
       - run: |
           cmake -B build -G Ninja -D CMAKE_BUILD_TYPE=RelWithDebInfo \
