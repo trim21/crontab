@@ -25,7 +25,7 @@ jobs:
 
       - run: python3 -m aqt install-qt linux desktop 6.5.* gcc_64 --autodesktop --outputdir /home/runner/work/actions-cron/Qt --archives icu qtbase qtdeclarative qtsvg qttools
 
-      - run: python -m aqt install-src linux 6.5.* --outputdir /home/runner/work/actions-cron/Qt --archives qtbase qtdeclarative
+      - run: python -m aqt install-src linux desktop 6.5.* --outputdir /home/runner/work/actions-cron/Qt --archives qtbase qtdeclarative
 
       #      - name: Install Qt
       #        uses: jurplel/install-qt-action@v4
