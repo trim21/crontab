@@ -35,6 +35,7 @@ jobs:
           version: "6.5.*"
           archives: icu qtbase qtdeclarative qtsvg qttools
           cache: true
+          arch: gcc_64
           target: desktop
           source: true
 
