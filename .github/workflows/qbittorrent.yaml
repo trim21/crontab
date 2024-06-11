@@ -38,6 +38,7 @@ jobs:
           arch: gcc_64
           target: desktop
           source: true
+          host: "linux"
 
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2
