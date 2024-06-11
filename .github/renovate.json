@@ -14,14 +14,14 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["^.*qbittorrent-nex\\\\.yaml$"],
+      "fileMatch": ["^.*qbittorrent-nox\\.yaml$"],
       "matchStrings": ["QB_VERSION: '(?<currentValue>.*?)'"],
       "depNameTemplate": "github.com/qbittorrent/qBittorrent",
       "datasourceTemplate": "github-tag"
     },
     {
       "customType": "regex",
-      "fileMatch": ["^.*qbittorrent-nex\\\\.yaml$"],
+      "fileMatch": ["^.*qbittorrent-nox\\.yaml$"],
       "matchStrings": ["LT_VERSION: '(?<currentValue>.*?)'"],
       "depNameTemplate": "github.com/arvidn/libtorrent",
       "datasourceTemplate": "github-tag"
