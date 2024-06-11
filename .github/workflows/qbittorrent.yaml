@@ -37,7 +37,7 @@ jobs:
           cache: true
           arch: gcc_64
           target: desktop
-          source: true
+          #          source: true
           host: "linux"
 
       - name: ccache
