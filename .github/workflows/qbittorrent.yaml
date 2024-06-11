@@ -13,7 +13,7 @@ env:
 
 jobs:
   ci:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v4
@@ -41,26 +41,26 @@ jobs:
         with:
           key: ${{ env.QB_VERSION }}-${{ env.LT_VERSION }} # Eg. "some_build-ubuntu-latest"
 
-      - run: >-
-          sudo apt-get install -y
-          build-essential pkg-config automake libtool git zlib1g-dev
-          libssl-dev libgeoip-dev libboost-dev libboost-system-dev
-          libboost-chrono-dev libboost-random-dev cmake ninja-build
-
       #      - run: >-
       #          sudo apt-get install -y
       #          build-essential pkg-config automake libtool git zlib1g-dev
-      #          libssl-dev libgeoip-dev cmake ninja-build
+      #          libssl-dev libgeoip-dev libboost-dev libboost-system-dev
+      #          libboost-chrono-dev libboost-random-dev cmake ninja-build
 
-      #      - name: Install boost
-      #        uses: MarkusJx/install-boost@v2.4.5
-      #        id: install-boost
-      #        with:
-      #          # REQUIRED: Specify the required boost version
-      #          # A list of supported versions can be found here:
-      #          # https://github.com/MarkusJx/prebuilt-boost/blob/main/versions-manifest.json
-      #          boost_version: "1.83.0"
-      #          platform_version: "20.04"
+      - run: >-
+          sudo apt-get install -y
+          build-essential pkg-config automake libtool git zlib1g-dev
+          libssl-dev libgeoip-dev cmake ninja-build
+
+      - name: Install boost
+        uses: MarkusJx/install-boost@v2.4.5
+        id: install-boost
+        with:
+          # REQUIRED: Specify the required boost version
+          # A list of supported versions can be found here:
+          # https://github.com/MarkusJx/prebuilt-boost/blob/main/versions-manifest.json
+          boost_version: "1.83.0"
+          platform_version: "20.04"
 
       - run: |
           cmake -B build -G Ninja -D CMAKE_BUILD_TYPE=RelWithDebInfo \
