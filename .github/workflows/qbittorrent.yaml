@@ -20,8 +20,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: qbittorrent/qBittorrent
-          ref: "${{ env.QB_VERSION }}"
+          repository: trim21/qBittorrent
+          #          ref: "${{ env.QB_VERSION }}"
+          ref: personal-patch
 
       - uses: actions/checkout@v4
         with:
