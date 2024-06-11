@@ -13,7 +13,7 @@
     {
       "matchDatasources": ["github-tags"],
       "matchPackageNames": ["qbittorrent/qBittorrent"],
-      "versioning": "regex:^(?<major>\\d+)(\\.(?<minor>\\d+))?(\\.(?<patch>\\d+))?(-(?<compatibility>.*))?$"
+      "versioning": "regex:^release-(?<major>\\d+)(\\.(?<minor>\\d+))?(\\.(?<patch>\\d+))?(-(?<compatibility>.*))?$"
     }
   ],
   "customManagers": [
