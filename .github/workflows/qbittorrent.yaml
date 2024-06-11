@@ -16,6 +16,9 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
       - run: python -m pip install setuptools wheel py7zr==0.20.*
       - run: python -m pip install aqtinstall==3.1.*
       - run: python -m aqt version
