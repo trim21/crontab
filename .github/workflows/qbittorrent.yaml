@@ -76,6 +76,7 @@ jobs:
             -D ZLIB_USE_STATIC_LIBS=ON \
             -D QT_FEATURE_openssl_linked=on \
             -D QT_FEATURE_optimize_full=on -D QT_FEATURE_static=on -D QT_FEATURE_shared=off \
+            -D CMAKE_SKIP_RPATH=on -D CMAKE_SKIP_INSTALL_RPATH=on \
             -D CMAKE_BUILD_TYPE=RelWithDebInfo \
             -D CMAKE_ARCHIVE_OUTPUT_DIRECTORY=libs \
             -D TESTING=OFF -D QT6=ON -D GUI=OFF \
