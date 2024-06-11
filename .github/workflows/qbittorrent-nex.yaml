@@ -13,12 +13,18 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: qbittorrent/qBittorrent
+      #          path: qbittorrent
+
       - uses: actions/checkout@v4
         with:
           ref: "v2.0.10"
           repository: arvidn/libtorrent
           path: libtorrent
           submodules: recursive
+
+      - uses: actions/checkout@v4
+        with:
+          path: /tmp/actions-cron
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
@@ -36,7 +42,7 @@ jobs:
           libssl-dev libgeoip-dev libboost-dev libboost-system-dev
           libboost-chrono-dev libboost-random-dev cmake ninja-build
 
-      - run: python build-qbittorrent-nox.py
+      - run: python /tmp/actions-cron/build-qbittorrent-nox.py
 
       - uses: actions/upload-artifact@v4
         with:
