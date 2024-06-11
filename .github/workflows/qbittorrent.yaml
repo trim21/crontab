@@ -16,17 +16,25 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      - name: Install Qt
-        uses: jurplel/install-qt-action@v4
-        with:
-          version: "6.5.*"
-          archives: icu qtbase qtdeclarative qtsvg qttools
-          #          source: true
-          #          src-archives: qtbase
-          cache: true
-          arch: gcc_64
-          target: desktop
-          host: "linux"
+      - run: python -m pip install setuptools wheel py7zr==0.20.*
+      - run: python -m pip install aqtinstall==3.1.*
+      - run: python -m aqt version
+
+      - run: python3 -m aqt install-qt linux desktop 6.5.* gcc_64 --autodesktop --outputdir /home/runner/work/actions-cron/Qt --archives icu qtbase qtdeclarative qtsvg qttools
+
+      - run: python -m aqt install-src linux 6.5.* --outputdir /home/runner/work/actions-cron/Qt --archives qtbase qtdeclarative
+
+      #      - name: Install Qt
+      #        uses: jurplel/install-qt-action@v4
+      #        with:
+      #          version: "6.5.*"
+      #          archives: icu qtbase qtdeclarative qtsvg qttools
+      #          #          source: true
+      #          #          src-archives: qtbase
+      #          cache: true
+      #          arch: gcc_64
+      #          target: desktop
+      #          host: "linux"
 
       - uses: actions/checkout@v4
         with:
