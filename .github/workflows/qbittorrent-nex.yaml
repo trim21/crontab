@@ -6,7 +6,7 @@ on:
     - cron: "5 4 * * *"
 
 env:
-  QB_VERSION: "4.6.5"
+  QB_VERSION: "release-4.6.5"
   LT_VERSION: "v2.0.10"
 
 jobs:
@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: qbittorrent/qBittorrent
-          ref: "release-${{ env.QB_VERSION }}"
+          ref: "${{ env.QB_VERSION }}"
 
       - uses: actions/checkout@v4
         with:
