@@ -6,8 +6,6 @@ on:
       - "master"
     paths:
       - .github/workflows/qbittorrent.yaml
-  schedule:
-    - cron: "5 4 * * *"
 
 env:
   QB_VERSION: "release-4.6.5"
