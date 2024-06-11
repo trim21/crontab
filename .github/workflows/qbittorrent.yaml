@@ -67,9 +67,8 @@ jobs:
           cmake -B build -G Ninja -D BUILD_SHARED_LIBS=OFF \
             -D CMAKE_BUILD_TYPE=RelWithDebInfo \
             -D TESTING=OFF -D QT6=ON -D GUI=OFF \
+            -D BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }} \
             -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache
-        env:
-          BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
 
       - run: cmake --build build
 
