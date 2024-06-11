@@ -11,7 +11,7 @@ on:
 
 env:
   QB_VERSION: "release-4.6.5"
-  LT_VERSION: "v2.0.9"
+  LT_VERSION: "v2.0.10"
 
 jobs:
   ci:
