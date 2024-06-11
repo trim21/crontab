@@ -9,6 +9,11 @@
     {
       "matchPackagePatterns": ["renovate"],
       "automerge": true
+    },
+    {
+      "matchDatasources": ["github-tags"],
+      "matchPackageNames": ["qbittorrent/qBittorrent"],
+      "versioning": "regex:^(?<major>\\d+)(\\.(?<minor>\\d+))?(\\.(?<patch>\\d+))?(-(?<compatibility>.*))?$"
     }
   ],
   "customManagers": [
@@ -16,7 +21,6 @@
       "customType": "regex",
       "fileMatch": ["^.*qbittorrent\\.yaml$"],
       "matchStrings": ["QB_VERSION: \"(?<currentValue>.*?)\""],
-      "versioning": "regex:^release-(?<major>\\d+)(\\.(?<minor>\\d+))?(\\.(?<patch>\\d+))?(?<prerelease>[^.-]+)??$",
       "depNameTemplate": "qbittorrent/qBittorrent",
       "datasourceTemplate": "github-tags"
     },
