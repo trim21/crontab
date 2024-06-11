@@ -2,6 +2,10 @@ name: qbittorrent
 
 on:
   push:
+    branches:
+      - "master"
+    paths:
+      - .github/workflows/qbittorrent.yaml
   schedule:
     - cron: "5 4 * * *"
 
