@@ -6,8 +6,8 @@ on:
     - cron: "5 4 * * *"
 
 env:
-  QB_VERSION: "release-4.6.5"
-  LT_VERSION: "v2.0.10"
+  QB_VERSION: "release-4.6.4"
+  LT_VERSION: "v2.0.9"
 
 jobs:
   ci:
