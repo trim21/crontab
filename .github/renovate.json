@@ -24,7 +24,6 @@
       "customType": "regex",
       "fileMatch": ["^.*qbittorrent\\.yaml$"],
       "matchStrings": ["LT_VERSION: \"(?<currentValue>.*?)\""],
-      "versioning": "regex:^release-(?<major>\\d+)(\\.(?<minor>\\d+))?(\\.(?<patch>\\d+))?(?<prerelease>[^.-]+)??$",
       "depNameTemplate": "arvidn/libtorrent",
       "datasourceTemplate": "github-tags"
     }
