@@ -21,12 +21,11 @@ jobs:
         with:
           version: "6.5.*"
           archives: icu qtbase qtdeclarative qtsvg qttools
-          source: true
-          src-archives: qtbase
+          #          source: true
+          #          src-archives: qtbase
           cache: true
           arch: gcc_64
           target: desktop
-          aqtversion: "==3.0.*"
           host: "linux"
 
       - uses: actions/checkout@v4
