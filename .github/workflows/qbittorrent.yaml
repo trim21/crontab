@@ -90,4 +90,3 @@ jobs:
         with:
           path: |
             build/qbittorrent-nox
-            build/src/base/
