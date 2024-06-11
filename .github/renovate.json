@@ -17,14 +17,14 @@
       "fileMatch": ["^.*qbittorrent\\.yaml$"],
       "matchStrings": ["QB_VERSION: \"(?<currentValue>.*?)\""],
       "depNameTemplate": "github.com/qbittorrent/qBittorrent",
-      "datasourceTemplate": "github-tag"
+      "datasourceTemplate": "github-tags"
     },
     {
       "customType": "regex",
       "fileMatch": ["^.*qbittorrent\\.yaml$"],
       "matchStrings": ["LT_VERSION: \"(?<currentValue>.*?)\""],
       "depNameTemplate": "github.com/arvidn/libtorrent",
-      "datasourceTemplate": "github-tag"
+      "datasourceTemplate": "github-tags"
     }
   ]
 }
