@@ -23,7 +23,7 @@
       "customType": "regex",
       "fileMatch": ["^.*qbittorrent\\.yaml$"],
       "matchStrings": ["LT_VERSION: \"(?<currentValue>.*?)\""],
-      "depNameTemplate": "https://github.com/arvidn/libtorrent",
+      "depNameTemplate": "arvidn/libtorrent",
       "datasourceTemplate": "github-tags"
     }
   ]
