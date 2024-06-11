@@ -58,6 +58,9 @@ jobs:
 
       - run: |
           cmake -B build -G Ninja -D CMAKE_BUILD_TYPE=RelWithDebInfo \
+              -D BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }} \
+              -D Boost_INCLUDE_DIR=${{steps.install-boost.outputs.BOOST_ROOT}}/include\
+              -D Boost_LIBRARY_DIRS=${{steps.install-boost.outputs.BOOST_ROOT}}/lib \
               -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache
           cmake --build build
           sudo cmake --install build
