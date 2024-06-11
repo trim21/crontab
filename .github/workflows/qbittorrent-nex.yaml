@@ -1,0 +1,43 @@
+name: release
+
+on:
+  push:
+  schedule:
+    - cron: "4 46 * * *"
+
+jobs:
+  ci:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: qbittorrent/qBittorrent
+      - uses: actions/checkout@v4
+        with:
+          ref: "v2.0.10"
+          repository: arvidn/libtorrent
+          path: libtorrent
+          submodules: recursive
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: "6.5.*"
+          archives: icu qtbase qtdeclarative qtsvg qttools
+          cache: true
+
+      - name: ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+
+      - run: >-
+          sudo apt-get install -y
+          build-essential pkg-config automake libtool git zlib1g-dev
+          libssl-dev libgeoip-dev libboost-dev libboost-system-dev
+          libboost-chrono-dev libboost-random-dev cmake ninja-build
+
+      - run: python build-qbittorrent-nox.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          path: build/qbittorrent-nox
