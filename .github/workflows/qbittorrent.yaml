@@ -27,6 +27,8 @@ jobs:
 
       - run: python -m aqt install-src linux desktop 6.5.3 --outputdir ./Qt --archives icu qtbase qtdeclarative qtsvg qttools
 
+      - run: ls ${{ github.workspace }}/Qt/6.5.3/gcc_64/lib/cmake
+
       #      - name: Install Qt
       #        uses: jurplel/install-qt-action@v4
       #        with:
