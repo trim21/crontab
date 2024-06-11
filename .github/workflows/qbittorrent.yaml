@@ -16,6 +16,19 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: "6.5.*"
+          archives: icu qtbase qtdeclarative qtsvg qttools
+          source: true
+          src-archives: qtbase
+          cache: true
+          arch: gcc_64
+          target: desktop
+          aqtversion: "==3.1.*"
+          host: "linux"
+
       - uses: actions/checkout@v4
         with:
           repository: trim21/qBittorrent
@@ -29,18 +42,6 @@ jobs:
           repository: arvidn/libtorrent
           path: qb/libtorrent
           submodules: recursive
-
-      - name: Install Qt
-        uses: jurplel/install-qt-action@v4
-        with:
-          version: "6.5.*"
-          archives: icu qtbase qtdeclarative qtsvg qttools
-          source: true
-          src-archives: qtbase
-          cache: true
-          arch: gcc_64
-          target: desktop
-          host: "linux"
 
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2
