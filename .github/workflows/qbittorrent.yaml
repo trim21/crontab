@@ -34,8 +34,8 @@ jobs:
         with:
           version: "6.5.*"
           archives: icu qtbase qtdeclarative qtsvg qttools
-          #          source: true
-          #          src-archives: icu qtbase qtdeclarative qtsvg qttools
+          source: true
+          src-archives: qtbase qtdeclarative
           cache: true
           arch: gcc_64
           target: desktop
@@ -80,8 +80,7 @@ jobs:
           cmake -B build -G Ninja -D BUILD_SHARED_LIBS=OFF \
             -D OPENSSL_USE_STATIC_LIBS=TRUE \
             -D ZLIB_USE_STATIC_LIBS=ON \
-            -D QT_FEATURE_openssl_linked=on \
-            -D QT_FEATURE_optimize_full=on -D QT_FEATURE_static=on -D QT_FEATURE_shared=off \
+            -D QT_FEATURE_openssl_linked=on -D QT_FEATURE_static=on -D QT_FEATURE_shared=off \
             -D CMAKE_SKIP_RPATH=on -D CMAKE_SKIP_INSTALL_RPATH=on \
             -D CMAKE_BUILD_TYPE=RelWithDebInfo \
             -D CMAKE_ARCHIVE_OUTPUT_DIRECTORY=libs \
