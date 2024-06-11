@@ -49,6 +49,15 @@ jobs:
           libssl-dev libgeoip-dev libboost-dev libboost-system-dev
           libboost-chrono-dev libboost-random-dev cmake ninja-build
 
+      - name: Install boost
+        uses: MarkusJx/install-boost@v2.4.5
+        id: install-boost
+        with:
+          # REQUIRED: Specify the required boost version
+          # A list of supported versions can be found here:
+          # https://github.com/MarkusJx/prebuilt-boost/blob/main/versions-manifest.json
+          boost_version: "1.83"
+
       - run: |
           cmake -B build -G Ninja -D CMAKE_BUILD_TYPE=RelWithDebInfo \
               -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache
@@ -61,6 +70,8 @@ jobs:
             -D CMAKE_BUILD_TYPE=RelWithDebInfo \
             -D TESTING=OFF -D QT6=ON -D GUI=OFF \
             -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache
+        env:
+          BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
 
       - run: cmake --build build
 
