@@ -100,7 +100,7 @@ jobs:
         #          BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
         working-directory: qb
         env:
-          Qt6_DIR: ./Qt
+          Qt6_DIR: "${{ github.workspace }}/Qt"
 
       - run: cmake --build build
         working-directory: qb
