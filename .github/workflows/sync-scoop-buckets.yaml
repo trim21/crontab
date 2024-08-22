@@ -11,7 +11,7 @@ on:
       - package.json
       - yarn.lock
   schedule:
-    - cron: "5 3 * * *"
+    - cron: "5 */4 * * *"
 
 jobs:
   main:
