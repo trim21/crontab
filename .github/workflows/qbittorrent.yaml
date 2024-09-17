@@ -8,7 +8,7 @@ on:
       - .github/workflows/qbittorrent.yaml
 
 env:
-  QB_VERSION: "release-4.6.6"
+  QB_VERSION: "release-4.6.7"
   LT_VERSION: "v2.0.10"
 
 jobs:
