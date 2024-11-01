@@ -42,13 +42,6 @@ def ccache_env(p: str):
     }
 
 
-CCACHE_ENV = {
-    "CMAKE_CXX_COMPILER_LAUNCHER": "ccache",
-    "CMAKE_C_COMPILER_LAUNCHER": "ccache",
-    "CCACHE_DIR": CCACHE_DIR.as_posix(),
-    "CMAKE_INSTALL_PREFIX": cmake_prefix_path.as_posix(),
-}
-
 COMMON_ENVIRON = {
     "CMAKE_INSTALL_PREFIX": cmake_prefix_path.as_posix(),
 }
@@ -157,11 +150,11 @@ def ensure_boost():
                         "-D",
                         "BUILD_TESTING=OFF",
                     ],
-                    env=os.environ | CCACHE_ENV,
+                    env=os.environ | COMMON_ENVIRON,
                 )
                 subprocess.check_call(
                     shlex.split("cmake --build . --config RelWithDebInfo"),
-                    env=os.environ | CCACHE_ENV,
+                    env=os.environ | COMMON_ENVIRON,
                 )
                 subprocess.check_call(
                     shlex.split(
@@ -228,17 +221,17 @@ def ensure_libtorrent():
                         -D CMAKE_INSTALL_LIBDIR=lib
                     """,
                 ),
-                env=os.environ | CCACHE_ENV,
+                env=os.environ | COMMON_ENVIRON,
             )
             subprocess.check_call(
                 shlex.split(f"""cmake --build {build_path / "libtorrent"}"""),
-                env=os.environ | CCACHE_ENV,
+                env=os.environ | COMMON_ENVIRON,
             )
             subprocess.check_call(
                 shlex.split(
                     f"""cmake --install {build_path / "libtorrent"} --prefix {cmake_prefix_path}"""
                 ),
-                env=os.environ | CCACHE_ENV,
+                env=os.environ | COMMON_ENVIRON,
             )
 
 
