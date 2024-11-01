@@ -37,12 +37,9 @@ jobs:
           path: src/boost
           submodules: recursive
 
-      - uses: actions/checkout@v4
-        with:
-          ref: "v6.8.0"
-          repository: qt/qt5
-          path: src/qt
-          submodules: recursive
+      - run: |
+          curl https://download.qt.io/archive/qt/6.8/6.8.0/single/qt-everywhere-src-6.8.0.zip -sSL -o archive/qt-everywhere-src-6.8.0.zip 
+          pv  archive/qt-everywhere-src-6.8.0.zip | tar xf -C src/qt
 
       - run: >-
           sudo apt-get install -y
@@ -54,7 +51,6 @@ jobs:
           llvm-14 llvm-14-dev libclang-14-dev llvm-14-runtime
           clang-14
 
-      - run: pip install httpx
       - run: python ./qbit-nox.py
 
       - uses: actions/upload-artifact@v4
