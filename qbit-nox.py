@@ -77,7 +77,7 @@ def ensure_qt():
             [
                 "bash",
                 "-c",
-                f"pv qt_download.as_posix() | tar -xf -C {project_base_path.as_posix()}",
+                f"pv {qt_download.as_posix()} | tar -xf -C {project_base_path.as_posix()}",
             ],
         )
 
