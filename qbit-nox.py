@@ -165,7 +165,7 @@ def compile_qb():
         )
 
 
+compile_qt()
 ensure_boost()
 ensure_libtorrent()
-compile_qt()
 compile_qb()
