@@ -77,7 +77,7 @@ def ensure_qt():
         subprocess.check_call(
             [
                 "tar",
-                "-xvf",
+                "-xf",
                 qt_download.as_posix(),
                 "-C",
                 project_base_path.as_posix(),
