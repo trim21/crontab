@@ -28,7 +28,7 @@ jobs:
           build-essential pkg-config automake libtool git zlib1g-dev
           libssl-dev cmake ninja-build
           clang
-          llvm llvm-dev libclang-dev llvm-linker-tools llvm-tools llvm-runtime
+          llvm llvm-dev libclang-dev llvm-runtime
           clang-tools clang-format clang-tidy
 
       - run: pip install httpx
