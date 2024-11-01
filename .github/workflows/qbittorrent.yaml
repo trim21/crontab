@@ -42,7 +42,7 @@ jobs:
           submodules: recursive
 
       - run: mkdir archive -p
-      - run: mkdir src -p
+      - run: mkdir src/qt src/boost -p
 
       - run: |
           wget https://download.qt.io/archive/qt/6.8/6.8.0/single/qt-everywhere-src-6.8.0.tar.xz -O archive/qt-everywhere-src-6.8.0.tar.xz --show-progress 
