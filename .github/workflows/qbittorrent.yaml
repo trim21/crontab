@@ -42,11 +42,11 @@ jobs:
           submodules: recursive
 
       - run: mkdir archive -p
-      - run: mkdir src/qt -p
 
       - run: |
           wget https://download.qt.io/archive/qt/6.8/6.8.0/single/qt-everywhere-src-6.8.0.tar.xz -O archive/qt-everywhere-src-6.8.0.tar.xz -q
-          tar x --xz -f archive/qt-everywhere-src-6.8.0.tar.xz -C src/qt qt-everywhere-src-6.8.0
+          tar x --xz -f archive/qt-everywhere-src-6.8.0.tar.xz qt-everywhere-src-6.8.0
+          mv qt-everywhere-src-6.8.0 src/qt
 
       - run: |
           wget https://github.com/boostorg/boost/releases/download/boost-1.86.0/boost-1.86.0-cmake.7z -O archive/boost.cmake.7z -q
