@@ -29,10 +29,9 @@ archive_path.mkdir(exist_ok=True)
 build_path.mkdir(exist_ok=True, parents=True)
 CCACHE_DIR.mkdir(exist_ok=True)
 
-print(f"ccache dir {CCACHE_DIR}")
-
 
 def ccache_env(p: str):
+    return {}
     t = CCACHE_DIR.parent.joinpath(".cache-per-project", p).resolve()
     t.mkdir(exist_ok=True, parents=True)
     t.joinpath("ccache.conf").write_text("\n".join(["max-files=0", "max-size=0"]))
@@ -75,20 +74,13 @@ def ensure_qt():
 
     if not qt6_src_path.exists():
         subprocess.check_call(
-            [
-                "tar",
-                "-xf",
-                qt_download.as_posix(),
-                "-C",
-                project_base_path.as_posix(),
-            ]
+            ["tar", "-xf", qt_download.as_posix(), "-C", project_base_path.as_posix()]
         )
 
 
 def compile_qt():
     with chdir_ctx(qt6_src_path):
         qt_build_path = build_path.joinpath(f"qt-{qt_version}")
-        # shutil.rmtree(qt_build_path)
         if not qt_build_path.exists():
             qt_build_path.mkdir(exist_ok=True)
             with chdir_ctx(qt_build_path):
