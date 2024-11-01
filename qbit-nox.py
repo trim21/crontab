@@ -68,10 +68,8 @@ def ensure_qt():
             qt_download.stat().st_size
             != int(httpx.head(url, follow_redirects=True).headers["content-length"])
         ):
-            with httpx.stream(
-                "GET", url, follow_redirects=True, proxy="http://192.168.2.18:7890"
-            ) as res:
-                with (qt_download.open("wb") as f,):
+            with httpx.stream("GET", url, follow_redirects=True) as res:
+                with qt_download.open("wb") as f:
                     for chunk in res.iter_bytes():
                         f.write(chunk)
 
@@ -145,7 +143,6 @@ def ensure_boost():
                 "https://github.com/boostorg/boost",
                 boost_path.as_posix(),
             ],
-            env={"HTTPS_PROXY": "socks5://192.168.2.18:10801"},
         )
 
     with chdir_ctx(boost_path):
@@ -197,7 +194,6 @@ def ensure_libtorrent():
                 lib_torrent_version,
                 "https://github.com/arvidn/libtorrent.git",
             ],
-            env={"HTTPS_PROXY": "socks5://192.168.2.18:10801"},
         )
     else:
         with chdir_ctx(libtorrent_path):
@@ -252,6 +248,17 @@ def ensure_libtorrent():
 
 
 def compile_qb():
+    subprocess.check_call(
+        [
+            "git",
+            "clone",
+            "--recurse-submodules",
+            "--branch",
+            os.environ["QB_VERSION"],
+            "https://github.com/qbittorrent/qBittorrent.git",
+            qbittorrent_path.as_posix(),
+        ],
+    )
     with chdir_ctx(qbittorrent_path):
         shutil.rmtree(build_path.joinpath("qb"), ignore_errors=True)
         # build_path.joinpath("qb").joinpath("CMakeCache.txt").unlink(missing_ok=True)
@@ -283,8 +290,8 @@ def compile_qb():
         )
 
 
-# ensure_qt()
-# compile_qt()
-# ensure_boost()
-# ensure_libtorrent()
+ensure_qt()
+compile_qt()
+ensure_boost()
+ensure_libtorrent()
 compile_qb()
