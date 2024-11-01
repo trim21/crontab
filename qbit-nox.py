@@ -285,8 +285,8 @@ def compile_qb():
         )
 
 
-ensure_qt()
-compile_qt()
 ensure_boost()
 ensure_libtorrent()
+ensure_qt()
+compile_qt()
 compile_qb()
