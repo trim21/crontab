@@ -71,20 +71,8 @@ jobs:
           path: src/qBittorrent
           submodules: recursive
 
-      - uses: actions/cache@v4
-        with:
-          path: ~/.cache/sccache/boost
-          key: sccache-${{ env.BOOST_VERSION }}
-
-      - run: python ./qbit-nox.py boost
-        env:
-          SCCACHE_DIR: ~/.cache/sccache/boost
-
-      - run: python ./qbit-nox.py lt
-        env:
-          SCCACHE_DIR: ~/.cache/sccache/lt/
-
-      - uses: actions/cache@v4
+      - uses: actions/cache/restore@v4
+        id: cache-qt
         with:
           path: ~/.cache/sccache/qt
           key: sccache-${{ env.QT_VERSION }}
@@ -93,12 +81,29 @@ jobs:
         env:
           SCCACHE_DIR: ~/.cache/sccache/qt/
 
-      - run: python ./qbit-nox.py qb
-        env:
-          SCCACHE_DIR: ~/.cache/sccache/qb/
-
-      - uses: actions/upload-artifact@v4
+      - uses: actions/cache/save@v4
         with:
-          name: "artifact-${{ matrix.lt-version }}"
-          path: |
-            build/qb/qbittorrent-nox
+          path: ~/.cache/sccache/qt
+          key: ${{ steps.cache-qt.outputs.cache-primary-key }}
+#      - uses: actions/cache@v4
+#        with:
+#          path: ~/.cache/sccache/boost
+#          key: sccache-${{ env.BOOST_VERSION }}
+#
+#      - run: python ./qbit-nox.py boost
+#        env:
+#          SCCACHE_DIR: ~/.cache/sccache/boost
+#
+#      - run: python ./qbit-nox.py lt
+#        env:
+#          SCCACHE_DIR: ~/.cache/sccache/lt/
+
+#      - run: python ./qbit-nox.py qb
+#        env:
+#          SCCACHE_DIR: ~/.cache/sccache/qb/
+#
+#      - uses: actions/upload-artifact@v4
+#        with:
+#          name: "artifact-${{ matrix.lt-version }}"
+#          path: |
+#            build/qb/qbittorrent-nox
