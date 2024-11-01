@@ -91,7 +91,6 @@ def compile_qt():
                             f"""
                         -submodules qtbase,qttools
                         -prefix '{cmake_prefix_path}'
-                        -ccache
                         """,
                         ),
                         "-static",
