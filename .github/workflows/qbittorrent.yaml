@@ -23,6 +23,20 @@ jobs:
         with:
           python-version: "3.11"
 
+      - uses: actions/checkout@v4
+        with:
+          ref: "${{ env.LT_VERSION }}"
+          repository: arvidn/libtorrent
+          path: src/libtorrent
+          submodules: recursive
+
+      - uses: actions/checkout@v4
+        with:
+          ref: "boost-1.81.0"
+          repository: boostorg/boost
+          path: src/boost
+          submodules: recursive
+
       - run: >-
           sudo apt-get install -y
           build-essential pkg-config automake libtool git zlib1g-dev

@@ -104,35 +104,6 @@ def compile_qt():
 
 
 def ensure_boost():
-    if boost_path.exists():
-        with chdir_ctx(boost_path):
-            # checkout boost with tag
-            pass
-            # subprocess.check_call(
-            #     [
-            #         "git",
-            #         "sub",
-            #         "--recurse-submodules",
-            #         "--branch",
-            #         "boost-1.86.0",
-            #         "https://github.com/boostorg/boost",
-            #         boost_path.as_posix(),
-            #     ],
-            #     env={"HTTPS_PROXY": "socks5://192.168.2.18:10801"},
-            # )
-    else:
-        subprocess.check_call(
-            [
-                "git",
-                "clone",
-                "--recurse-submodules",
-                "--branch",
-                "boost-1.81.0",
-                "https://github.com/boostorg/boost",
-                boost_path.as_posix(),
-            ],
-        )
-
     with chdir_ctx(boost_path):
         build_boost_path = build_path.joinpath("boost")
         build_boost_path.mkdir(exist_ok=True)
@@ -172,33 +143,15 @@ lib_torrent_version = "v1.2.19"
 
 
 def ensure_libtorrent():
-    if not libtorrent_path.exists():
-        subprocess.check_call(
-            [
-                "git",
-                "clone",
-                "--recurse-submodules",
-                "--branch",
-                lib_torrent_version,
-                "https://github.com/arvidn/libtorrent.git",
-            ],
+    with chdir_ctx(libtorrent_path):
+        expected_version = subprocess.check_output(
+            ["git", "rev-parse", lib_torrent_version]
         )
-    else:
-        with chdir_ctx(libtorrent_path):
-            expected_version = subprocess.check_output(
-                ["git", "rev-parse", lib_torrent_version]
-            )
-            if expected_version != subprocess.check_output(
-                ["git", "rev-parse", "HEAD"]
-            ):
-                subprocess.check_call(
-                    ["git", "checkout", "--force", lib_torrent_version]
-                )
-                subprocess.check_call(shlex.split("git clean -fd"))
-                subprocess.check_call(["git", "submodule", "update", "--init"])
-                subprocess.check_call(
-                    shlex.split("git submodule foreach git clean -fd")
-                )
+        if expected_version != subprocess.check_output(["git", "rev-parse", "HEAD"]):
+            subprocess.check_call(["git", "checkout", "--force", lib_torrent_version])
+            subprocess.check_call(shlex.split("git clean -fd"))
+            subprocess.check_call(["git", "submodule", "update", "--init"])
+            subprocess.check_call(shlex.split("git submodule foreach git clean -fd"))
 
     build_path.joinpath("libtorrent").mkdir(exist_ok=True)
     with chdir_ctx(libtorrent_path):
