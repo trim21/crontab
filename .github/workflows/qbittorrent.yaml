@@ -37,6 +37,13 @@ jobs:
           path: src/boost
           submodules: recursive
 
+      - uses: actions/checkout@v4
+        with:
+          ref: "v6.8.0"
+          repository: qt/qt5
+          path: src/qt
+          submodules: recursive
+
       - run: >-
           sudo apt-get install -y
           build-essential pkg-config automake libtool git zlib1g-dev

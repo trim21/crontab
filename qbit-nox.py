@@ -15,7 +15,7 @@ qt_version = "6.8.0"
 libtorrent_path = project_base_path.joinpath("libtorrent").resolve()
 qbittorrent_path = project_base_path.joinpath("qBittorrent").resolve()
 boost_path = project_base_path.joinpath("boost").resolve()
-qt6_src_path = project_base_path.joinpath(f"qt-everywhere-src-{qt_version}").resolve()
+qt6_src_path = project_base_path.joinpath(f"qt").resolve()
 
 CCACHE_DIR = project_base_path.parent.joinpath(".ccache")
 archive_path = project_base_path.joinpath("archive").resolve()
@@ -47,34 +47,6 @@ COMMON_ENVIRON = {
 }
 
 
-def ensure_qt():
-    if qt6_src_path.exists():
-        return
-
-    qt_download = archive_path.joinpath(f"qt-everywhere-src-{qt_version}.tar.xz")
-    if not qt6_src_path.exists():
-        url = (
-            "https://download.qt.io/archive/qt/{1}.{2}/{0}/single/qt-everywhere-src-{0}.tar.xz"
-        ).format(qt_version, *qt_version.split("."))
-        if not qt_download.exists() or (
-            qt_download.stat().st_size
-            != int(httpx.head(url, follow_redirects=True).headers["content-length"])
-        ):
-            with httpx.stream("GET", url, follow_redirects=True) as res:
-                with qt_download.open("wb") as f:
-                    for chunk in res.iter_bytes():
-                        f.write(chunk)
-
-    if not qt6_src_path.exists():
-        subprocess.check_call(
-            [
-                "bash",
-                "-c",
-                f"pv {qt_download.as_posix()} | tar -xf -C {project_base_path.as_posix()}",
-            ],
-        )
-
-
 def compile_qt():
     with chdir_ctx(qt6_src_path):
         qt_build_path = build_path.joinpath(f"qt-{qt_version}")
@@ -93,12 +65,12 @@ def compile_qt():
                         "-static",
                         # "-shared",
                     ],
-                    env=os.environ | COMMON_ENVIRON | ccache_env("qt"),
+                    env=os.environ | COMMON_ENVIRON,
                 )
         with chdir_ctx(qt_build_path):
             subprocess.check_call(
                 shlex.split("cmake --build ."),
-                env=os.environ | COMMON_ENVIRON | ccache_env("qt"),
+                env=os.environ | COMMON_ENVIRON,
             )
             subprocess.check_call(shlex.split("cmake --install ."))
 
@@ -233,6 +205,5 @@ def compile_qb():
 
 ensure_boost()
 ensure_libtorrent()
-ensure_qt()
 compile_qt()
 compile_qb()
