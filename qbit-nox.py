@@ -68,6 +68,7 @@ def compile_qt():
 
 def ensure_boost():
     build_boost_path = build_path.joinpath("boost")
+    build_boost_path.mkdir(exist_ok=True, parents=True)
     with chdir_ctx(build_boost_path):
         for shared in [
             # "ON",
