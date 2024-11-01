@@ -42,6 +42,7 @@ jobs:
           submodules: recursive
 
       - run: mkdir archive -p
+      - run: mkdir src -p
 
       - run: |
           wget https://archives.boost.io/release/1.86.0/source/boost_1_86_0.tar.gz -O archive/boost.tar.gz --show-progress 
