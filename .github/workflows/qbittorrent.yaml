@@ -45,11 +45,11 @@ jobs:
       - run: mkdir src/qt -p
 
       - run: |
-          wget https://download.qt.io/archive/qt/6.8/6.8.0/single/qt-everywhere-src-6.8.0.tar.xz -O archive/qt-everywhere-src-6.8.0.tar.xz
+          wget https://download.qt.io/archive/qt/6.8/6.8.0/single/qt-everywhere-src-6.8.0.tar.xz -O archive/qt-everywhere-src-6.8.0.tar.xz -q
           pv archive/qt-everywhere-src-6.8.0.tar.xz | tar x --xz -f - -C src/qt qt-everywhere-src-6.8.0
 
       - run: |
-          wget https://github.com/boostorg/boost/releases/download/boost-1.86.0/boost-1.86.0-cmake.7z -O archive/boost.cmake.7z
+          wget https://github.com/boostorg/boost/releases/download/boost-1.86.0/boost-1.86.0-cmake.7z -O archive/boost.cmake.7z -q
           p7zip -d archive/boost.cmake.7z 
           mv boost-1.86.0 ./src/boost
 
