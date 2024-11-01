@@ -74,7 +74,11 @@ def ensure_qt():
 
     if not qt6_src_path.exists():
         subprocess.check_call(
-            ["tar", "-xf", qt_download.as_posix(), "-C", project_base_path.as_posix()],
+            [
+                "bash",
+                "-c",
+                f"pv qt_download.as_posix() | tar -xf -C {project_base_path.as_posix()}",
+            ],
         )
 
 
