@@ -1,6 +1,7 @@
 import os
 import shlex
 import subprocess
+import sys
 from pathlib import Path
 
 from contextlib import chdir as chdir_ctx
@@ -145,7 +146,15 @@ def compile_qb():
         )
 
 
-ensure_boost()
-ensure_libtorrent()
-compile_qt()
-compile_qb()
+match sys.argv[1]:
+    case "boost":
+        ensure_boost()
+    case "lt":
+        ensure_libtorrent()
+    case "qt":
+        compile_qt()
+    case "qb":
+        compile_qb()
+    case _:
+        print("Unknown compile target")
+        sys.exit(1)

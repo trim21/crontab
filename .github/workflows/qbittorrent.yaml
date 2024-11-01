@@ -80,7 +80,10 @@ jobs:
       #          restore-keys: |
       #            sccache-${{ env.QT_VERSION }}-${{ env.BOOST_VERSION }}
 
-      - run: python ./qbit-nox.py
+      - run: python ./qbit-nox.py boost
+      - run: python ./qbit-nox.py lt
+      - run: python ./qbit-nox.py qt
+      - run: python ./qbit-nox.py qb
 
       - uses: actions/upload-artifact@v4
         with:
