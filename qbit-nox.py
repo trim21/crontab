@@ -47,12 +47,10 @@ def compile_qt():
             subprocess.check_call(
                 [
                     qt6_src_path.joinpath("configure").as_posix(),
-                    *shlex.split(
-                        f"""
-                        -submodules qtbase,qttools
-                        -prefix '{cmake_prefix_path}'
-                        """,
-                    ),
+                    "-submodules",
+                    "qtbase,qttools",
+                    "-prefix",
+                    str(cmake_prefix_path),
                     "-static",
                     # "-shared",
                 ],
@@ -70,34 +68,26 @@ def ensure_boost():
     build_boost_path = build_path.joinpath("boost")
     build_boost_path.mkdir(exist_ok=True, parents=True)
     with chdir_ctx(build_boost_path):
-        for shared in [
-            # "ON",
-            "OFF",
-        ]:
-            subprocess.check_call(
-                [
-                    "cmake",
-                    boost_path,
-                    "-D",
-                    f"BUILD_SHARED_LIBS={shared}",
-                    "-D",
-                    "BUILD_TESTING=OFF",
-                ],
-                env=os.environ | COMMON_ENVIRON,
+        subprocess.check_call(
+            [
+                "cmake",
+                boost_path,
+                "-D",
+                "BUILD_SHARED_LIBS=OFF",
+                "-D",
+                "BUILD_TESTING=OFF",
+            ],
+            env=os.environ | COMMON_ENVIRON,
+        )
+        subprocess.check_call(
+            shlex.split("cmake --build . --config RelWithDebInfo"),
+            env=os.environ | COMMON_ENVIRON,
+        )
+        subprocess.check_call(
+            shlex.split(
+                f"cmake --install . --config RelWithDebInfo --prefix '{cmake_prefix_path}'"
             )
-            subprocess.check_call(
-                shlex.split("cmake --build . --config RelWithDebInfo"),
-                env=os.environ | COMMON_ENVIRON,
-            )
-            subprocess.check_call(
-                shlex.split(
-                    f"""
-                        cmake --install .
-                          --config RelWithDebInfo
-                          --prefix '{cmake_prefix_path}'
-                    """
-                )
-            )
+        )
 
 
 def ensure_libtorrent():
@@ -165,7 +155,7 @@ def compile_qb():
         )
 
 
-compile_qt()
 ensure_boost()
 ensure_libtorrent()
+compile_qt()
 compile_qb()
