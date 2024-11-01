@@ -25,6 +25,9 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Run sccache-cache
+        uses: mozilla-actions/sccache-action@v0.0.6
+
       - run: >-
           sudo apt-get install -y
           build-essential pkg-config automake libtool git zlib1g-dev
@@ -65,6 +68,13 @@ jobs:
           repository: qbittorrent/qBittorrent
           path: src/qBittorrent
           submodules: recursive
+
+      - name: Cache Primes
+        id: cache-primes
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/sccache
+          key: sccache-${{ matrix.lt-version }}
 
       - run: python ./qbit-nox.py
 

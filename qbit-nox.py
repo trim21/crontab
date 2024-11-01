@@ -22,19 +22,9 @@ project_base_path.mkdir(exist_ok=True, parents=True)
 build_path.mkdir(exist_ok=True, parents=True)
 
 
-def ccache_env(p: str):
-    return {}
-    t = CCACHE_DIR.parent.joinpath(".cache-per-project", p).resolve()
-    t.mkdir(exist_ok=True, parents=True)
-    t.joinpath("ccache.conf").write_text("\n".join(["max-files=0", "max-size=0"]))
-    return {
-        "CMAKE_CXX_COMPILER_LAUNCHER": "ccache",
-        "CMAKE_C_COMPILER_LAUNCHER": "ccache",
-        "CCACHE_DIR": t.as_posix(),
-    }
-
-
 COMMON_ENVIRON = {
+    "CMAKE_CXX_COMPILER_LAUNCHER": "sccache",
+    "CMAKE_C_COMPILER_LAUNCHER": "sccache",
     "CMAKE_INSTALL_PREFIX": cmake_prefix_path.as_posix(),
 }
 
@@ -146,7 +136,7 @@ def compile_qb():
                 # *shlex.split("-D ZLIB_LIBRARY=/usr/lib/x86_64-linux-gnu/libz.a"),
                 # *shlex.split("-D OPENSSL_USE_STATIC_LIBS=true"),
             ],
-            env=os.environ | COMMON_ENVIRON | ccache_env("qb"),
+            env=os.environ | COMMON_ENVIRON,
         )
 
         subprocess.check_call(
