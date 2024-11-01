@@ -46,11 +46,11 @@ jobs:
 
       - run: |
           wget https://download.qt.io/archive/qt/6.8/6.8.0/single/qt-everywhere-src-6.8.0.tar.xz -O archive/qt-everywhere-src-6.8.0.tar.xz 
-          pv archive/qt-everywhere-src-6.8.0.tar.xz | tar x --xz -f - -C src/qt
+          pv archive/qt-everywhere-src-6.8.0.tar.xz | tar x --xz -f - -C src/qt qt-everywhere-src-6.8.0
 
       - run: |
           wget https://archives.boost.io/release/1.86.0/source/boost_1_86_0.tar.gz -O archive/boost.tar.gz 
-          pv archive/boost.tar.gz | tar x -z -f - -C src/boost
+          pv archive/boost.tar.gz | tar x -z -f - -C src/boost boost_1_86_0
 
       - run: python ./qbit-nox.py
 
