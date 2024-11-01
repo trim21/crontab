@@ -32,7 +32,7 @@ jobs:
           clang-13
           llvm-14 llvm-14-dev libclang-14-dev llvm-14-runtime
           clang-14
-          pv p7zip tree
+          p7zip
 
       - uses: actions/checkout@v4
         with:
@@ -43,15 +43,19 @@ jobs:
 
       - run: mkdir archive -p
 
-      - run: |
-          wget https://download.qt.io/archive/qt/6.8/6.8.0/single/qt-everywhere-src-6.8.0.tar.xz -O archive/qt-everywhere-src-6.8.0.tar.xz -q
-          tar x --xz -f archive/qt-everywhere-src-6.8.0.tar.xz qt-everywhere-src-6.8.0
-          mv qt-everywhere-src-6.8.0 src/qt
+      - run: >-
+          wget https://download.qt.io/archive/qt/6.8/6.8.0/single/qt-everywhere-src-6.8.0.tar.xz 
+          -O archive/qt-everywhere-src-6.8.0.tar.xz -q
 
-      - run: |
-          wget https://github.com/boostorg/boost/releases/download/boost-1.86.0/boost-1.86.0-cmake.7z -O archive/boost.cmake.7z -q
-          p7zip -d archive/boost.cmake.7z 
-          mv boost-1.86.0 ./src/boost
+      - run: tar x --xz -f archive/qt-everywhere-src-6.8.0.tar.xz qt-everywhere-src-6.8.0
+      - run: mv qt-everywhere-src-6.8.0 src/qt
+
+      - run: >-
+          wget https://github.com/boostorg/boost/releases/download/boost-1.86.0/boost-1.86.0-cmake.7z 
+          -O archive/boost.cmake.7z -q
+
+      - run: p7zip -d archive/boost.cmake.7z
+      - run: mv boost-1.86.0 ./src/boost
 
       - run: ls src/qt
 
