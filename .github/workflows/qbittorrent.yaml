@@ -30,6 +30,8 @@ jobs:
           path: src/libtorrent
           submodules: recursive
 
+      - run: mkdir archive -p
+
       - run: |
           curl https://download.qt.io/archive/qt/6.8/6.8.0/single/qt-everywhere-src-6.8.0.tar.xz -sSL -o archive/qt-everywhere-src-6.8.0.tar.xz 
           pv  archive/qt-everywhere-src-6.8.0.tar.xz | tar xf -C src/qt
