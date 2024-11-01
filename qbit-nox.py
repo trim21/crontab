@@ -91,7 +91,6 @@ def ensure_libtorrent():
                 shlex.split(
                     f"""
                     cmake -B {build_path.joinpath("libtorrent")} -G Ninja
-                        -D CMAKE_CXX_FLAGS='-march=native'
                         -D CMAKE_BUILD_TYPE=RelWithDebInfo
                         -D deprecated-functions=OFF
                         -D BUILD_SHARED_LIBS={shared}
@@ -129,7 +128,7 @@ def compile_qb():
                 *["-D", f"CMAKE_PREFIX_PATH={cmake_prefix_path}"],
                 *["-D", f"CMAKE_INCLUDE_PATH={cmake_prefix_path / 'include'}"],
                 *["-D", f"CMAKE_LIBRARY_PATH={cmake_prefix_path / 'lib'}"],
-                "-DCMAKE_CXX_FLAGS='-march=native -Werror -Wno-error=deprecated-declarations'",
+                "-DCMAKE_CXX_FLAGS='-Werror -Wno-error=deprecated-declarations'",
                 "-DBoost_USE_STATIC_LIBS=ON",
                 *shlex.split("-D ZLIB_USE_STATIC_LIBS=ON"),
                 *shlex.split("-D ZLIB_LIBRARY=/usr/lib/x86_64-linux-gnu/libz.a"),

@@ -71,19 +71,31 @@ jobs:
           path: src/qBittorrent
           submodules: recursive
 
-      - name: Cache Primes
-        id: cache-primes
-        uses: actions/cache@v4
+      - uses: actions/cache@v4
         with:
-          path: ~/.cache/sccache
-          key: sccache-${{ env.QT_VERSION }}-${{ env.BOOST_VERSION }}
-      #          restore-keys: |
-      #            sccache-${{ env.QT_VERSION }}-${{ env.BOOST_VERSION }}
+          path: ~/.cache/sccache/boost
+          key: sccache-${{ env.BOOST_VERSION }}
 
       - run: python ./qbit-nox.py boost
+        env:
+          SCCACHE_DIR: ~/.cache/sccache/boost
+
       - run: python ./qbit-nox.py lt
+        env:
+          SCCACHE_DIR: ~/.cache/sccache/lt/
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/sccache/qt
+          key: sccache-${{ env.QT_VERSION }}
+
       - run: python ./qbit-nox.py qt
+        env:
+          SCCACHE_DIR: ~/.cache/sccache/qt/
+
       - run: python ./qbit-nox.py qb
+        env:
+          SCCACHE_DIR: ~/.cache/sccache/qb/
 
       - uses: actions/upload-artifact@v4
         with:
