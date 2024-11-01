@@ -75,6 +75,8 @@ jobs:
         with:
           path: ~/.cache/sccache
           key: sccache-${{ matrix.lt-version }}
+          restore-keys: |
+            sccache-
 
       - run: python ./qbit-nox.py
 
