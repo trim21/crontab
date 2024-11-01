@@ -45,11 +45,11 @@ jobs:
 
       - run: |
           curl https://download.qt.io/archive/qt/6.8/6.8.0/single/qt-everywhere-src-6.8.0.tar.xz -sSL -o archive/qt-everywhere-src-6.8.0.tar.xz 
-          pv  archive/qt-everywhere-src-6.8.0.tar.xz | tar xf -C src/qt
+          pv  archive/qt-everywhere-src-6.8.0.tar.xz | tar -x -C src/qt
 
       - run: |
           curl https://archives.boost.io/release/1.86.0/source/boost_1_86_0.tar.gz -sSL -o archive/boost.tar.gz 
-          pv archive/boost.tar.gz | tar xf -C src/boost
+          pv archive/boost.tar.gz | tar -x -C src/boost
 
       - run: python ./qbit-nox.py
 
