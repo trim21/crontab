@@ -10,6 +10,8 @@ on:
 
 env:
   QB_VERSION: "release-5.0.0"
+  BOOST_VERSION: "1.86.0"
+  QT_VERSION: "6.8.0"
 
 jobs:
   ci:
@@ -49,18 +51,18 @@ jobs:
       - run: mkdir archive -p
 
       - run: >-
-          wget https://download.qt.io/archive/qt/6.8/6.8.0/single/qt-everywhere-src-6.8.0.tar.xz 
-          -O archive/qt-everywhere-src-6.8.0.tar.xz -q
+          wget https://download.qt.io/archive/qt/6.8/${{ env.QT_VERSION }}/single/qt-everywhere-src-${{ env.QT_VERSION }}.tar.xz 
+          -O archive/qt-everywhere-src-${{ env.QT_VERSION }}.tar.xz -q
 
-      - run: tar x --xz -f archive/qt-everywhere-src-6.8.0.tar.xz qt-everywhere-src-6.8.0
-      - run: mv qt-everywhere-src-6.8.0 src/qt
+      - run: tar x --xz -f archive/qt-everywhere-src-${{ env.QT_VERSION }}.tar.xz qt-everywhere-src-${{ env.QT_VERSION }}
+      - run: mv qt-everywhere-src-${{ env.QT_VERSION }} src/qt
 
       - run: >-
-          wget https://github.com/boostorg/boost/releases/download/boost-1.86.0/boost-1.86.0-cmake.7z 
+          wget https://github.com/boostorg/boost/releases/download/boost-${{ env.BOOST_VERSION }}/boost-${{ env.BOOST_VERSION }}-cmake.7z 
           -O archive/boost.cmake.7z -q
 
       - run: p7zip -d archive/boost.cmake.7z
-      - run: mv boost-1.86.0 ./src/boost
+      - run: mv boost-${{ env.BOOST_VERSION }} ./src/boost
 
       - uses: actions/checkout@v4
         with:
@@ -74,9 +76,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cache/sccache
-          key: sccache-${{ matrix.lt-version }}
-          restore-keys: |
-            sccache-
+          key: sccache-${{ env.QT_VERSION }}-${{ env.BOOST_VERSION }}
+      #          restore-keys: |
+      #            sccache-${{ env.QT_VERSION }}-${{ env.BOOST_VERSION }}
 
       - run: python ./qbit-nox.py
 
