@@ -32,7 +32,7 @@ jobs:
           clang-13
           llvm-14 llvm-14-dev libclang-14-dev llvm-14-runtime
           clang-14
-          pv p7zip
+          pv p7zip tree
 
       - uses: actions/checkout@v4
         with:
@@ -52,6 +52,8 @@ jobs:
           wget https://github.com/boostorg/boost/releases/download/boost-1.86.0/boost-1.86.0-cmake.7z -O archive/boost.cmake.7z 
           p7zip -d archive/boost.cmake.7z 
           mv boost-1.86.0 ./src/boost
+
+      - run: tree src
 
       - run: python ./qbit-nox.py
 
