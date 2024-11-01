@@ -7,7 +7,7 @@ from pathlib import Path
 import httpx
 from contextlib import chdir as chdir_ctx
 
-project_base_path = Path(__file__, "../src/")
+project_base_path = Path(__file__, "../src/").resolve()
 
 qt_version = "6.8.0"
 # qt_version = "6.7.2"
