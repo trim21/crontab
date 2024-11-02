@@ -8,40 +8,26 @@
   "packageRules": [
     {
       "automerge": true,
-      "matchPackageNames": [
-        "/renovate/"
-      ]
+      "matchPackageNames": ["/renovate/"]
     },
     {
-      "matchDatasources": [
-        "github-tags"
-      ],
-      "matchPackageNames": [
-        "qbittorrent/qBittorrent"
-      ],
+      "matchDatasources": ["github-tags"],
+      "matchPackageNames": ["qbittorrent/qBittorrent"],
       "versioning": "regex:^release-(?<major>\\d+)(\\.(?<minor>\\d+))?(\\.(?<patch>\\d+))?(-(?<compatibility>.*))?$"
     }
   ],
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": [
-        "^.*qbittorrent\\.yaml$"
-      ],
-      "matchStrings": [
-        "QB_VERSION: \"(?<currentValue>.*?)\""
-      ],
+      "fileMatch": ["^.*qbittorrent\\.yaml$"],
+      "matchStrings": ["QB_VERSION: \"(?<currentValue>.*?)\""],
       "depNameTemplate": "qbittorrent/qBittorrent",
       "datasourceTemplate": "github-tags"
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "^.*qbittorrent\\.yaml$"
-      ],
-      "matchStrings": [
-        "LT_VERSION: \"(?<currentValue>.*?)\""
-      ],
+      "fileMatch": ["^.*qbittorrent\\.yaml$"],
+      "matchStrings": ["LT_VERSION: \"(?<currentValue>.*?)\""],
       "depNameTemplate": "arvidn/libtorrent",
       "datasourceTemplate": "github-tags"
     }
