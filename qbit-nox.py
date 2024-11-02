@@ -52,6 +52,7 @@ def compile_qt():
                     -D QT_FEATURE_testlib=off
                     -D FEATURE_androiddeployqt=OFF
                     -D FEATURE_animation=OFF
+                    -D QT_FEATURE_dbus=off
                     """
                     ),
                     "-D",
