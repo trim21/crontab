@@ -6,7 +6,7 @@ from pathlib import Path
 
 from contextlib import chdir as chdir_ctx
 
-project_base_path = Path(os.getcwd()).resolve()
+project_base_path = Path(__file__, "..").resolve()
 
 libtorrent_path = project_base_path.joinpath("libtorrent").resolve()
 qbittorrent_path = project_base_path.joinpath("qBittorrent").resolve()
