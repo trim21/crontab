@@ -87,10 +87,6 @@ jobs:
       - run: p7zip -d archive/boost.cmake.7z
       - run: mv boost-${{ env.BOOST_VERSION }} ./src/boost
 
-      - run: >-
-          wget https://download.qt.io/archive/qt/6.8/${{ env.QT_VERSION }}/single/qt-everywhere-src-${{ env.QT_VERSION }}.tar.xz 
-          -O archive/qt-everywhere-src-${{ env.QT_VERSION }}.tar.xz -q
-
       - run: python ./qbit-nox.py qt
       - run: python ./qbit-nox.py boost
       - run: python ./qbit-nox.py lt
