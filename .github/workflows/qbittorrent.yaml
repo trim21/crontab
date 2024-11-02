@@ -48,33 +48,17 @@ jobs:
           path: src/libtorrent
           submodules: recursive
 
+      - run: sudo mkdir /.cache/sccache -p
+      - run: sudo chown $UID:$PID -R /.cache/sccache
+
       - run: mkdir archive -p
 
       - run: >-
-          wget https://download.qt.io/archive/qt/6.8/${{ env.QT_VERSION }}/single/qt-everywhere-src-${{ env.QT_VERSION }}.tar.xz 
-          -O archive/qt-everywhere-src-${{ env.QT_VERSION }}.tar.xz -q
+          wget https://github.com/boostorg/boost/releases/download/boost-${{ env.BOOST_VERSION }}/boost-${{ env.BOOST_VERSION }}-cmake.7z 
+          -O archive/boost.cmake.7z -q
 
-      - run: tar x --xz -f archive/qt-everywhere-src-${{ env.QT_VERSION }}.tar.xz qt-everywhere-src-${{ env.QT_VERSION }}
-      - run: mv qt-everywhere-src-${{ env.QT_VERSION }} src/qt
-
-      - run: mkdir /.cache/sccache -p
-
-      ########### qt
-      - uses: actions/cache/restore@v4
-        id: cache-qt
-        with:
-          path: ~/.cache/sccache/qt
-          key: sccache-${{ env.QT_VERSION }}
-
-      - run: python ./qbit-nox.py qt
-        env:
-          SCCACHE_DIR: /.cache/sccache/qt/
-
-      - uses: actions/cache/save@v4
-        with:
-          path: ~/.cache/sccache/qt
-          key: ${{ steps.cache-qt.outputs.cache-primary-key }}
-      ########### qt
+      - run: p7zip -d archive/boost.cmake.7z
+      - run: mv boost-${{ env.BOOST_VERSION }} ./src/boost
 
       ########### boost
       - uses: actions/cache/restore@v4
@@ -94,11 +78,28 @@ jobs:
       ########### boost
 
       - run: >-
-          wget https://github.com/boostorg/boost/releases/download/boost-${{ env.BOOST_VERSION }}/boost-${{ env.BOOST_VERSION }}-cmake.7z 
-          -O archive/boost.cmake.7z -q
+          wget https://download.qt.io/archive/qt/6.8/${{ env.QT_VERSION }}/single/qt-everywhere-src-${{ env.QT_VERSION }}.tar.xz 
+          -O archive/qt-everywhere-src-${{ env.QT_VERSION }}.tar.xz -q
 
-      - run: p7zip -d archive/boost.cmake.7z
-      - run: mv boost-${{ env.BOOST_VERSION }} ./src/boost
+      - run: tar x --xz -f archive/qt-everywhere-src-${{ env.QT_VERSION }}.tar.xz qt-everywhere-src-${{ env.QT_VERSION }}
+      - run: mv qt-everywhere-src-${{ env.QT_VERSION }} src/qt
+
+      ########### qt
+      - uses: actions/cache/restore@v4
+        id: cache-qt
+        with:
+          path: ~/.cache/sccache/qt
+          key: sccache-${{ env.QT_VERSION }}
+
+      - run: python ./qbit-nox.py qt
+        env:
+          SCCACHE_DIR: /.cache/sccache/qt/
+
+      - uses: actions/cache/save@v4
+        with:
+          path: ~/.cache/sccache/qt
+          key: ${{ steps.cache-qt.outputs.cache-primary-key }}
+      ########### qt
 
       - uses: actions/checkout@v4
         with:
