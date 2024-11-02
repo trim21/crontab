@@ -49,7 +49,7 @@ jobs:
           submodules: recursive
 
       - run: sudo mkdir /.cache/sccache -p
-      - run: sudo chown $UID:$GID -R /.cache/sccache
+      - run: sudo chown $UID -R /.cache/sccache
 
       - run: mkdir archive -p
 
