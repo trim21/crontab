@@ -38,8 +38,8 @@ def compile_qt():
             subprocess.check_call(
                 [
                     qt6_src_path.joinpath("configure").as_posix(),
-                    'CC="sccache gcc"',
-                    'CXX="sccache gcc"',
+                    "CC='sccache gcc'",
+                    "CXX='sccache gcc'",
                     "-submodules",
                     "qtbase,qttools",
                     "-prefix",
