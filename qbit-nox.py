@@ -23,11 +23,6 @@ project_base_path.mkdir(exist_ok=True, parents=True)
 build_path.mkdir(exist_ok=True, parents=True)
 
 
-CCACHE_ENVIRON = {
-    "CMAKE_CXX_COMPILER_LAUNCHER": "sccache",
-    "CMAKE_C_COMPILER_LAUNCHER": "sccache",
-}
-
 COMMON_ENVIRON = {
     "CMAKE_INSTALL_PREFIX": cmake_prefix_path.as_posix(),
 }
@@ -47,16 +42,13 @@ def compile_qt():
                     str(cmake_prefix_path),
                     "-static",
                     # "-shared",
-                    "--",
-                    "-DCMAKE_CXX_COMPILER_LAUNCHER=sccache",
-                    "-DCMAKE_C_COMPILER_LAUNCHER=sccache",
                 ],
-                env=os.environ | COMMON_ENVIRON | CCACHE_ENVIRON,
+                env=os.environ | COMMON_ENVIRON,
             )
     with chdir_ctx(qt_build_path):
         subprocess.check_call(
             shlex.split("cmake --build ."),
-            env=os.environ | COMMON_ENVIRON | CCACHE_ENVIRON,
+            env=os.environ | COMMON_ENVIRON,
         )
         subprocess.check_call(shlex.split("cmake --install ."))
 

@@ -15,7 +15,6 @@ env:
 
 jobs:
   ci:
-    if: false
     runs-on: ubuntu-22.04
     strategy:
       matrix:
@@ -27,9 +26,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
-      - name: Run sccache-cache
-        uses: mozilla-actions/sccache-action@v0.0.6
 
       - run: >-
           sudo apt-get install -y
@@ -56,9 +52,6 @@ jobs:
           path: src/qBittorrent
           submodules: recursive
 
-      - run: sudo mkdir /.cache/sccache -p
-      - run: sudo chown $UID -R /.cache/sccache
-
       - run: mkdir archive -p
 
       - run: >-
@@ -75,21 +68,8 @@ jobs:
       - run: tar x --xz -f archive/qt-everywhere-src-${{ env.QT_VERSION }}.tar.xz qt-everywhere-src-${{ env.QT_VERSION }}
       - run: mv qt-everywhere-src-${{ env.QT_VERSION }} src/qt
 
-      - uses: actions/cache/restore@v4
-        id: cache-qt
-        with:
-          path: ~/.cache/sccache
-          key: sccache-${{ env.QT_VERSION }}
-
       - run: python ./qbit-nox.py qt
-
-      - uses: actions/cache/save@v4
-        with:
-          path: ~/.cache/sccache
-          key: ${{ steps.cache-qt.outputs.cache-primary-key }}
-
       - run: python ./qbit-nox.py boost
-
       - run: python ./qbit-nox.py lt
       - run: python ./qbit-nox.py qb
 
