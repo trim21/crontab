@@ -48,6 +48,13 @@ jobs:
           path: src/libtorrent
           submodules: recursive
 
+      - uses: actions/checkout@v4
+        with:
+          ref: "${{ env.QB_VERSION }}"
+          repository: qbittorrent/qBittorrent
+          path: src/qBittorrent
+          submodules: recursive
+
       - run: sudo mkdir /.cache/sccache -p
       - run: sudo chown $UID -R /.cache/sccache
 
@@ -60,23 +67,6 @@ jobs:
       - run: p7zip -d archive/boost.cmake.7z
       - run: mv boost-${{ env.BOOST_VERSION }} ./src/boost
 
-      ########### boost
-      - uses: actions/cache/restore@v4
-        id: cache-boost
-        with:
-          path: ~/.cache/sccache/boost
-          key: sccache-${{ env.BOOST_VERSION }}
-
-      - run: python ./qbit-nox.py boost
-        env:
-          SCCACHE_DIR: /.cache/sccache/boost
-
-      - uses: actions/cache/save@v4
-        with:
-          path: ~/.cache/sccache/boost
-          key: ${{ steps.cache-boost.outputs.cache-primary-key }}
-      ########### boost
-
       - run: >-
           wget https://download.qt.io/archive/qt/6.8/${{ env.QT_VERSION }}/single/qt-everywhere-src-${{ env.QT_VERSION }}.tar.xz 
           -O archive/qt-everywhere-src-${{ env.QT_VERSION }}.tar.xz -q
@@ -84,37 +74,23 @@ jobs:
       - run: tar x --xz -f archive/qt-everywhere-src-${{ env.QT_VERSION }}.tar.xz qt-everywhere-src-${{ env.QT_VERSION }}
       - run: mv qt-everywhere-src-${{ env.QT_VERSION }} src/qt
 
-      ########### qt
       - uses: actions/cache/restore@v4
         id: cache-qt
         with:
-          path: ~/.cache/sccache/qt
+          path: ~/.cache/sccache
           key: sccache-${{ env.QT_VERSION }}
 
       - run: python ./qbit-nox.py qt
-        env:
-          SCCACHE_DIR: /.cache/sccache/qt/
 
       - uses: actions/cache/save@v4
         with:
-          path: ~/.cache/sccache/qt
+          path: ~/.cache/sccache
           key: ${{ steps.cache-qt.outputs.cache-primary-key }}
-      ########### qt
 
-      - uses: actions/checkout@v4
-        with:
-          ref: "${{ env.QB_VERSION }}"
-          repository: qbittorrent/qBittorrent
-          path: src/qBittorrent
-          submodules: recursive
+      - run: python ./qbit-nox.py boost
 
       - run: python ./qbit-nox.py lt
-        env:
-          SCCACHE_DIR: /.cache/sccache/lt/
-
       - run: python ./qbit-nox.py qb
-        env:
-          SCCACHE_DIR: /.cache/sccache/qb/
 
       - uses: actions/upload-artifact@v4
         with:
