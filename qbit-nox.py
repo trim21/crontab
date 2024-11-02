@@ -47,7 +47,7 @@ def compile_qt(component: str):
                 *shlex.split(
                     """
                 -D QT_USE_CCACHE=ON
-                -D QT_CCACHE_PROGRAM=sccache
+                -D CCACHE_PROGRAM=sccache
                 -D QT_FEATURE_sql_sqlite=ON
                 -D QT_FEATURE_sql_mysql=OFF
                 -D QT_FEATURE_sql_oci=OFF
