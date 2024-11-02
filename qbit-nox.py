@@ -47,6 +47,7 @@ def compile_qt():
                     "CMAKE_BUILD_TYPE=RelWithDebInfo",
                     *shlex.split(
                         """
+                    -D FEATURE_sql=OFF
                     -D QT_FEATURE_sql=OFF
                     -D QT_FEATURE_static=on
                     -D QT_FEATURE_widgets=off
