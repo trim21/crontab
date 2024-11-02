@@ -57,21 +57,24 @@ jobs:
       - run: tar x --xz -f archive/qt-everywhere-src-${{ env.QT_VERSION }}.tar.xz qt-everywhere-src-${{ env.QT_VERSION }}
       - run: mv qt-everywhere-src-${{ env.QT_VERSION }} src/qt
 
-      - run: >-
-          wget https://github.com/boostorg/boost/releases/download/boost-${{ env.BOOST_VERSION }}/boost-${{ env.BOOST_VERSION }}-cmake.7z 
-          -O archive/boost.cmake.7z -q
-
-      - run: p7zip -d archive/boost.cmake.7z
-      - run: mv boost-${{ env.BOOST_VERSION }} ./src/boost
-
-      - uses: actions/checkout@v4
-        with:
-          ref: "${{ env.QB_VERSION }}"
-          repository: qbittorrent/qBittorrent
-          path: src/qBittorrent
-          submodules: recursive
-
       - run: sudo rm ~/.cache/sccache -rf
+
+      ########### qt
+      - uses: actions/cache/restore@v4
+        id: cache-qt
+        with:
+          path: ~/.cache/sccache/qt
+          key: sccache-${{ env.QT_VERSION }}
+
+      - run: python ./qbit-nox.py qt
+        env:
+          SCCACHE_DIR: ~/.cache/sccache/qt/
+
+      - uses: actions/cache/save@v4
+        with:
+          path: ~/.cache/sccache/qt
+          key: ${{ steps.cache-qt.outputs.cache-primary-key }}
+      ########### qt
 
       ########### boost
       - uses: actions/cache/restore@v4
@@ -90,22 +93,19 @@ jobs:
           key: ${{ steps.cache-boost.outputs.cache-primary-key }}
       ########### boost
 
-      ########### qt
-      - uses: actions/cache/restore@v4
-        id: cache-qt
-        with:
-          path: ~/.cache/sccache/qt
-          key: sccache-${{ env.QT_VERSION }}
+      - run: >-
+          wget https://github.com/boostorg/boost/releases/download/boost-${{ env.BOOST_VERSION }}/boost-${{ env.BOOST_VERSION }}-cmake.7z 
+          -O archive/boost.cmake.7z -q
 
-      - run: python ./qbit-nox.py qt
-        env:
-          SCCACHE_DIR: ~/.cache/sccache/qt/
+      - run: p7zip -d archive/boost.cmake.7z
+      - run: mv boost-${{ env.BOOST_VERSION }} ./src/boost
 
-      - uses: actions/cache/save@v4
+      - uses: actions/checkout@v4
         with:
-          path: ~/.cache/sccache/qt
-          key: ${{ steps.cache-qt.outputs.cache-primary-key }}
-      ########### qt
+          ref: "${{ env.QB_VERSION }}"
+          repository: qbittorrent/qBittorrent
+          path: src/qBittorrent
+          submodules: recursive
 
       - run: python ./qbit-nox.py lt
         env:
