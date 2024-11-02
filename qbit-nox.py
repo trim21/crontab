@@ -156,6 +156,7 @@ def compile_qb():
                 "-DBoost_USE_STATIC_LIBS=ON",
                 *shlex.split("-D ZLIB_USE_STATIC_LIBS=ON"),
                 *shlex.split("-D ZLIB_LIBRARY=/usr/lib/x86_64-linux-gnu/libz.a"),
+                *shlex.split("-D ICU_LIBRARIES=/usr/lib/x86_64-linux-gnu/libicui18n.a"),
                 *shlex.split("-D OPENSSL_USE_STATIC_LIBS=true"),
             ],
             env=os.environ | COMMON_ENVIRON | CCACHE_ENVIRON,
