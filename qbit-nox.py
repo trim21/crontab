@@ -45,6 +45,15 @@ def compile_qt():
                     *["-G", "Ninja"],
                     "-D",
                     "CMAKE_BUILD_TYPE=RelWithDebInfo",
+                    *shlex.split(
+                        """
+                    -D QT_FEATURE_widgets=off
+                    -D QT_FEATURE_gui=off
+                    -D QT_FEATURE_testlib=off
+                    -D FEATURE_androiddeployqt=OFF
+                    -D FEATURE_animation=OFF
+                    """
+                    ),
                     "-D",
                     "BUILD_SHARED_LIBS=OFF",
                     "-D",
