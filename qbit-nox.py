@@ -38,14 +38,15 @@ def compile_qt():
             subprocess.check_call(
                 [
                     qt6_src_path.joinpath("configure").as_posix(),
-                    "CC='sccache gcc'",
-                    "CXX='sccache gcc'",
                     "-submodules",
                     "qtbase,qttools",
                     "-prefix",
                     str(cmake_prefix_path),
                     "-static",
                     # "-shared",
+                    "--",
+                    "-DCMAKE_CXX_COMPILER_LAUNCHER=sccache",
+                    "-DCMAKE_C_COMPILER_LAUNCHER=sccache",
                 ],
                 env=os.environ | COMMON_ENVIRON,
             )
