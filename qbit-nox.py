@@ -32,50 +32,48 @@ COMMON_ENVIRON = {
 }
 
 
-def compile_qt():
-    for component in ["qtbase", "qttools"]:
-        qt_build_path = build_path.joinpath(component)
-        if not qt_build_path.exists():
-            qt_build_path.mkdir(exist_ok=True)
-        with chdir_ctx(qt_build_path):
-            subprocess.check_call(
-                [
-                    "cmake",
-                    project_base_path.joinpath(component).as_posix(),
-                    *["-G", "Ninja"],
-                    "-D",
-                    "CMAKE_BUILD_TYPE=Release",
-                    *shlex.split(
-                        """
-                    -D FEATURE_sql=OFF
-                    -D FEATURE_sqlmodel=OFF
-                    -D FEATURE_static=on
-                    -D FEATURE_widgets=off
-                    -D FEATURE_gui=off
-                    -D FEATURE_gui=off
-                    -D FEATURE_testlib=off
-                    -D FEATURE_androiddeployqt=OFF
-                    -D FEATURE_animation=OFF
-                    -D FEATURE_dbus=off
+def compile_qt(component: str):
+    qt_build_path = build_path.joinpath(component)
+    if not qt_build_path.exists():
+        qt_build_path.mkdir(exist_ok=True)
+    with chdir_ctx(qt_build_path):
+        subprocess.check_call(
+            [
+                "cmake",
+                project_base_path.joinpath(component).as_posix(),
+                *["-G", "Ninja"],
+                "-D",
+                "CMAKE_BUILD_TYPE=Release",
+                *shlex.split(
                     """
-                    ),
-                    "-D",
-                    "BUILD_SHARED_LIBS=OFF",
-                    "-D",
-                    "BUILD_TESTING=OFF",
-                    "-DCMAKE_CXX_COMPILER_LAUNCHER=sccache",
-                    "-DCMAKE_C_COMPILER_LAUNCHER=sccache",
-                ],
-                env=os.environ | COMMON_ENVIRON | CCACHE_ENVIRON,
-            )
-            subprocess.check_call(
-                shlex.split("cmake --build ."),
-                env=os.environ | COMMON_ENVIRON | CCACHE_ENVIRON,
-            )
-            subprocess.check_call(
-                shlex.split(f"cmake --install . --prefix {cmake_prefix_path}"),
-                env=os.environ | COMMON_ENVIRON | CCACHE_ENVIRON,
-            )
+                -D FEATURE_sql=OFF
+                -D FEATURE_sqlmodel=OFF
+                -D FEATURE_static=on
+                -D FEATURE_widgets=off
+                -D FEATURE_gui=off
+                -D FEATURE_testlib=off
+                -D FEATURE_androiddeployqt=OFF
+                -D FEATURE_animation=OFF
+                -D FEATURE_dbus=off
+                """
+                ),
+                "-D",
+                "BUILD_SHARED_LIBS=OFF",
+                "-D",
+                "BUILD_TESTING=OFF",
+                "-DCMAKE_CXX_COMPILER_LAUNCHER=sccache",
+                "-DCMAKE_C_COMPILER_LAUNCHER=sccache",
+            ],
+            env=os.environ | COMMON_ENVIRON | CCACHE_ENVIRON,
+        )
+        subprocess.check_call(
+            shlex.split("cmake --build ."),
+            env=os.environ | COMMON_ENVIRON | CCACHE_ENVIRON,
+        )
+        subprocess.check_call(
+            shlex.split(f"cmake --install . --prefix {cmake_prefix_path}"),
+            env=os.environ | COMMON_ENVIRON | CCACHE_ENVIRON,
+        )
 
 
 def ensure_boost():
@@ -171,8 +169,10 @@ match sys.argv[1]:
         ensure_boost()
     case "lt":
         ensure_libtorrent()
-    case "qt":
-        compile_qt()
+    case "qtbase":
+        compile_qt("qtbase")
+    case "qttools":
+        compile_qt("qttools")
     case "qb":
         compile_qb()
     case _:

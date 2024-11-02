@@ -86,7 +86,8 @@ jobs:
       - run: tar x --xz -f archive/boost.cmake.tar.xz
       - run: mv boost-${{ env.BOOST_VERSION }} ./src/boost
 
-      - run: python ./qbit-nox.py qt
+      - run: python ./qbit-nox.py qtbase
+      - run: python ./qbit-nox.py qttools
       - run: python ./qbit-nox.py boost
       - run: python ./qbit-nox.py lt
       - run: python ./qbit-nox.py qb
