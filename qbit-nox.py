@@ -48,6 +48,7 @@ def compile_qt():
                     *shlex.split(
                         """
                     -D FEATURE_sql=OFF
+                    -D FEATURE_sqlmodel=OFF
                     -D QT_FEATURE_sql=OFF
                     -D QT_FEATURE_static=on
                     -D QT_FEATURE_widgets=off
