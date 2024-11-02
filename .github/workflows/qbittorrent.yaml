@@ -71,6 +71,8 @@ jobs:
           path: src/qBittorrent
           submodules: recursive
 
+      - run: sudo rm ~/.cache/sccache -rf
+
       ########### boost
       - uses: actions/cache/restore@v4
         id: cache-boost
