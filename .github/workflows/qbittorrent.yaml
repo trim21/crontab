@@ -74,7 +74,6 @@ jobs:
       - uses: actions/cache/restore@v4
         id: cache-qt
         with:
-          path: ~/.cache/sccache/qt
           key: sccache-${{ env.QT_VERSION }}
 
       - run: python ./qbit-nox.py qt
@@ -85,25 +84,26 @@ jobs:
         with:
           path: ~/.cache/sccache/qt
           key: ${{ steps.cache-qt.outputs.cache-primary-key }}
-#      - uses: actions/cache@v4
-#        with:
-#          path: ~/.cache/sccache/boost
-#          key: sccache-${{ env.BOOST_VERSION }}
-#
-#      - run: python ./qbit-nox.py boost
-#        env:
-#          SCCACHE_DIR: ~/.cache/sccache/boost
-#
-#      - run: python ./qbit-nox.py lt
-#        env:
-#          SCCACHE_DIR: ~/.cache/sccache/lt/
 
-#      - run: python ./qbit-nox.py qb
-#        env:
-#          SCCACHE_DIR: ~/.cache/sccache/qb/
-#
-#      - uses: actions/upload-artifact@v4
-#        with:
-#          name: "artifact-${{ matrix.lt-version }}"
-#          path: |
-#            build/qb/qbittorrent-nox
+      #      - uses: actions/cache@v4
+      #        with:
+      #          path: ~/.cache/sccache/boost
+      #          key: sccache-${{ env.BOOST_VERSION }}
+
+      - run: python ./qbit-nox.py boost
+        env:
+          SCCACHE_DIR: ~/.cache/sccache/boost
+
+      - run: python ./qbit-nox.py lt
+        env:
+          SCCACHE_DIR: ~/.cache/sccache/lt/
+
+      - run: python ./qbit-nox.py qb
+        env:
+          SCCACHE_DIR: ~/.cache/sccache/qb/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: "artifact-${{ matrix.lt-version }}"
+          path: |
+            build/qb/qbittorrent-nox
