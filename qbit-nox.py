@@ -42,6 +42,9 @@ def compile_qt():
                 [
                     "cmake",
                     project_base_path.joinpath(component).as_posix(),
+                    *["-G", "Ninja"],
+                    "-D",
+                    "CMAKE_BUILD_TYPE=RelWithDebInfo",
                     "-D",
                     "BUILD_SHARED_LIBS=OFF",
                     "-D",
