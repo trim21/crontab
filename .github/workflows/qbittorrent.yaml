@@ -23,6 +23,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Run sccache-cache
+        uses: mozilla-actions/sccache-action@v0.0.6
+
+      - uses: actions/cache/restore@v4
+        id: cache-boost
+        with:
+          path: ~/.cache/sccache
+          key: sccache-ubuntu-22.04-${{ env.QT_VERSION }}-${{ env.BOOST_VERSION }}-${{ matrix.lt-version }}
+          restore-keys:
+            sccache-ubuntu-22.04-${{ env.QT_VERSION }}-${{ env.BOOST_VERSION }}-
+            sccache-ubuntu-22.04-${{ env.QT_VERSION }}-
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
