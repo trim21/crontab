@@ -48,7 +48,6 @@ jobs:
           clang-13
           llvm-14 llvm-14-dev libclang-14-dev llvm-14-runtime
           clang-14
-          p7zip
 
       - uses: actions/checkout@v4
         with:
@@ -81,10 +80,10 @@ jobs:
       - run: mkdir archive -p
 
       - run: >-
-          wget https://github.com/boostorg/boost/releases/download/boost-${{ env.BOOST_VERSION }}/boost-${{ env.BOOST_VERSION }}-cmake.7z 
-          -O archive/boost.cmake.7z -q
+          wget https://github.com/boostorg/boost/releases/download/boost-${{ env.BOOST_VERSION }}/boost-${{ env.BOOST_VERSION }}-cmake.tar.xz
+          -O archive/boost.cmake.tar.xz -q
 
-      - run: p7zip -d archive/boost.cmake.7z
+      - run: tzr x --xz -f archive/boost.cmake.tar.xz
       - run: mv boost-${{ env.BOOST_VERSION }} ./src/boost
 
       - run: python ./qbit-nox.py qt
