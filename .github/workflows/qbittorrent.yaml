@@ -83,7 +83,7 @@ jobs:
           wget https://github.com/boostorg/boost/releases/download/boost-${{ env.BOOST_VERSION }}/boost-${{ env.BOOST_VERSION }}-cmake.tar.xz
           -O archive/boost.cmake.tar.xz -q
 
-      - run: tzr x --xz -f archive/boost.cmake.tar.xz
+      - run: tar x --xz -f archive/boost.cmake.tar.xz
       - run: mv boost-${{ env.BOOST_VERSION }} ./src/boost
 
       - run: python ./qbit-nox.py qt
