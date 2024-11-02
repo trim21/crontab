@@ -52,6 +52,20 @@ jobs:
           path: src/qBittorrent
           submodules: recursive
 
+      - uses: actions/checkout@v4
+        with:
+          ref: "${{ env.QT_VERSION }}"
+          repository: qt/qtbase
+          path: src/qtbase
+          submodules: recursive
+
+      - uses: actions/checkout@v4
+        with:
+          ref: "${{ env.QT_VERSION }}"
+          repository: qt/qttools
+          path: src/qttools
+          submodules: recursive
+
       - run: mkdir archive -p
 
       - run: >-
@@ -64,9 +78,6 @@ jobs:
       - run: >-
           wget https://download.qt.io/archive/qt/6.8/${{ env.QT_VERSION }}/single/qt-everywhere-src-${{ env.QT_VERSION }}.tar.xz 
           -O archive/qt-everywhere-src-${{ env.QT_VERSION }}.tar.xz -q
-
-      - run: tar x --xz -f archive/qt-everywhere-src-${{ env.QT_VERSION }}.tar.xz qt-everywhere-src-${{ env.QT_VERSION }}
-      - run: mv qt-everywhere-src-${{ env.QT_VERSION }} src/qt
 
       - run: python ./qbit-nox.py qt
       - run: python ./qbit-nox.py boost

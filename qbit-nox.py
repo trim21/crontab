@@ -11,7 +11,6 @@ project_base_path = Path(__file__, "../src/").resolve()
 libtorrent_path = project_base_path.joinpath("libtorrent").resolve()
 qbittorrent_path = project_base_path.joinpath("qBittorrent").resolve()
 boost_path = project_base_path.joinpath("boost").resolve()
-qt6_src_path = project_base_path.joinpath("qt").resolve()
 
 CCACHE_DIR = project_base_path.parent.joinpath(".ccache")
 
@@ -23,38 +22,43 @@ project_base_path.mkdir(exist_ok=True, parents=True)
 build_path.mkdir(exist_ok=True, parents=True)
 
 
+CCACHE_ENVIRON = {
+    "CMAKE_CXX_COMPILER_LAUNCHER": "sccache",
+    "CMAKE_C_COMPILER_LAUNCHER": "sccache",
+}
+
 COMMON_ENVIRON = {
     "CMAKE_INSTALL_PREFIX": cmake_prefix_path.as_posix(),
 }
 
 
 def compile_qt():
-    qt_build_path = build_path.joinpath("qt")
-    if not qt_build_path.exists():
-        qt_build_path.mkdir(exist_ok=True)
+    for component in ["qtbase", "qttools"]:
+        qt_build_path = build_path.joinpath(component)
+        if not qt_build_path.exists():
+            qt_build_path.mkdir(exist_ok=True)
         with chdir_ctx(qt_build_path):
             subprocess.check_call(
                 [
-                    qt6_src_path.joinpath("configure").as_posix(),
-                    "-submodules",
-                    "qtbase,qttools",
-                    "-no-gui",
-                    "-no-dbus",
-                    "-prefix",
-                    "-skip",
-                    "qtimageformats,qtsvg,qtactiveqt,qtlanguageserver,qtshadertools,qtdeclarative",
-                    str(cmake_prefix_path),
-                    "-static",
-                    # "-shared",
+                    "cmake",
+                    project_base_path.joinpath(component).as_posix(),
+                    "-D",
+                    "BUILD_SHARED_LIBS=OFF",
+                    "-D",
+                    "BUILD_TESTING=OFF",
+                    "-DCMAKE_CXX_COMPILER_LAUNCHER=sccache",
+                    "-DCMAKE_C_COMPILER_LAUNCHER=sccache",
                 ],
-                env=os.environ | COMMON_ENVIRON,
+                env=os.environ | COMMON_ENVIRON | CCACHE_ENVIRON,
             )
-    with chdir_ctx(qt_build_path):
-        subprocess.check_call(
-            shlex.split("cmake --build ."),
-            env=os.environ | COMMON_ENVIRON,
-        )
-        subprocess.check_call(shlex.split("cmake --install ."))
+            subprocess.check_call(
+                shlex.split("cmake --build ."),
+                env=os.environ | COMMON_ENVIRON | CCACHE_ENVIRON,
+            )
+            subprocess.check_call(
+                shlex.split(f"cmake --install . --prefix {cmake_prefix_path}"),
+                env=os.environ | COMMON_ENVIRON | CCACHE_ENVIRON,
+            )
 
 
 def ensure_boost():
@@ -70,11 +74,11 @@ def ensure_boost():
                 "-D",
                 "BUILD_TESTING=OFF",
             ],
-            env=os.environ | COMMON_ENVIRON,
+            env=os.environ | COMMON_ENVIRON | CCACHE_ENVIRON,
         )
         subprocess.check_call(
             shlex.split("cmake --build . --config RelWithDebInfo"),
-            env=os.environ | COMMON_ENVIRON,
+            env=os.environ | COMMON_ENVIRON | CCACHE_ENVIRON,
         )
         subprocess.check_call(
             shlex.split(
@@ -103,17 +107,17 @@ def ensure_libtorrent():
                         -D CMAKE_INSTALL_LIBDIR=lib
                     """,
                 ),
-                env=os.environ | COMMON_ENVIRON,
+                env=os.environ | COMMON_ENVIRON | CCACHE_ENVIRON,
             )
             subprocess.check_call(
                 shlex.split(f"""cmake --build {build_path / "libtorrent"}"""),
-                env=os.environ | COMMON_ENVIRON,
+                env=os.environ | COMMON_ENVIRON | CCACHE_ENVIRON,
             )
             subprocess.check_call(
                 shlex.split(
                     f"""cmake --install {build_path / "libtorrent"} --prefix {cmake_prefix_path}"""
                 ),
-                env=os.environ | COMMON_ENVIRON,
+                env=os.environ | COMMON_ENVIRON | CCACHE_ENVIRON,
             )
 
 
@@ -136,12 +140,12 @@ def compile_qb():
                 *shlex.split("-D ZLIB_LIBRARY=/usr/lib/x86_64-linux-gnu/libz.a"),
                 *shlex.split("-D OPENSSL_USE_STATIC_LIBS=true"),
             ],
-            env=os.environ | COMMON_ENVIRON,
+            env=os.environ | COMMON_ENVIRON | CCACHE_ENVIRON,
         )
 
         subprocess.check_call(
             shlex.split(f"cmake --build {build_path / 'qb'}"),
-            env=os.environ | COMMON_ENVIRON,
+            env=os.environ | COMMON_ENVIRON | CCACHE_ENVIRON,
         )
 
 
