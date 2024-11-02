@@ -6,7 +6,7 @@ from pathlib import Path
 
 from contextlib import chdir as chdir_ctx
 
-project_base_path = Path(__file__, "../src/").resolve()
+project_base_path = Path(os.getcwd()).resolve()
 
 libtorrent_path = project_base_path.joinpath("libtorrent").resolve()
 qbittorrent_path = project_base_path.joinpath("qBittorrent").resolve()
@@ -47,6 +47,7 @@ def compile_qt():
                     "CMAKE_BUILD_TYPE=RelWithDebInfo",
                     *shlex.split(
                         """
+                    -D QT_FEATURE_sql=OFF
                     -D QT_FEATURE_static=on
                     -D QT_FEATURE_widgets=off
                     -D QT_FEATURE_gui=off
