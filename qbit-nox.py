@@ -49,15 +49,14 @@ def compile_qt():
                         """
                     -D FEATURE_sql=OFF
                     -D FEATURE_sqlmodel=OFF
-                    -D QT_FEATURE_sql=OFF
-                    -D QT_FEATURE_static=on
-                    -D QT_FEATURE_widgets=off
-                    -D QT_FEATURE_gui=off
+                    -D FEATURE_static=on
+                    -D FEATURE_widgets=off
                     -D FEATURE_gui=off
-                    -D QT_FEATURE_testlib=off
+                    -D FEATURE_gui=off
+                    -D FEATURE_testlib=off
                     -D FEATURE_androiddeployqt=OFF
                     -D FEATURE_animation=OFF
-                    -D QT_FEATURE_dbus=off
+                    -D FEATURE_dbus=off
                     """
                     ),
                     "-D",
