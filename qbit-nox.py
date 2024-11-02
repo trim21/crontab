@@ -46,22 +46,20 @@ def compile_qt(component: str):
                 "CMAKE_BUILD_TYPE=Release",
                 *shlex.split(
                     """
-                -DQT_QMAKE_TARGET_MKSPEC=linux-g++
-
                 -D QT_USE_CCACHE=ON
-                -D CCACHE_PROGRAM=sccache
-                -D FEATURE_sql_sqlite=ON
-                -D FEATURE_sql_mysql=OFF
-                -D FEATURE_sql_oci=OFF
-                -D FEATURE_sql_odbc=OFF
-                -D FEATURE_sql_psql=OFF
-                -D FEATURE_static=on
-                -D FEATURE_widgets=off
-                -D FEATURE_gui=off
-                -D FEATURE_testlib=off
-                -D FEATURE_androiddeployqt=OFF
-                -D FEATURE_animation=OFF
-                -D FEATURE_dbus=off
+                -D QT_CCACHE_PROGRAM=sccache
+                -D QT_FEATURE_sql_sqlite=ON
+                -D QT_FEATURE_sql_mysql=OFF
+                -D QT_FEATURE_sql_oci=OFF
+                -D QT_FEATURE_sql_odbc=OFF
+                -D QT_FEATURE_sql_psql=OFF
+                -D QT_FEATURE_static=on
+                -D QT_FEATURE_widgets=off
+                -D QT_FEATURE_gui=off
+                -D QT_FEATURE_testlib=off
+                -D QT_FEATURE_androiddeployqt=OFF
+                -D QT_FEATURE_animation=OFF
+                -D QT_FEATURE_dbus=off
                 """
                 ),
                 "-D",
