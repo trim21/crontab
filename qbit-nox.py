@@ -53,6 +53,7 @@ def compile_qt():
                     -D QT_FEATURE_static=on
                     -D QT_FEATURE_widgets=off
                     -D QT_FEATURE_gui=off
+                    -D FEATURE_gui=off
                     -D QT_FEATURE_testlib=off
                     -D FEATURE_androiddeployqt=OFF
                     -D FEATURE_animation=OFF
