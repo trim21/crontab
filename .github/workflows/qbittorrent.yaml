@@ -89,10 +89,10 @@ jobs:
       - run: python ./qbit-nox.py qt
       - run: python ./qbit-nox.py boost
       - run: python ./qbit-nox.py lt
-      #      - run: python ./qbit-nox.py qb
+      - run: python ./qbit-nox.py qb
 
       - uses: actions/upload-artifact@v4
         with:
-          name: "artifact-${{ matrix.lt-version }}"
+          name: "artifact-${{ env.QB_VERSION }}-${{ matrix.lt-version }}"
           path: |
             build/qb/qbittorrent-nox
