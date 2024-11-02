@@ -57,7 +57,7 @@ jobs:
       - run: tar x --xz -f archive/qt-everywhere-src-${{ env.QT_VERSION }}.tar.xz qt-everywhere-src-${{ env.QT_VERSION }}
       - run: mv qt-everywhere-src-${{ env.QT_VERSION }} src/qt
 
-      - run: sudo rm ~/.cache/sccache -rf
+      - run: mkdir /.cache/sccache -p
 
       ########### qt
       - uses: actions/cache/restore@v4
@@ -68,7 +68,7 @@ jobs:
 
       - run: python ./qbit-nox.py qt
         env:
-          SCCACHE_DIR: ${{ env.HOME }}/.cache/sccache/qt/
+          SCCACHE_DIR: /.cache/sccache/qt/
 
       - uses: actions/cache/save@v4
         with:
@@ -85,7 +85,7 @@ jobs:
 
       - run: python ./qbit-nox.py boost
         env:
-          SCCACHE_DIR: ${{ env.HOME }}/.cache/sccache/boost
+          SCCACHE_DIR: /.cache/sccache/boost
 
       - uses: actions/cache/save@v4
         with:
@@ -109,11 +109,11 @@ jobs:
 
       - run: python ./qbit-nox.py lt
         env:
-          SCCACHE_DIR: ${{ env.HOME }}/.cache/sccache/lt/
+          SCCACHE_DIR: /.cache/sccache/lt/
 
       - run: python ./qbit-nox.py qb
         env:
-          SCCACHE_DIR: ${{ env.HOME }}/.cache/sccache/qb/
+          SCCACHE_DIR: /.cache/sccache/qb/
 
       - uses: actions/upload-artifact@v4
         with:
