@@ -44,7 +44,7 @@ def compile_qt():
                     project_base_path.joinpath(component).as_posix(),
                     *["-G", "Ninja"],
                     "-D",
-                    "CMAKE_BUILD_TYPE=RelWithDebInfo",
+                    "CMAKE_BUILD_TYPE=Release",
                     *shlex.split(
                         """
                     -D FEATURE_sql=OFF
@@ -94,12 +94,12 @@ def ensure_boost():
             env=os.environ | COMMON_ENVIRON | CCACHE_ENVIRON,
         )
         subprocess.check_call(
-            shlex.split("cmake --build . --config RelWithDebInfo"),
+            shlex.split("cmake --build . --config Release"),
             env=os.environ | COMMON_ENVIRON | CCACHE_ENVIRON,
         )
         subprocess.check_call(
             shlex.split(
-                f"cmake --install . --config RelWithDebInfo --prefix '{cmake_prefix_path}'"
+                f"cmake --install . --config Release --prefix '{cmake_prefix_path}'"
             )
         )
 
@@ -114,7 +114,7 @@ def ensure_libtorrent():
                 shlex.split(
                     f"""
                     cmake -B {build_path.joinpath("libtorrent")} -G Ninja
-                        -D CMAKE_BUILD_TYPE=RelWithDebInfo
+                        -D CMAKE_BUILD_TYPE=Release
                         -D deprecated-functions=OFF
                         -D BUILD_SHARED_LIBS={shared}
                         -D BOOST_ROOT={cmake_prefix_path}
@@ -146,7 +146,7 @@ def compile_qb():
                 *["-B", build_path.joinpath("qb").as_posix()],
                 *["-G", "Ninja"],
                 *["-D", "TESTING=OFF", "-D", "GUI=OFF"],
-                *["-D", "CMAKE_BUILD_TYPE=RelWithDebInfo"],
+                *["-D", "CMAKE_BUILD_TYPE=Release"],
                 *["-D", f"BOOST_ROOT={cmake_prefix_path}"],
                 *["-D", f"CMAKE_PREFIX_PATH={cmake_prefix_path}"],
                 *["-D", f"CMAKE_INCLUDE_PATH={cmake_prefix_path / 'include'}"],
