@@ -46,6 +46,8 @@ def compile_qt(component: str):
                 "CMAKE_BUILD_TYPE=Release",
                 *shlex.split(
                     """
+                -DQT_QMAKE_TARGET_MKSPEC=linux-g++
+
                 -D QT_USE_CCACHE=ON
                 -D CCACHE_PROGRAM=sccache
                 -D FEATURE_sql_sqlite=ON
