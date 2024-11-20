@@ -9,7 +9,7 @@ on:
       - qbit-nox.py
 
 env:
-  QB_VERSION: "release-5.0.1"
+  QB_VERSION: "release-5.0.2"
   BOOST_VERSION: "1.86.0"
   QT_VERSION: "6.8.0"
 
