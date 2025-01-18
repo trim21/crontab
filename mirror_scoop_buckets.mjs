@@ -32,6 +32,7 @@ async function main() {
   await exec("git", ["checkout", "master"], options);
   await exec("git", ["reset", "--hard", "origin/master"], options);
   await exec("git", ["push", "--force", "gitee"], options);
+  await exec("git", ["gc"], options);
 }
 
 await main();
