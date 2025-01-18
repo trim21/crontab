@@ -38,4 +38,9 @@ if (month === 0) {
 }
 
 core.exportVariable("M_1", `${year}-${month.toString().padStart(2, "0")}`);
+core.exportVariable(
+  "LAST_MONTH",
+  `${year}-${month.toString().padStart(2, "0")}`,
+);
 core.exportVariable("Y_1", `${year}`);
+core.exportVariable("LAST_YEAR", `${year}`);
