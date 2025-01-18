@@ -16,7 +16,7 @@ on:
 jobs:
   main:
     strategy:
-      max-parallel: 3
+      max-parallel: 5
       fail-fast: false
       matrix:
         repo:
