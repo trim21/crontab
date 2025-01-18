@@ -55,16 +55,13 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ./repos/
-          key: scoop-bucket-${{ matrix.repo.name }}-2-${{ env.TODAY }}
+          key: scoop-bucket-2-${{ matrix.repo.name }}-${{ env.TODAY }}
           restore-keys: |
-            scoop-bucket-${{ matrix.repo.name }}-2-${{ env.D1 }}
-            scoop-bucket-${{ matrix.repo.name }}-2-${{ env.D2 }}
-            scoop-bucket-${{ matrix.repo.name }}-2-${{ env.D3 }}
-            scoop-bucket-${{ matrix.repo.name }}-2-${{ env.Y }}-${{ env.M }}-
-            scoop-bucket-${{ matrix.repo.name }}-2-${{ env.M_1 }}-
-            scoop-bucket-${{ matrix.repo.name }}-2-${{ env.Y }}-
-            scoop-bucket-${{ matrix.repo.name }}-2-${{ env.Y_1 }}-
-            scoop-bucket-${{ matrix.repo.name }}-2-
+            scoop-bucket-2-${{ matrix.repo.name }}-${{ env.D1 }}
+            scoop-bucket-2-${{ matrix.repo.name }}-${{ env.D2 }}
+            scoop-bucket-2-${{ matrix.repo.name }}-${{ env.D3 }}
+            scoop-bucket-2-${{ matrix.repo.name }}-${{ env.Y }}-${{ env.M }}-
+            scoop-bucket-2-${{ matrix.repo.name }}-
 
       - run: wget https://github.com/trim21/try/releases/latest/download/try_linux_amd64.tar.gz -O- | tar xvz
 
