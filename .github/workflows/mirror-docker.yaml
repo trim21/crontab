@@ -29,6 +29,7 @@ jobs:
           #   dest: "ghcr.io/trim21/node"
           #   non-overwrite: ""
           #   overwrite: "^(20|22).*$"
+          #   overwrite-skip: "windowsservercore|rc|alpine"
 
           - src: "docker.io/python"
             dest: "ghcr.io/trim21/python"
