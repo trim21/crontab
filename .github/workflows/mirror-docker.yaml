@@ -19,53 +19,14 @@ jobs:
       matrix:
         include:
           - src: "docker.io/node"
-            dest: "ghcr.io/trim21/node"
+            dest: "ghcr.io/trim21/bangumi-server-private"
             tags: "^$"
-            overwrite: "^*$"
-
-          - src: "ghcr.io/bangumi/server-private"
-            dest: "trim21/bangumi-server-private"
-            tags: "^(master-.*|v.*)$"
-            overwrite: "^(latest|master)$"
-
-          - src: "ghcr.io/bangumi/img-proxy"
-            dest: "trim21/bangumi-img-proxy"
-            tags: "^(master-.*|v.*)$"
-            overwrite: "^(latest|master)$"
-
-          - src: "ghcr.io/bangumi/ms-timeline"
-            dest: "trim21/bangumi-ms-timeline"
-            tags: "^(master-.*|v.*)$"
-            overwrite: "^(latest|master)$"
-
-          - src: "ghcr.io/bangumi/chii"
-            dest: "trim21/bangumi-chii"
-            tags: "^(master-.*|v.*)$"
-            overwrite: "^(latest|master)$"
-
-          - src: "ghcr.io/trim21/flexget"
-            dest: "trim21/flexget"
-            tags: ".*"
-            overwrite: '^(\d+|\d+\.\d+)$'
-
-          - src: "ghcr.io/trim21/cactbot-importer"
-            dest: "trim21/cactbot-importer"
-            overwrite: "^latest$"
+            overwrite: "^.*$"
 
           - src: "ghcr.io/trim21/bangumi-workers"
             dest: "trim21/bangumi-workers"
             tags: "^(master-.*|v.*)$"
             overwrite: "^(latest|master)$"
-
-          - src: "gcr.io/prysmaticlabs/prysm/beacon-chain"
-            dest: "ghcr.io/trim21/prysm-beacon-chain"
-            overwrite: "^(stable|latest|latest-alpine)$"
-            tags: "^v.*$"
-
-          - src: "gcr.io/prysmaticlabs/prysm/beacon-chain"
-            dest: "trim21/prysm-beacon-chain"
-            overwrite: "^(stable|latest|latest-alpine)$"
-            tags: "^v.*$"
 
     name: "mirror ${{ matrix.dest }}"
 
