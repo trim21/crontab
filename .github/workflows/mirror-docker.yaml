@@ -29,7 +29,7 @@ jobs:
           - src: "docker.io/python"
             dest: "ghcr.io/trim21/python"
             non-overwrite: ""
-            overwrite: '^3\.1.*-slim$'
+            overwrite: '^3\.1\d+\.\d+(-slim)?$'
             overwrite-skip: "0a|0b|0rc|-rc-|windowsservercore|alpine"
 
           # - src: "docker.io/node"
