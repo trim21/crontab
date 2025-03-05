@@ -7,8 +7,6 @@ on:
       - "master"
     paths:
       - ".github/workflows/mirror-docker.yaml"
-      - package.json
-      - yarn.lock
   schedule:
     - cron: "24 * * * *"
 
