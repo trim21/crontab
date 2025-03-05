@@ -65,11 +65,13 @@ jobs:
       - if: "${{ matrix.non-overwrite != '' }}"
         run: |
           ./try --limit=2 --delay=3s -- \
-              ./imagesync --src "${{ matrix.src }}" --dest "${{ matrix.dest }}" \
-              --tags-pattern '${{ matrix.non-overwrite }}' --max-concurrent-tags 4
+              ./imagesync --max-concurrent-tags 4 \
+              --src "${{ matrix.src }}" --dest "${{ matrix.dest }}" \
+              --tags-pattern '${{ matrix.non-overwrite }}'
 
       - if: "${{ matrix.overwrite != '' }}"
         run: |
           ./try --limit=2 --delay=3s -- \
-              ./imagesync --src "${{ matrix.src }}" --dest "${{ matrix.dest }}" \
+              ./imagesync --max-concurrent-tags 4 \
+              --src "${{ matrix.src }}" --dest "${{ matrix.dest }}" \
               --overwrite --tags-pattern '${{ matrix.overwrite }}' --skip-tags-pattern '${{ matrix.overwrite-skip || '^$' }}'
