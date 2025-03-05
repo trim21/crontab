@@ -27,12 +27,12 @@ jobs:
         include:
           - src: "docker.io/node"
             dest: "ghcr.io/trim21/bangumi-server-private"
-            tags: "^$"
+            non-overwrite: "^$"
             overwrite: "^.*$"
 
           - src: "ghcr.io/trim21/bangumi-workers"
             dest: "trim21/bangumi-workers"
-            tags: "^(master-.*|v.*)$"
+            non-overwrite: "^(master-.*|v.*)$"
             overwrite: "^(latest|master)$"
 
     name: "mirror ${{ matrix.dest }}"
@@ -59,7 +59,7 @@ jobs:
         run: |
           ./try --limit=3 --delay=3s -- \
               ./imagesync --src "${{ matrix.src }}" --dest "${{ matrix.dest }}" \
-              --tags-pattern '${{ matrix.tags }}' --max-concurrent-tags 4
+              --tags-pattern '${{ matrix.non-overwrite }}' --max-concurrent-tags 4
 
       - if: ${{ matrix.overwrite }}
         run: |
