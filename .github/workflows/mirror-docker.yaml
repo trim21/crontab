@@ -27,12 +27,12 @@ jobs:
         include:
           - src: "docker.io/node"
             dest: "ghcr.io/trim21/node"
-            non-overwrite: "^$"
+            non-overwrite: ""
             overwrite: "^(20|22).*$"
 
           - src: "docker.io/python"
             dest: "ghcr.io/trim21/python"
-            non-overwrite: "^$"
+            non-overwrite: ""
             overwrite: "^3.*$"
 
           - src: "ghcr.io/trim21/bangumi-workers"
@@ -60,13 +60,13 @@ jobs:
       - run: wget https://github.com/trim21/try/releases/latest/download/try_linux_amd64.tar.gz -O- | tar xvz
       - run: wget https://github.com/trim21/imagesync/releases/latest/download/imagesync_linux_amd64.tar.gz -O- | tar xvz
 
-      - if: ${{ matrix.tags }}
+      - if: "${{ matrix.non-overwrite != '' }}"
         run: |
           ./try --limit=3 --delay=3s -- \
               ./imagesync --src "${{ matrix.src }}" --dest "${{ matrix.dest }}" \
               --tags-pattern '${{ matrix.non-overwrite }}' --max-concurrent-tags 4
 
-      - if: ${{ matrix.overwrite }}
+      - if: "${{ matrix.overwrite != '' }}"
         run: |
           ./try --limit=3 --delay=3s -- \
               ./imagesync --src "${{ matrix.src }}" --dest "${{ matrix.dest }}" \
