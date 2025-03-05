@@ -26,7 +26,7 @@ jobs:
       matrix:
         include:
           - src: "docker.io/node"
-            dest: "ghcr.io/trim21/bangumi-server-private"
+            dest: "ghcr.io/trim21/node"
             non-overwrite: "^$"
             overwrite: "^(20|22).*$"
 
