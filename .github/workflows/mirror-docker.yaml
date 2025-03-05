@@ -34,6 +34,7 @@ jobs:
             dest: "ghcr.io/trim21/python"
             non-overwrite: ""
             overwrite: "^3.*-slim$"
+            overwrite-skip: "windowsservercore|rc|alpine"
 
           - src: "ghcr.io/trim21/bangumi-workers"
             dest: "trim21/bangumi-workers"
@@ -70,4 +71,4 @@ jobs:
         run: |
           ./try --limit=3 --delay=3s -- \
               ./imagesync --src "${{ matrix.src }}" --dest "${{ matrix.dest }}" \
-              --overwrite --tags-pattern '${{ matrix.overwrite }}'
+              --overwrite --tags-pattern '${{ matrix.overwrite }}' --skip-tags-pattern '${{ matrix.overwrite-skip || '^$' }}'
