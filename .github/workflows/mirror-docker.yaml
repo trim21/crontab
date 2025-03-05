@@ -10,7 +10,7 @@ on:
       - package.json
       - yarn.lock
   schedule:
-    - cron: "24 */4 * * *"
+    - cron: "24 * * * *"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -26,17 +26,17 @@ jobs:
       max-parallel: 1
       matrix:
         include:
-          # - src: "docker.io/node"
-          #   dest: "ghcr.io/trim21/node"
-          #   non-overwrite: ""
-          #   overwrite: "^(20|22).*$"
-          #   overwrite-skip: "windowsservercore|rc|alpine"
-
           - src: "docker.io/python"
             dest: "ghcr.io/trim21/python"
             non-overwrite: ""
             overwrite: '^3\.1.*-slim$'
             overwrite-skip: "0a|0b|0rc|-rc-|windowsservercore|alpine"
+
+          - src: "docker.io/node"
+            dest: "ghcr.io/trim21/node"
+            non-overwrite: ""
+            overwrite: '^(20|22).*\d-slim$'
+            overwrite-skip: "windowsservercore|rc|alpine"
 
           - src: "ghcr.io/trim21/bangumi-workers"
             dest: "trim21/bangumi-workers"
