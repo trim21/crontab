@@ -8,7 +8,7 @@ on:
     paths:
       - ".github/workflows/mirror-docker.yaml"
   schedule:
-    - cron: "24 * * * *"
+    - cron: "24 7 * * *"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
