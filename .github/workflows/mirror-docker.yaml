@@ -28,7 +28,7 @@ jobs:
           - src: "docker.io/node"
             dest: "ghcr.io/trim21/bangumi-server-private"
             non-overwrite: "^$"
-            overwrite: "^2.*$"
+            overwrite: "^(20|22).*$"
 
           - src: "ghcr.io/trim21/bangumi-workers"
             dest: "trim21/bangumi-workers"
