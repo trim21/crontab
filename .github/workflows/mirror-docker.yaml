@@ -36,7 +36,7 @@ jobs:
             dest: "ghcr.io/trim21/python"
             non-overwrite: ""
             overwrite: '^3\.1.*-slim$'
-            overwrite-skip: "0a|0b|-rc-|windowsservercore|alpine"
+            overwrite-skip: "0a|0b|0rc|-rc-|windowsservercore|alpine"
 
           - src: "ghcr.io/trim21/bangumi-workers"
             dest: "trim21/bangumi-workers"
