@@ -35,7 +35,7 @@ jobs:
           - src: "docker.io/python"
             dest: "ghcr.io/trim21/python"
             non-overwrite: ""
-            overwrite: "^3.*-slim$"
+            overwrite: '^3\.1.*-slim$'
             overwrite-skip: "windowsservercore|rc|alpine"
 
           - src: "ghcr.io/trim21/bangumi-workers"
