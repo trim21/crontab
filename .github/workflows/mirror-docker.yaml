@@ -18,6 +18,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - src: "docker.io/node"
+            dest: "ghcr.io/trim21/node"
+            tags: "^$"
+            overwrite: "^*$"
+
           - src: "ghcr.io/bangumi/server-private"
             dest: "trim21/bangumi-server-private"
             tags: "^(master-.*|v.*)$"
