@@ -25,15 +25,15 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - src: "docker.io/node"
-            dest: "ghcr.io/trim21/node"
-            non-overwrite: ""
-            overwrite: "^(20|22).*$"
+          # - src: "docker.io/node"
+          #   dest: "ghcr.io/trim21/node"
+          #   non-overwrite: ""
+          #   overwrite: "^(20|22).*$"
 
           - src: "docker.io/python"
             dest: "ghcr.io/trim21/python"
             non-overwrite: ""
-            overwrite: "^3.*$"
+            overwrite: "^3.*-slim$"
 
           - src: "ghcr.io/trim21/bangumi-workers"
             dest: "trim21/bangumi-workers"
