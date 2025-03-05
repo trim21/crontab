@@ -30,6 +30,11 @@ jobs:
             non-overwrite: "^$"
             overwrite: "^(20|22).*$"
 
+          - src: "docker.io/python"
+            dest: "ghcr.io/trim21/python"
+            non-overwrite: "^$"
+            overwrite: "^3.*$"
+
           - src: "ghcr.io/trim21/bangumi-workers"
             dest: "trim21/bangumi-workers"
             non-overwrite: "^(master-.*|v.*)$"
