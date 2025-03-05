@@ -22,7 +22,8 @@ permissions:
 jobs:
   dockerhub-mirror:
     strategy:
-      fail-fast: false
+      fail-fast: true
+      max-parallel: 1
       matrix:
         include:
           # - src: "docker.io/node"
