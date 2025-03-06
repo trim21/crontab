@@ -33,7 +33,7 @@ jobs:
           - src: "docker.io/node"
             dest: "ghcr.io/trim21/node"
             non-overwrite: ""
-            overwrite: '^22.*\d-slim$'
+            overwrite: '^2(2|0).*\d(-slim)?$'
             overwrite-skip: "windowsservercore|rc|alpine"
 
           - src: "ghcr.io/trim21/bangumi-workers"
