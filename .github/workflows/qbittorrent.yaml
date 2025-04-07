@@ -21,12 +21,12 @@ jobs:
         lt-version: ["v1.2.19", "v2.0.10"]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
       - name: Run sccache-cache
-        uses: mozilla-actions/sccache-action@v0.0.9
+        uses: mozilla-actions/sccache-action@7d986dd989559c6ecdb630a3fd2557667be217ad # v0.0.9
 
-      - uses: actions/cache/restore@v4
+      - uses: actions/cache/restore@5a3ec84eff668545956fd18022155c47e93e2684 # v4
         id: cache-boost
         with:
           path: ~/.cache/sccache
@@ -35,7 +35,7 @@ jobs:
             sccache-ubuntu-22.04-${{ env.QT_VERSION }}-${{ env.BOOST_VERSION }}-
             sccache-ubuntu-22.04-${{ env.QT_VERSION }}-
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55 # v5
         with:
           python-version: "3.13.2"
 
@@ -48,28 +48,28 @@ jobs:
           llvm-14 llvm-14-dev libclang-14-dev llvm-14-runtime
           clang-14
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           ref: "${{ matrix.lt-version }}"
           repository: arvidn/libtorrent
           path: src/libtorrent
           submodules: recursive
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           ref: "${{ env.QB_VERSION }}"
           repository: qbittorrent/qBittorrent
           path: src/qBittorrent
           submodules: recursive
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           ref: "${{ env.QT_VERSION }}"
           repository: qt/qtbase
           path: src/qtbase
           submodules: recursive
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           ref: "${{ env.QT_VERSION }}"
           repository: qt/qttools
@@ -91,7 +91,7 @@ jobs:
       - run: python ./qbit-nox.py lt
       - run: python ./qbit-nox.py qb
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: "artifact-${{ env.QB_VERSION }}-${{ matrix.lt-version }}"
           path: |
