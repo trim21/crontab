@@ -1,0 +1,9 @@
+settings:
+  pull_request:
+
+patterns:
+  - files:
+      - from: sync/mergify.yml
+        to: .github/mergify.yml
+    repositories:
+      - trim21/

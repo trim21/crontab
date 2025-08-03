@@ -1,0 +1,14 @@
+name: Sync Files
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: wadackel/files-sync-action@v3
+        with:
+          github_token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
