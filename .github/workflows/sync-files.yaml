@@ -2,8 +2,13 @@ name: Sync Files
 on:
   push:
     branches:
-      - main
+      - mater
+    paths:
+      - sync/**
+      - .github/files-sync-config.yaml
+      - .github/workflows/sync-files.yaml
   workflow_dispatch:
+
 jobs:
   sync:
     runs-on: ubuntu-latest

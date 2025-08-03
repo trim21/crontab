@@ -1,6 +1,3 @@
-settings:
-  pull_request:
-
 patterns:
   - files:
       - from: sync/mergify.yml
