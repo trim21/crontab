@@ -2,7 +2,12 @@ patterns:
   - files:
       - from: sync/mergify.yml
         to: .github/mergify.yml
+    pull_request:
+      disabled: false
+      force: true
+      title: "chore: sync mergify config"
     repositories:
       - trim21/neptune
       - trim21/imagesync
+      - trim21/php-serialize
       # - bangumi/server
