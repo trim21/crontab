@@ -4,3 +4,4 @@ patterns:
         to: .github/mergify.yml
     repositories:
       - trim21/neptune
+      - bangumi/server
