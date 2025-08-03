@@ -3,4 +3,4 @@ patterns:
       - from: sync/mergify.yml
         to: .github/mergify.yml
     repositories:
-      - trim21/
+      - trim21/neptune
