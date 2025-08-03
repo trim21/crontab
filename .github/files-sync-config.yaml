@@ -20,7 +20,6 @@ patterns:
       - trim21/downloader-prom-exporter
       - trim21/snakefood3
       - trim21/asio-loop
-      - trim21/count
       - trim21/rfc3986-stubs
       - trim21/bangumi-episode-calendar
       - trim21/bgm-tv-userscripts
