@@ -2,7 +2,7 @@ name: Sync Files
 on:
   push:
     branches:
-      - mater
+      - master
     paths:
       - sync/**
       - .github/files-sync-config.yaml
