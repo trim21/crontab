@@ -10,4 +10,8 @@ patterns:
       - trim21/neptune
       - trim21/imagesync
       - trim21/php-serialize
+      - trim21/action-uv-lock-diff-viewer
+      - trim21/china-beancount-importers
+      - trim21/rdfind2
+      - trim21/python-build-standalone-container-mirror
       # - bangumi/server
