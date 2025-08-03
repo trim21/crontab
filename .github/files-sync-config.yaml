@@ -5,4 +5,4 @@ patterns:
     repositories:
       - trim21/neptune
       - trim21/imagesync
-      - bangumi/server
+      # - bangumi/server
