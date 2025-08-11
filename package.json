@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "format": "prettier -w .",
-    "prepare": "husky install",
+    "prepare": "husky",
     "lint-staged": "lint-staged",
     "test": "echo \"Error: no test specified\""
   },
