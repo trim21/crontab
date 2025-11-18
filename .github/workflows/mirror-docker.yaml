@@ -30,8 +30,8 @@ jobs:
 #            overwrite: '^3\.1\d+\.\d+(-slim)?$'
 #            overwrite-skip: "0a|0b|0rc|-rc-|windowsservercore|alpine"
 
-          - src: 'ghcr.io/trim21/python-build-standalone-container-mirror'
-            dest: 'docker.io/trim21/python-build-standalone-container-mirror'
+          - src: 'ghcr.io/trim21/python-standalone-mirror-linux-64'
+            dest: 'docker.io/trim21/python-standalone-mirror-linux-64'
             non-overwrite: ""
             overwrite: '^.*$'
             overwrite-skip: ""
