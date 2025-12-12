@@ -20,7 +20,7 @@
   "homepage": "https://github.com/Trim21/actions-cron#readme",
   "dependencies": {
     "@actions/core": "2.0.1",
-    "@actions/exec": "1.1.1",
+    "@actions/exec": "2.0.0",
     "@actions/github": "6.0.1",
     "simple-git": "3.30.0",
     "strip-ansi": "7.1.2"
