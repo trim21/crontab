@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/Trim21/actions-cron#readme",
   "dependencies": {
-    "@actions/core": "2.0.1",
+    "@actions/core": "2.0.2",
     "@actions/exec": "2.0.0",
     "@actions/github": "7.0.0",
     "simple-git": "3.30.0",
