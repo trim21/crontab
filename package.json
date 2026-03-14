@@ -22,7 +22,7 @@
     "@actions/core": "3.0.0",
     "@actions/exec": "3.0.0",
     "@actions/github": "9.0.0",
-    "simple-git": "3.32.3",
+    "simple-git": "3.33.0",
     "strip-ansi": "7.2.0"
   },
   "devDependencies": {
