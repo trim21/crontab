@@ -40,9 +40,9 @@ jobs:
     name: "sync ${{ matrix.repo.name }}"
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.3
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v6.5.0
         with:
           node-version: "lts/*"
           cache: yarn
@@ -52,7 +52,7 @@ jobs:
       - run: node common/date.mjs
 
       - name: Repos Cache
-        uses: actions/cache@v5
+        uses: actions/cache@v5.1.0
         with:
           path: ./repos/
           key: scoop-bucket-2-${{ matrix.repo.name }}-${{ env.TODAY }}
