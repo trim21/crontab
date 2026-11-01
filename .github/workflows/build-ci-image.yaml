@@ -20,7 +20,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: "build ghcr.io/trim21/ci:latest"
+    name: "build ghcr.io/trim21/ci"
     steps:
       - uses: actions/checkout@v7.0.1
 
@@ -38,6 +38,6 @@ jobs:
           file: Dockerfile.ci
           platforms: linux/amd64
           push: true
-          tags: ghcr.io/trim21/ci:latest
+          tags: ghcr.io/trim21/ci:1
           cache-from: type=gha
           cache-to: type=gha,mode=max

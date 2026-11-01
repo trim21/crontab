@@ -5,5 +5,6 @@ RUN apt-get update &&\
     curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR=/usr/local/bin sh &&\
     uv --version &&\
     - curl --proto '=https' --tlsv1.2 -LsSf https://github.com/j178/prek/releases/download/v0.5.9/prek-installer.sh | env PREK_INSTALL_DIR=/usr/local/bin PREK_NO_MODIFY_PATH=1 sh &&\
+    prek --version &&\
     rm -rf /var/lib/apt/lists/*
 
