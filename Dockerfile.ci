@@ -1,11 +1,8 @@
 FROM golang:1.27-trixie@sha256:c65ecfe613b539ac74c62a4c3b2c27e8f8a6076384c8f27e8a3c0f3be17cc385 AS s3cache
 
-ARG S3CACHE_COMMIT=master
-
 WORKDIR /src
 
-RUN git clone https://github.com/trim21/s3-as-cache . &&\
-    git checkout "${S3CACHE_COMMIT}"
+RUN git clone https://github.com/trim21/s3-as-cache .
 
 RUN --mount=type=cache,target=/go/pkg/mod \
     --mount=type=cache,target=/root/.cache/go-build \
