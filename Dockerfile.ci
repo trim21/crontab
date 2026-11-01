@@ -1,3 +1,17 @@
+FROM golang:1.27-trixie AS s3cache
+
+ARG S3CACHE_COMMIT=master
+
+WORKDIR /src
+
+RUN git clone https://github.com/trim21/s3-as-cache . &&\
+    git checkout "${S3CACHE_COMMIT}"
+
+RUN --mount=type=cache,target=/go/pkg/mod \
+    --mount=type=cache,target=/root/.cache/go-build \
+    CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /s3cache ./cmd/s3cache
+
+
 FROM debian:trixie-slim@sha256:f6b08b09a05725f9431502d3b5714f5c4576e82c1a84fa1debe0c24a7e0c3ec4
 
 RUN apt-get update &&\
@@ -8,3 +22,4 @@ RUN apt-get update &&\
     prek --version &&\
     rm -rf /var/lib/apt/lists/*
 
+COPY --from=s3cache /s3cache /usr/local/bin/s3cache
