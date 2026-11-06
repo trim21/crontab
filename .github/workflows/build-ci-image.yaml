@@ -38,6 +38,6 @@ jobs:
           file: Dockerfile.ci
           platforms: linux/amd64
           push: true
-          tags: ghcr.io/trim21/ci:4
+          tags: ghcr.io/trim21/ci:latest
           # cache-from: type=gha
           # cache-to: type=gha,mode=max
