@@ -3,7 +3,7 @@ import { getOctokit } from "@actions/github";
 
 const GIST_ID = "1f9bc2a382e30218714a71282106887e";
 const GIST_FILE = "pr-conflicts.md";
-const SEARCH_QUERY = "is:pr is:open author:@me";
+const SEARCH_QUERY = "is:pr is:open author:@me archived:false";
 const MERGEABLE_BATCH_SIZE = 20;
 
 const token = process.env.GITHUB_TOKEN;
