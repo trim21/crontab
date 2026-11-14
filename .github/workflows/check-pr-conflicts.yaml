@@ -35,4 +35,4 @@ jobs:
 
       - run: node check_pr_conflicts.mjs
         env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT_WITH_GIST }}
