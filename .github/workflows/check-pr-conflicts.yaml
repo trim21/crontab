@@ -1,0 +1,36 @@
+name: check PR conflicts
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - .github/workflows/check-pr-conflicts.yaml
+      - check_pr_conflicts.mjs
+  schedule:
+    - cron: "13 5 * * *"
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: "lts/*"
+          cache: yarn
+
+      - run: yarn
+
+      - run: node check_pr_conflicts.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
