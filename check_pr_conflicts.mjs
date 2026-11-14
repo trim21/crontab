@@ -19,8 +19,8 @@ async function listOpenPullRequests() {
 
   do {
     const { search } = await octokit.graphql(
-      `query ($query: String!, $cursor: String) {
-        search(query: $query, type: ISSUE, first: 100, after: $cursor) {
+      `query ($searchQuery: String!, $cursor: String) {
+        search(query: $searchQuery, type: ISSUE, first: 100, after: $cursor) {
           pageInfo { hasNextPage endCursor }
           nodes {
             ... on PullRequest {
@@ -35,7 +35,7 @@ async function listOpenPullRequests() {
           }
         }
       }`,
-      { query: SEARCH_QUERY, cursor },
+      { searchQuery: SEARCH_QUERY, cursor },
     );
 
     pullRequests.push(...search.nodes);
@@ -67,9 +67,7 @@ async function queryMergeability(ids) {
 }
 
 async function resolveMergeability(pullRequests) {
-  const mergeability = await queryMergeability(
-    pullRequests.map((pr) => pr.id),
-  );
+  const mergeability = await queryMergeability(pullRequests.map((pr) => pr.id));
 
   // GitHub 偶尔还没算完 mergeability，等一会儿再查 UNKNOWN 的部分
   for (let attempt = 0; attempt < 3; attempt++) {

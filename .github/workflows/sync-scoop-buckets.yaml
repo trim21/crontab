@@ -9,7 +9,7 @@ on:
       - .github/workflows/sync-scoop-buckets.yaml
       - mirror_scoop_buckets.mjs
       - package.json
-      - yarn.lock
+      - pnpm-lock.yaml
   schedule:
     - cron: "32 */4 * * *"
 
@@ -42,12 +42,14 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
 
+      - uses: pnpm/action-setup@v6.1.0
+
       - uses: actions/setup-node@v7.1.0
         with:
           node-version: "lts/*"
-          cache: yarn
+          cache: pnpm
 
-      - run: yarn
+      - run: pnpm install --frozen-lockfile
 
       - run: node common/date.mjs
 
